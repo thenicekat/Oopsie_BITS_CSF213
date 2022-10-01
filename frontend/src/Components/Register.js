@@ -22,7 +22,7 @@ export default function Register() {
             <p class="text-red-500 text-xs italic">Please choose a strong password.</p>
           </div>
           <div class="flex items-center justify-between">
-            <button class="bg-blue hover:bg-blue-dark font-bold py-2 px-4 rounded" type="button">
+            <button class="font-bold py-2 px-4 rounded hover:bg-blue-500" type="button">
               Register
             </button>
           </div>
