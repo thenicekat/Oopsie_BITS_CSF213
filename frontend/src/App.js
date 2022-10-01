@@ -6,9 +6,9 @@ import {
   Link
 } from "react-router-dom";
 
-import Login from './Components/Login';
-import Home from './Components/Home';
-import Register from './Components/Register';
+import Login from './Pages/Login';
+import Home from './Pages/Home';
+import Register from './Pages/Register';
 
 function App() {
   return (
