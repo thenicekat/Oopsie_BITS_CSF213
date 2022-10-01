@@ -9,6 +9,9 @@ import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Register from './Pages/Register';
 import Navbar from './Components/Navbar';
+import Shopping from './Pages/Shopping';
+import data from './data'
+import { useState } from 'react';
 
 function App() {
   return (
