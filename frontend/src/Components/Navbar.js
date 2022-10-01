@@ -26,10 +26,13 @@ export default function Navbar() {
                             <a href="#" className={(location.pathname == "/" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Home</a>
                         </li>
                         <li>
-                            <Link to="/login" className={(location.pathname == "/login" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Sign in</Link>
+                            <Link to="/login" className={(location.pathname == "/login" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Log in</Link>
                         </li>
                         <li>
                             <Link to="/register" className={(location.pathname == "/register" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Register</Link>
+                        </li>
+                        <li>
+                            <Link to="/shopping" className={(location.pathname == "/shopping" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Shopping</Link>
                         </li>
                     </ul>
                 </div>
