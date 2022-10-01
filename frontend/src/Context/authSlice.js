@@ -7,7 +7,7 @@ const initialUserState = {
 
 export const authSlice = createSlice({
     name: "Authentication",
-    initialUserState,
+    initialState: initialUserState,
     reducers: {
         logIn: (state, action) => {
 

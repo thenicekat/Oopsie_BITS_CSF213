@@ -7,7 +7,7 @@ const initialCartState = {
 
 export const cartSlice = createSlice({
     name: "Cart",
-    initialCartState,
+    initialState: initialCartState,
     reducers: {
         addToCart: (state, payload) => {
             state.totalQuantity += 1;
