@@ -11,22 +11,20 @@ import Register from './Pages/Register';
 import Navbar from './Components/Navbar';
 import Shopping from './Pages/Shopping';
 import data from './data'
-import { useState } from 'react';
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className='justify-center items-center text-center align-middle bg-gray-300'>
         <Navbar />
-      </div>
-      
-      <div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/shopping" element={<Shopping data={data} />} />
         </Routes>
       </div>
+
     </Router>
   );
 }

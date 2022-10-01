@@ -1,7 +1,7 @@
 export default function Register() {
     return (
       <div className='min-h-screen align-middle items-center flex flex-col justify-center content-center bg-gray-300'>
-        <div className="w-1/2 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col bg-white">
+        <div className="w-5/6 md:w-1/2 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col bg-white">
           <div className="mb-4">
             <label className="block text-grey-darker text-sm font-bold mb-2" for="name">
               Name

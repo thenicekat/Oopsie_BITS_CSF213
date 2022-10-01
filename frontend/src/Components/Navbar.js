@@ -9,7 +9,7 @@ export default function Navbar() {
     }, [location])
 
     return (
-        <nav className="bg-gray-300 border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full">
+        <nav className="bg-gray-300 border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full z-10">
             <div className="container flex flex-wrap justify-between items-center mx-auto">
                 <a href="https://flowbite.com/" className="flex items-center">
                     <span className="self-center text-xl font-semibold whitespace-nowrap">OOPSIE</span>
