@@ -10,7 +10,9 @@ import Home from './Pages/Home';
 import Register from './Pages/Register';
 import Navbar from './Components/Navbar';
 import Shopping from './Pages/Shopping';
-import data from './data'
+import Cart from './Pages/Cart';
+
+import data from './data/data'
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shopping" element={<Shopping data={data} />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
 
