@@ -25,24 +25,32 @@ export default function Navbar() {
                 <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul className="flex flex-col p-4 mt-4 bg-gray-300 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700">
                         <li>
-                            <a href="#" className={(location.pathname == "/" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Home</a>
+                            <a href="#" className={(location.pathname === "/" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Home</a>
                         </li>
+
+                        {
+                        /* If user has not logged in, only then login and register screenn will be shown*/
+                        }
+                        
                         {!isLoggedIn ? (
                             <>
                                 <li>
-                                    <Link to="/login" className={(location.pathname == "/login" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Log in</Link>
+                                    <Link to="/login" className={(location.pathname === "/login" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Log in</Link>
                                 </li>
                                 <li>
-                                    <Link to="/register" className={(location.pathname == "/register" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Register</Link>
+                                    <Link to="/register" className={(location.pathname === "/register" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Register</Link>
                                 </li>
                             </>
                         ) : (
                             <>
+                            {
+                            /* Else shopping and cart screen tabs will be shown*/
+                            }
                                 <li>
-                                    <Link to="/shopping" className={(location.pathname == "/shopping" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Shopping</Link>
+                                    <Link to="/shopping" className={(location.pathname === "/shopping" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Shopping</Link>
                                 </li>
                                 <li>
-                                    <Link to="/cart" className={(location.pathname == "/cart" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Cart</Link>
+                                    <Link to="/cart" className={(location.pathname === "/cart" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Cart</Link>
                                 </li>
                             </>
                         )}
