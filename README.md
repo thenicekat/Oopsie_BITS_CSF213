@@ -16,3 +16,4 @@ You may also see any lint errors in the console.
 # Contributors: 
 Rohan Pothireddy
 Atharva Dashora
+Murari Sai Karthik
