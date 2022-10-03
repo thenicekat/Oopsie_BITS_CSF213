@@ -27,6 +27,7 @@ export const cartSlice = createSlice({
                 state.totalQuantity -= 1;
             }else if(state.cart[payload.id].quantity === 1){
                 delete state.cart[payload.id];
+                state.totalQuantity -= 1;
             }
         }
     }
