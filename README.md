@@ -17,3 +17,4 @@ You may also see any lint errors in the console.
 Rohan Pothireddy
 Atharva Dashora
 Murari Sai Karthik
+Adarsh Das
