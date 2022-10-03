@@ -7,7 +7,7 @@ export default function Navbar() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     useEffect(() => {
-        console.log(location);
+        // console.log(location);
     }, [location])
 
     return (
