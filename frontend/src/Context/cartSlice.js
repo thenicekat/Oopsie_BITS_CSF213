@@ -21,14 +21,16 @@ export const cartSlice = createSlice({
             state.totalQuantity += 1;
             console.log(current(state));
         },
-        removeFromCart: (state, payload) => {
-            if(state.cart[payload.id]){
+        removeFromCart: (state, { payload }) => {
+            if(state.cart[payload.id].quantity > 1){
                 state.cart[payload.id].quantity--;
                 state.totalQuantity -= 1;
+            }else if(state.cart[payload.id].quantity === 1){
+                delete state.cart[payload.id];
             }
         }
     }
 })
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 export default cartSlice.reducer;

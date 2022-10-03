@@ -9,7 +9,7 @@ export default function Cart() {
             <h2 className='text-3xl'>Cart</h2>
             <div className='flex flex-wrap justify-center items-center text-center align-middle'>
                 {Object.keys(cart).map(key => {
-                    return <OrderProd key={key} name={cart[key].name} image={cart[key].image} price={cart[key].price}/>
+                    return <OrderProd key={key} id={cart[key].id} name={cart[key].name} image={cart[key].image} price={cart[key].price} quantity={cart[key].quantity}/>
                 })}
             </div>
         </div>
