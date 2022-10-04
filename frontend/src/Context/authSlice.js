@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialUserState = {
     isLoggedIn: true,
+    money: 1000
 }
 
 export const authSlice = createSlice({

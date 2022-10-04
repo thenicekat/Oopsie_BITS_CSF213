@@ -19,7 +19,6 @@ export const cartSlice = createSlice({
                 }
             }
             state.totalQuantity += 1;
-            console.log(current(state));
         },
         removeFromCart: (state, { payload }) => {
             if(state.cart[payload.id].quantity > 1){

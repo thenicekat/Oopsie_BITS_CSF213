@@ -5,6 +5,7 @@ export default function Navbar() {
     const location = useLocation();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
+    const money = useSelector(state => state.auth.money);
 
     return (
         <nav className="bg-gray-300 border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full z-10">
@@ -24,12 +25,11 @@ export default function Navbar() {
                             <a href="#" className={(location.pathname === "/" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Home</a>
                         </li>
 
-                        {
-                        /* If user has not logged in, only then login and register screenn will be shown*/
-                        }
-                        
                         {!isLoggedIn ? (
                             <>
+                                {
+                                    /* If user has not logged in, only then login and register screenn will be shown*/
+                                }
                                 <li>
                                     <Link to="/login" className={(location.pathname === "/login" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded bg-transparent md:p-0"}>Log in</Link>
                                 </li>
@@ -39,14 +39,17 @@ export default function Navbar() {
                             </>
                         ) : (
                             <>
-                            {
-                            /* Else shopping and cart screen tabs will be shown*/
-                            }
+                                {
+                                    /* Else shopping and cart screen tabs will be shown*/
+                                }
                                 <li>
                                     <Link to="/shopping" className={(location.pathname === "/shopping" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Shopping</Link>
                                 </li>
                                 <li>
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
+                                </li>
+                                <li>
+                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-blue-700 " : "text-gray-800 ") + "block border border-black px-4 bg-blue-700 rounded md:bg-transparent"}>₹{money}</Link>
                                 </li>
                             </>
                         )}

@@ -13,6 +13,7 @@ import Shopping from './Pages/Shopping';
 import Cart from './Pages/Cart';
 
 import data from './data/data'
+import Wallet from './Pages/Wallet';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/shopping" element={<Shopping data={data} />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wallet" element={<Wallet />} />
         </Routes>
       </div>
 
