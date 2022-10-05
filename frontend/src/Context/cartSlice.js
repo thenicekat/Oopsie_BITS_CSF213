@@ -2,7 +2,8 @@ import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialCartState = {
     cart: {},
-    totalQuantity: 0
+    totalQuantity: 0,
+    money: 1000
 }
 
 export const cartSlice = createSlice({

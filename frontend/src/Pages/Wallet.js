@@ -7,7 +7,7 @@ export default function Wallet() {
         isLoggedIn ? (<div className='py-20 min-h-screen'>
             <h2 className='text-3xl'>Wallet</h2>
             <div className='flex flex-wrap justify-center items-center text-center align-middle'>
-                no
+                Transaction History
             </div>
         </div>) : (
             <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
