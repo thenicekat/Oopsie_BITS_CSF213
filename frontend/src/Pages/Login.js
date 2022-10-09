@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
+import { setMoney } from '../Context/cartSlice';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,7 @@ export default function Login() {
       //Fetch Request for login goes here
       dispatch(setLoggedIn());
       dispatch(setIsAdmin());
+      dispatch(setMoney({ money: 1000 }));
       setLoggingIn(false);
     }
   }
