@@ -1,5 +1,7 @@
 import { useState, useDispatch } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
+import { setMoney } from '../Context/cartSlice';
 
 export default function Register() {
   const [email, setEmail] = useState("");
