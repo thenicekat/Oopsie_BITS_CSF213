@@ -1,6 +1,7 @@
 package com.oopsie.shoppingapp.User;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public UserModel getUser(String emailId) {
+        UserModel user = userRepository.findByEmailId(emailId).get();
+        return user;
+    }
+
     // UPDATE
     public UserModel updateUser(Long userId, UserModel userDetails) {
-        UserModel user = userRepository.findById(userId).get();
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setEmailId(userDetails.getEmailId());
-
-        return userRepository.save(user);
+        try{
+            UserModel user = userRepository.findById(userId).get();
+            user.setFirstName(userDetails.getFirstName());
+            user.setLastName(userDetails.getLastName());
+            user.setEmailId(userDetails.getEmailId());
+    
+            return userRepository.save(user);
+        }catch(NoSuchElementException e){
+            return null;
+        }
     }
 
     // DELETE
