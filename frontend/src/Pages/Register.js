@@ -63,7 +63,7 @@ export default function Register() {
           {errMsg && <p className="text-red-500 text-xs italic">{errMsg}</p>}
         </div>
         <div className="flex items-center justify-between">
-          <button className="font-bold py-2 px-4 rounded hover:bg-blue-500" type="button" onClick={userRegister}>
+          <button className="font-bold py-2 px-4 rounded hover:bg-blue-500" type="button" onClick={userRegister} disabled={loggingIn}>
             Register
           </button>
         </div>
