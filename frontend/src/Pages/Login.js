@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
 import { setMoney } from '../Context/cartSlice';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ export default function Login() {
 
   const [errMsg, setErrMsg] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -29,6 +31,7 @@ export default function Login() {
       dispatch(setIsAdmin());
       dispatch(setMoney({ money: 1000 }));
       setLoggingIn(false);
+      navigate("/shopping");
     }
   }
 
