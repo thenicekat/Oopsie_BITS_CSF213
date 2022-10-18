@@ -26,8 +26,6 @@ public class OrderModel {
    @Column(name = "cost")
    private int cost;
 
-   // @Column(name = "rating")
-   // // out of 5 stars rating
-   // private int rating;
-
+   @Column(name = "buyer_id")
+   private long buyerId;
 }

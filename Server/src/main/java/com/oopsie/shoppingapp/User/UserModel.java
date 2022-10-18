@@ -33,6 +33,7 @@ public class UserModel {
     @Column(name = "money")
     private Long money;
 
+
     public Boolean getIsAdmin() {
         return isAdmin;
     }
