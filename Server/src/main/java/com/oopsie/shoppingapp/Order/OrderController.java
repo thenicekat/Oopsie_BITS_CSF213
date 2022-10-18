@@ -1,4 +1,4 @@
-package com.oopsie.shoppingapp.Orders;
+package com.oopsie.shoppingapp.Order;
 
 public class OrderController {
     
