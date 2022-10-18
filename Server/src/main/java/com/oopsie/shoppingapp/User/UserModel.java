@@ -21,11 +21,33 @@ public class UserModel {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email_id")
+    @Column(name = "email_id", unique = true)
     private String emailId;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "isAdmin")
+    private Boolean isAdmin;
+
+    @Column(name = "money")
+    private Long money;
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public Long getMoney() {
+        return money;
+    }
+
+    public void setMoney(Long money) {
+        this.money = money;
+    }
 
     public Long getId() {
         return id;
@@ -57,10 +79,6 @@ public class UserModel {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
