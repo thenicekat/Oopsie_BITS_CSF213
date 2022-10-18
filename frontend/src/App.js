@@ -11,9 +11,10 @@ import Register from './Pages/Register';
 import Navbar from './Components/Navbar';
 import Shopping from './Pages/Shopping';
 import Cart from './Pages/Cart';
+import Wallet from './Pages/Wallet';
+import Inventory from './Pages/Inventory';
 
 import data from './data/data'
-import Wallet from './Pages/Wallet';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/shopping" element={<Shopping data={data} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wallet" element={<Wallet />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Routes>
       </div>
 

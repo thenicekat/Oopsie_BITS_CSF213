@@ -26,10 +26,11 @@ export default function Login() {
     }else {
       setErrMsg("");
       setLoggingIn(true)
-      //Fetch Request for login goes here
+
       dispatch(setLoggedIn());
       dispatch(setIsAdmin());
       dispatch(setMoney({ money: 1000 }));
+
       setLoggingIn(false);
       navigate("/shopping");
     }

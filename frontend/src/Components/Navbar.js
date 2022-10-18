@@ -6,6 +6,7 @@ export default function Navbar() {
     const location = useLocation();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
+    const isAdmin = useSelector(state => state.auth.isAdmin);
     const money = useSelector(state => state.cart.money);
     const [expanded, setExpanded] = useState(false);
 
@@ -55,6 +56,13 @@ export default function Navbar() {
                                 <li>
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
                                 </li>
+                                {
+                                    isAdmin && (
+                                        <li>
+                                            <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-blue-700 " : "text-gray-800 ") + "block py-2 pr-4 pl-3 bg-blue-700 rounded md:bg-transparent md:p-0"}>Inventory</Link>
+                                        </li>
+                                    )
+                                }
                                 <li>
                                     <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-blue-700 " : "text-gray-800 ") + "block border border-black px-4 bg-blue-700 rounded md:bg-transparent"}>₹{money}</Link>
                                 </li>

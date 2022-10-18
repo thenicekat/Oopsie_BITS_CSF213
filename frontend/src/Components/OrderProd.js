@@ -4,6 +4,7 @@ import { addToCart, removeFromCart } from '../Context/cartSlice';
 
 export default function OrderProd({ id, image, name, price, quantity }) {
     const dispatch = useDispatch();
+    
     const product = {
         id: id,
         image: image,

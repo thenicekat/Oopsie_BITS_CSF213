@@ -1,11 +1,13 @@
-import { useState, useDispatch } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
 import { setMoney } from '../Context/cartSlice';
 
 export default function Register() {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [fname, setFName] = useState("");
+  const [lname, setLName] = useState("");
   const [password, setPassword] = useState("");
 
   const [loggingIn, setLoggingIn] = useState(false);
@@ -19,7 +21,7 @@ export default function Register() {
   let passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   const userRegister = () => {
-    if(!name.length > 2){
+    if(!fname.length > 2){
       setErrMsg("Enter a valid name");
     }
     else if(!email.match(emailRegex)){
@@ -30,15 +32,50 @@ export default function Register() {
     }else {
       setErrMsg("");
       setLoggingIn(true)
-      //Fetch Request for login goes here
-      dispatch(setLoggedIn());
-      //Change Admin Status is it's an admin
-      dispatch(setIsAdmin());
-      //Passing the money to the set money function
-      dispatch(setMoney({ money: 1000 }));
-      //Set the fetching status to false so that button is not disabled
-      setLoggingIn(false);
-      navigate("/shopping");
+      
+      //Fetch Request for register goes here
+      fetch("http://localhost:8080/user/signup", 
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          {
+            firstName: fname,
+            lastName: lname,
+            emailId: email,
+            password: password
+          }
+        ),
+        redirect: 'follow'
+      })
+      .then(rawResponse => rawResponse.json())
+      .then(resp => {
+        console.log(resp);
+
+        if(resp.emailId === email){
+          //If we got a response from server with email
+          //He can be logged in
+          dispatch(setLoggedIn());
+          if(resp.isAdmin == true){
+            //Change Admin Status is it's an admin
+            dispatch(setIsAdmin());
+          }
+          //Passing the money to the set money function
+          dispatch(setMoney({ money: resp.money || 0 }));
+        }
+        //Set the fetching status to false so that button is not disabled
+        setLoggingIn(false);
+        //Using localstorage to set items
+        localStorage.setItem("user", resp);
+        navigate("/shopping");
+      })
+      .catch(err => {
+        console.log(err);
+        //Set the fetching status to false so that button is not disabled
+        setLoggingIn(false);
+      });
     }
   }
 
@@ -46,19 +83,25 @@ export default function Register() {
     <div className='min-h-screen align-middle items-center flex flex-col justify-center content-center bg-gray-300'>
       <div className="w-5/6 md:w-1/2 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col bg-white">
         <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="name">
-            Name
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="fname">
+            First Name
           </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="name" type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="fname" type="text" placeholder="First Name" onChange={(e) => setFName(e.target.value)} />
         </div>
         <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="email">
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="lname">
+            Last Name
+          </label>
+          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="lname" type="text" placeholder="Last Name" onChange={(e) => setLName(e.target.value)} />
+        </div>
+        <div className="mb-4">
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="email">
             Email
           </label>
           <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="email" type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="mb-6">
-          <label className="block text-grey-darker text-sm font-bold mb-2" for="password">
+          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="password">
             Password
           </label>
           <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder="******************" onChange={(e) => setPassword(e.target.value)} />
