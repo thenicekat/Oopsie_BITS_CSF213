@@ -76,6 +76,8 @@ export default function Register() {
         //Set the fetching status to false so that button is not disabled
         setLoggingIn(false);
       });
+
+      // Registering ends here
     }
   }
 
