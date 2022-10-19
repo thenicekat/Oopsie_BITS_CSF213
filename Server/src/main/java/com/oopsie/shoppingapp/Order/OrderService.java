@@ -22,17 +22,17 @@ public class OrderService {
     }
 
     public OrderModel getOrder(String orderId) {
-        OrderModel order = orderRepository.findByEmailId(orderId).get();
+        OrderModel order = orderRepository.findByOrderId(orderId).get();
         return order;
     }
 
     // UPDATE
     public OrderModel updateOrder(Long order_id, OrderModel orderDetails) {
         try{
-            OrderModel order = orderRepository.findById(order_id).get();
+            OrderModel order = orderRepository.findByOrderId(order_id).get();
             order.setFirstName(orderDetails.getFirstName());
             order.setLastName(orderDetails.getLastName());
-            order.setEmailId(orderDetails.getEmailId());
+            order.setOrderId(orderDetails.getOrderId());
     
             return orderRepository.save(order);
         }catch(NoSuchElementException e){
