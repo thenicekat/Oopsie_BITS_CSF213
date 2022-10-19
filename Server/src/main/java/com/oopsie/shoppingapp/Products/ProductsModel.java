@@ -13,7 +13,7 @@ public class ProductsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long id;
+    private Long productId;
 
     @Column(name = "product_name")
     private String productName;
@@ -25,11 +25,11 @@ public class ProductsModel {
     private int quantity;
 
     public Long getId() {
-        return id;
+        return productId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public double getPrice() {
@@ -47,7 +47,7 @@ public class ProductsModel {
     public void setQty(int quantity) {
         this.quantity = quantity;
     }
-    int a;
+    
 }
 
 
