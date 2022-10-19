@@ -13,7 +13,7 @@ public class ProductsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private Long id;
+    private Long productId;
 
     @Column(name = "product_name")
     private String productName;
@@ -22,14 +22,20 @@ public class ProductsModel {
     private double price;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Long quantity;
+
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name= "details")
+    private String details;
 
     public Long getId() {
-        return id;
+        return productId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.productId = id;
     }
 
     public double getPrice() {
@@ -44,10 +50,26 @@ public class ProductsModel {
         return quantity;
     }
 
+    public double getRating(){
+        return rating;
+    }
+    public double setRating(double rating){
+        this.review=review;
+    }
+
+    public String getDetails()
+    {
+        return details;
+    }
+    public String setDetails(String details)
+    {
+        this.details =  details;
+    }
+
     public void setQty(int quantity) {
         this.quantity = quantity;
     }
-    int a;
+    
 }
 
 
