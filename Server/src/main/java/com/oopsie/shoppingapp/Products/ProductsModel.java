@@ -22,7 +22,13 @@ public class ProductsModel {
     private double price;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Long quantity;
+
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name= "details")
+    private String details;
 
     public String getId() {
         return productId;
@@ -42,6 +48,22 @@ public class ProductsModel {
 
     public int getQty() {
         return quantity;
+    }
+
+    public double getRating(){
+        return rating;
+    }
+    public double setRating(double rating){
+        this.rating=rating;
+    }
+
+    public String getDetails()
+    {
+        return details;
+    }
+    public String setDetails(String details)
+    {
+        this.details =  details;
     }
 
     public void setQty(int quantity) {

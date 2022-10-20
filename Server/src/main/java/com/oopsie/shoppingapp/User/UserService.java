@@ -12,6 +12,10 @@ public class UserService {
     UserRepository userRepository;
 
     // CREATE
+    /**
+     * @param user
+     * @return
+     */
     public UserModel createUser(UserModel user) {
         return userRepository.save(user);
     }
