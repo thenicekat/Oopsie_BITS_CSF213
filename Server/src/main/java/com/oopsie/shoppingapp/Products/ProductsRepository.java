@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface ProductsRepository extends JpaRepository<ProductsModel, Long> {
     Optional<ProductsModel> findByProductId(String productId);
+    Optional<ProductsModel> deleteByProductId(String productId);
 }
