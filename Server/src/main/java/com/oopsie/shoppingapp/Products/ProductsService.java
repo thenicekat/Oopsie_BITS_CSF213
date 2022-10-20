@@ -22,19 +22,19 @@ public class ProductsService {
     }
 
     public ProductsModel getProduct(String productId) {
-        ProductsModel pr = prRepository.findByProductId(productId).get();
-        return pr;
+        ProductsModel product = prRepository.findByProductId(productId).get();
+        return product;
     }
 
     // UPDATE
     public ProductsModel updateProduct(String productId, UserModel productDetails) {
         try{
-            ProductsModel pr = prRepository.findByProductId(productId).get();
-            pr.setPrice(productDetails.getPrice());
-            pr.setQty(productDetails.getQty());
-            pr.setId(productDetails.getId());
+            ProductsModel product = prRepository.findByProductId(productId).get();
+            product.setPrice(productDetails.getPrice());
+            product.setQty(productDetails.getQty());
+            product.setId(productDetails.getId());
     
-            return prRepository.save(pr);
+            return prRepository.save(product);
         }
         catch(NoSuchElementException e){
             return null;
