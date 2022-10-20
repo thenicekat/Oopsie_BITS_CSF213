@@ -12,8 +12,8 @@ public class ProductsService {
     ProductsRepository prRepository;
 
     // CREATE
-    public ProductsModel createPr(ProductsModel pr) {
-        return prRepository.save(pr);
+    public ProductsModel createProduct(ProductsModel product) {
+        return prRepository.save(product);
     }
 
     // READ
@@ -27,12 +27,12 @@ public class ProductsService {
     }
 
     // UPDATE
-    public ProductsModel updatePr(String pId, UserModel pDetails) {
+    public ProductsModel updateProduct(String productId, UserModel productDetails) {
         try{
             ProductsModel pr = prRepository.findByProductId(productId).get();
-            pr.setPrice(pDetails.getPrice());
-            pr.setQty(pDetails.getQty());
-            pr.setId(pDetails.getId());
+            pr.setPrice(productDetails.getPrice());
+            pr.setQty(productDetails.getQty());
+            pr.setId(productDetails.getId());
     
             return prRepository.save(pr);
         }
@@ -42,8 +42,8 @@ public class ProductsService {
     }
 
     // DELETE
-    public void deleteProduct(String prId) {
-        prRepository.deleteById(prId);
+    public void deleteProduct(String productId) {
+        prRepository.deleteById(productId);
     }
 }
 
