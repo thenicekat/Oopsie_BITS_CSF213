@@ -81,6 +81,10 @@ public class UserModel {
         this.emailId = emailId;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
