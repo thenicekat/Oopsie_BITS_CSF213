@@ -60,6 +60,4 @@ public class OrderModel {
    public void setBuyerId(long buyerId) {
       this.buyerId = buyerId;
    }
-
-   
 }
