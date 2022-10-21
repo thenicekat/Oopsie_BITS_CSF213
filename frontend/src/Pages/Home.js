@@ -1,21 +1,23 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux";
 import { setIsAdmin, setLoggedIn } from "../Context/authSlice";
+import { setMoney } from "../Context/cartSlice"
 
 export default function Home() {
   const dispatch = useDispatch();
 
   // To add logged in feature
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    const user = localStorage.getItem("user");
+    if (user) {
       //if user exists
       dispatch(setLoggedIn());
-      if (resp.isAdmin == true) {
+      if (user.isAdmin == true) {
         //Change Admin Status is it's an admin
         dispatch(setIsAdmin());
       }
       //Passing the money to the set money function
-      dispatch(setMoney({ money: resp.money || 0 }));
+      dispatch(setMoney({ money: user.money || 0 }));
     }
   }, [])
 

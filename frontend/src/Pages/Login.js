@@ -27,9 +27,50 @@ export default function Login() {
       setErrMsg("");
       setLoggingIn(true)
 
-      dispatch(setLoggedIn());
-      dispatch(setIsAdmin());
-      dispatch(setMoney({ money: 1000 }));
+      //Fetch Request for register goes here
+      fetch("http://localhost:8080/user/signin", 
+      {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa("user:user")
+        },
+        body: JSON.stringify(
+          {
+            emailId: email,
+            password: password
+          }
+        ),
+        redirect: 'follow'
+      })
+      .then(rawResponse => rawResponse.json())
+      .then(resp => {
+        console.log("Received Response");
+        console.log(resp);
+
+        if(resp.emailId === email){
+          //If we got a response from server with email
+          //He can be logged in
+          dispatch(setLoggedIn());
+          if(resp.isAdmin == true){
+            //Change Admin Status is it's an admin
+            dispatch(setIsAdmin());
+          }
+          //Passing the money to the set money function
+          dispatch(setMoney({ money: resp.money || 0 }));
+        }
+        //Set the fetching status to false so that button is not disabled
+        setLoggingIn(false);
+        //Using localstorage to set items
+        localStorage.setItem("user", resp);
+        navigate("/shopping");
+      })
+      .catch(err => {
+        console.log("Error Occured")
+        setErrMsg(err.toString());
+        //Set the fetching status to false so that button is not disabled
+        setLoggingIn(false);
+      });
 
       setLoggingIn(false);
       navigate("/shopping");
