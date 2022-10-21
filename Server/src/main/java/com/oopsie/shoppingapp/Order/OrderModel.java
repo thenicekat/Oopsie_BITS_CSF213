@@ -1,4 +1,8 @@
-package com.oopsie.shoppingapp.Orders;
+/*
+ * The database
+ */
+
+package com.oopsie.shoppingapp.Order;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class OrdersModel {
+public class OrderModel {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "order_id")
@@ -18,4 +22,10 @@ public class OrdersModel {
    @Column(name = "items")
    // Array of item id's. Example [101, 121, 221, 101]
    private int[] items;
+
+   @Column(name = "cost")
+   private int cost;
+
+   @Column(name = "buyer_id")
+   private long buyerId;
 }
