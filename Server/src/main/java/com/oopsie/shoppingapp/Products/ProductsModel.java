@@ -12,10 +12,10 @@ import javax.persistence.Table;
 public class ProductsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "productId")
     private String productId;
 
-    @Column(name = "product_name")
+    @Column(name = "productName")
     private String productName;
 
     @Column(name = "price")
@@ -30,12 +30,20 @@ public class ProductsModel {
     @Column(name= "details")
     private String details;
 
-    public String getId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setId(String id) {
-        this.productId = id;
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public double getPrice() {
@@ -46,28 +54,28 @@ public class ProductsModel {
         this.price = price;
     }
 
-    public int getQty() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public double getRating(){
+    public void setQuantity(Long quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getRating() {
         return rating;
     }
-    public double setRating(double rating){
-        this.rating=rating;
+
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
-    public String getDetails()
-    {
+    public String getDetails() {
         return details;
     }
-    public String setDetails(String details)
-    {
-        this.details =  details;
-    }
 
-    public void setQty(int quantity) {
-        this.quantity = quantity;
+    public void setDetails(String details) {
+        this.details = details;
     }
     
 }

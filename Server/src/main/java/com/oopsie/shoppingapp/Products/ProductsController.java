@@ -26,12 +26,13 @@ public class ProductsController {
     }
 
     @GetMapping("/delete")
-    public Boolean deleteProducts(@RequestParam String products_id){
+    public Boolean deleteProduct(@RequestParam String products_id){
         try{
-            ProductsService.deleteProducts(products_id);
+            productsService.deleteProduct(products_id);
             return true;
         }catch(Exception e){
             e.printStackTrace();
             return false;
         }
     }
+}

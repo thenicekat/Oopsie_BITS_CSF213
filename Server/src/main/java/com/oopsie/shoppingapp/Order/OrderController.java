@@ -23,7 +23,7 @@ public class OrderController {
 
     @PostMapping("/update")
     public OrderModel updateOrder(@RequestBody OrderModel order){
-        return orderService.updateOrder(order.getId(), order);
+        return orderService.updateOrder(order.getOrderId(), order);
     }
 
     @GetMapping("/delete")
@@ -39,6 +39,6 @@ public class OrderController {
 
     @PostMapping("/get")
     public OrderModel getExistingOrder(@RequestBody OrderModel order){
-        return orderService.getOrder(order.getEmailId());
+        return orderService.getOrder(order.getOrderId());
     }
 }

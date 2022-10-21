@@ -16,8 +16,8 @@ import javax.persistence.Table;
 public class OrderModel {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "order_id")
-   private Long order_id;
+   @Column(name = "orderId")
+   private Long orderId;
 
    @Column(name = "items")
    // Array of item id's. Example [101, 121, 221, 101]
@@ -26,6 +26,40 @@ public class OrderModel {
    @Column(name = "cost")
    private int cost;
 
-   @Column(name = "buyer_id")
+   @Column(name = "buyerId")
    private long buyerId;
+
+   public Long getOrderId() {
+      return orderId;
+   }
+
+   public void setOrderId(Long orderId) {
+      this.orderId = orderId;
+   }
+
+   public int[] getItems() {
+      return items;
+   }
+
+   public void setItems(int[] items) {
+      this.items = items;
+   }
+
+   public int getCost() {
+      return cost;
+   }
+
+   public void setCost(int cost) {
+      this.cost = cost;
+   }
+
+   public long getBuyerId() {
+      return buyerId;
+   }
+
+   public void setBuyerId(long buyerId) {
+      this.buyerId = buyerId;
+   }
+
+   
 }
