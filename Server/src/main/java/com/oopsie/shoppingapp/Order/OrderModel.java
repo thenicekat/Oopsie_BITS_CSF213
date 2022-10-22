@@ -24,10 +24,10 @@ public class OrderModel {
    private int[] items;
 
    @Column(name = "cost")
-   private int cost;
+   private Long cost;
 
    @Column(name = "buyerId")
-   private long buyerId;
+   private Long buyerId;
 
    public Long getOrderId() {
       return orderId;
@@ -45,19 +45,19 @@ public class OrderModel {
       this.items = items;
    }
 
-   public int getCost() {
+   public Long getCost() {
       return cost;
    }
 
-   public void setCost(int cost) {
+   public void setCost(Long cost) {
       this.cost = cost;
    }
 
-   public long getBuyerId() {
+   public Long getBuyerId() {
       return buyerId;
    }
 
-   public void setBuyerId(long buyerId) {
+   public void setBuyerId(Long buyerId) {
       this.buyerId = buyerId;
    }
 }

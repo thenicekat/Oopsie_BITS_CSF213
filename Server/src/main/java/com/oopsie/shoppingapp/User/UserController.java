@@ -2,6 +2,7 @@ package com.oopsie.shoppingapp.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,9 +70,13 @@ public class UserController {
                 userSignInModel.setEmailId(user.getEmailId());
                 userSignInModel.setError(null);
                 userSignInModel.setPassword(user.getPassword());
+            }else{
+                // Meaning password is incorrect
+                userSignInModel.setError("Incorrect Password");
             }
             return userSignInModel;
         } catch (Exception e) {
+            System.out.println("Exception Occured in sign in controller");
             UserSignInModel userSignInModel = new UserSignInModel();
             userSignInModel.setEmailId(user.getEmailId());
             userSignInModel.setError("Exception Occured in sign in controller");
@@ -82,10 +87,10 @@ public class UserController {
 
     @PostMapping("/update")
     public UserModel updateUser(@RequestBody UserModel user) {
-        return userService.updateUser(user.getId(), user);
+        return userService.updateUser(user.getEmailId(), user);
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public Boolean deleteUser(@RequestParam long userId) {
         try {
             userService.deleteUser(userId);

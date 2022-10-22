@@ -21,13 +21,13 @@ public class ProductsService {
         return prRepository.findAll();
     }
 
-    public ProductsModel getProduct(String productId) {
+    public ProductsModel getProduct(Long productId) {
         ProductsModel product = prRepository.findByProductId(productId).get();
         return product;
     }
 
     // UPDATE
-    public ProductsModel updateProduct(String productId, ProductsModel productDetails) {
+    public ProductsModel updateProduct(Long productId, ProductsModel productDetails) {
         try{
             ProductsModel product = prRepository.findByProductId(productId).get();
             product.setPrice(productDetails.getPrice());
@@ -42,7 +42,7 @@ public class ProductsService {
     }
 
     // DELETE
-    public void deleteProduct(String productId) {
+    public void deleteProduct(Long productId) {
         prRepository.deleteByProductId(productId);
     }
 }

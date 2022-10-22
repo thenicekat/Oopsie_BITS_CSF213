@@ -2,6 +2,7 @@ package com.oopsie.shoppingapp.Products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,15 +21,16 @@ public class ProductsController {
     public ProductsModel createProduct(@RequestBody ProductsModel product){
         return productsService.createProduct(product);
     }
+
     @PostMapping("/update")
     public ProductsModel updateProduct(@RequestBody ProductsModel product){
         return productsService.updateProduct(product.getProductId(), product);
     }
 
-    @GetMapping("/delete")
-    public Boolean deleteProduct(@RequestParam String products_id){
+    @DeleteMapping("/delete")
+    public Boolean deleteProduct(@RequestParam Long productId){
         try{
-            productsService.deleteProduct(products_id);
+            productsService.deleteProduct(productId);
             return true;
         }catch(Exception e){
             e.printStackTrace();

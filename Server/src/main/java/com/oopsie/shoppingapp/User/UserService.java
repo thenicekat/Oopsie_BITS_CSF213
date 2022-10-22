@@ -36,12 +36,11 @@ public class UserService {
     }
 
     // UPDATE
-    public UserModel updateUser(Long userId, UserModel userDetails) {
+    public UserModel updateUser(String emailId, UserModel userDetails) {
         try {
-            UserModel user = userRepository.findById(userId).get();
+            UserModel user = userRepository.findByEmailId(emailId).get();
             user.setFirstName(userDetails.getFirstName());
             user.setLastName(userDetails.getLastName());
-            user.setEmailId(userDetails.getEmailId());
 
             return userRepository.save(user);
         } catch (NoSuchElementException e) {
