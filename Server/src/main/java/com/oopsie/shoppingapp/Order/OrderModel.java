@@ -1,7 +1,3 @@
-/*
- * The database
- */
-
 package com.oopsie.shoppingapp.Order;
 
 import javax.persistence.Column;
@@ -11,17 +7,70 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+
+class OrderedProducts {
+   private Long productId;
+   private Long quantity;
+   private Long priceAtPurchase;
+   
+   public Long getPriceAtPurchase() {
+      return priceAtPurchase;
+   }
+   
+   public void setPriceAtPurchase(Long priceAtPurchase) {
+      this.priceAtPurchase = priceAtPurchase;
+   }
+   
+   public Long getProductId() {
+      return productId;
+   }
+   
+   public void setProductId(Long productId) {
+      this.productId = productId;
+   }
+   
+   public Long getQuantity() {
+      return quantity;
+   }
+   
+   public void setQuantity(Long quantity) {
+      this.quantity = quantity;
+   }
+}
+
+class Items {
+   //Array of ordered Products
+   private OrderedProducts[] orderedProducts;
+
+   public OrderedProducts[] getOrderedProducts() {
+      return orderedProducts;
+   }
+
+   public void setOrderedProducts(OrderedProducts[] orderedProducts) {
+      this.orderedProducts = orderedProducts;
+   }
+}
+
+
 @Entity
 @Table(name = "orders")
+@TypeDef(
+    name = "json",
+    typeClass = JsonStringType.class
+)
 public class OrderModel {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "orderId")
    private Long orderId;
 
-   @Column(name = "items")
-   // Array of item id's. Example [101, 121, 221, 101]
-   private int[] items;
+   @Type(type = "json")
+   @Column(name = "items", columnDefinition = "json")
+   private Items items;
 
    @Column(name = "cost")
    private Long cost;
@@ -37,11 +86,11 @@ public class OrderModel {
       this.orderId = orderId;
    }
 
-   public int[] getItems() {
+   public Items getItems() {
       return items;
    }
 
-   public void setItems(int[] items) {
+   public void setItems(Items items) {
       this.items = items;
    }
 
