@@ -21,6 +21,10 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public List<OrderModel> getOrdersByUser(Long userId) {
+        return orderRepository.findByUserId(userId).get();
+    }
+
     public OrderModel getOrder(Long orderId) {
         OrderModel order = orderRepository.findByOrderId(orderId).get();
         return order;
