@@ -1,4 +1,4 @@
-package com.oopsie.shoppingapp.ProductsRepository;
+package com.oopsie.shoppingapp.Products;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,18 +21,18 @@ public class ProductsService {
         return prRepository.findAll();
     }
 
-    public ProductsModel getProduct(String productId) {
+    public ProductsModel getProduct(Long productId) {
         ProductsModel product = prRepository.findByProductId(productId).get();
         return product;
     }
 
     // UPDATE
-    public ProductsModel updateProduct(String productId, UserModel productDetails) {
+    public ProductsModel updateProduct(Long productId, ProductsModel productDetails) {
         try{
             ProductsModel product = prRepository.findByProductId(productId).get();
             product.setPrice(productDetails.getPrice());
-            product.setQty(productDetails.getQty());
-            product.setId(productDetails.getId());
+            product.setQuantity(productDetails.getQuantity());
+            product.setProductId(productDetails.getProductId());
     
             return prRepository.save(product);
         }
@@ -42,8 +42,8 @@ public class ProductsService {
     }
 
     // DELETE
-    public void deleteProduct(String productId) {
-        prRepository.deleteById(productId);
+    public void deleteProduct(Long productId) {
+        prRepository.deleteByProductId(productId);
     }
 }
 

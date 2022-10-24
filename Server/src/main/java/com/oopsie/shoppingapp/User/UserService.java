@@ -26,20 +26,25 @@ public class UserService {
     }
 
     public UserModel getUser(String emailId) {
-        UserModel user = userRepository.findByEmailId(emailId).get();
-        return user;
+        try {
+            UserModel user = userRepository.findByEmailId(emailId).get();
+            return user;
+        } catch (NoSuchElementException e) {
+            System.out.println("No Such Element Exception occured");
+            return new UserModel();
+        }
     }
 
     // UPDATE
-    public UserModel updateUser(Long userId, UserModel userDetails) {
-        try{
-            UserModel user = userRepository.findById(userId).get();
+    public UserModel updateUser(String emailId, UserModel userDetails) {
+        try {
+            UserModel user = userRepository.findByEmailId(emailId).get();
             user.setFirstName(userDetails.getFirstName());
             user.setLastName(userDetails.getLastName());
-            user.setEmailId(userDetails.getEmailId());
-    
+
             return userRepository.save(user);
-        }catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
+            System.out.println("No Such Element Exception occured");
             return null;
         }
     }

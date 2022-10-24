@@ -21,17 +21,19 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public OrderModel getOrder(String orderId) {
+    public List<OrderModel> getOrdersByUser(Long userId) {
+        return orderRepository.findByUserId(userId).get();
+    }
+
+    public OrderModel getOrder(Long orderId) {
         OrderModel order = orderRepository.findByOrderId(orderId).get();
         return order;
     }
 
     // UPDATE
-    public OrderModel updateOrder(Long order_id, OrderModel orderDetails) {
+    public OrderModel updateOrder(Long orderId, OrderModel orderDetails) {
         try{
-            OrderModel order = orderRepository.findByOrderId(order_id).get();
-            order.setFirstName(orderDetails.getFirstName());
-            order.setLastName(orderDetails.getLastName());
+            OrderModel order = orderRepository.findByOrderId(orderId).get();
             order.setOrderId(orderDetails.getOrderId());
     
             return orderRepository.save(order);

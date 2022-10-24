@@ -38,7 +38,8 @@ export default function Register() {
       {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa("user:user")
         },
         body: JSON.stringify(
           {
@@ -72,10 +73,13 @@ export default function Register() {
         navigate("/shopping");
       })
       .catch(err => {
-        console.log(err);
+        console.log("Error Occured");
+        setErrMsg(err.toString());
         //Set the fetching status to false so that button is not disabled
         setLoggingIn(false);
       });
+
+      // Registering ends here
     }
   }
 
