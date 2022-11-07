@@ -52,7 +52,7 @@ export default function Login() {
           //If we got a response from server with email
           //He can be logged in
           dispatch(setLoggedIn());
-          if(resp.isAdmin == true){
+          if(resp.isAdmin === true){
             //Change Admin Status is it's an admin
             dispatch(setIsAdmin());
           }
@@ -78,7 +78,7 @@ export default function Login() {
   }
 
   return (
-    <div className='min-h-screen align-middle items-center flex flex-col justify-center content-center bg-gray-300'>
+    <div className='min-h-screen align-middle items-center flex flex-col justify-center content-center'>
       <div className="w-5/6 md:w-1/2 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col bg-white">
         <div className="mb-4">
           <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="email">

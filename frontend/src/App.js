@@ -5,6 +5,8 @@ import {
   Route
 } from "react-router-dom";
 
+import { useState, useRef, useEffect } from 'react';
+
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import Register from './Pages/Register';
@@ -19,7 +21,7 @@ import data from './data/data'
 function App() {
   return (
     <Router>
-      <div className='justify-center items-center text-center align-middle bg-gray-300'>
+      <div className='justify-center items-center text-center align-middle bg-[#222020]'>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

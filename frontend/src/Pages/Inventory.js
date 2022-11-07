@@ -6,8 +6,8 @@ export default function Inventory({ data }) {
 
     return (
         isAdmin ? (<div className='py-20 min-h-screen'>
-            <h2 className='text-3xl p-2'>Inventory</h2>
-            <div className='flex flex-wrap justify-center items-center text-center align-middle'>
+            <h2 className='text-3xl p-2 text-white'>Inventory</h2>
+            <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
                 Add and Update Inventory
             </div>
             <div className='flex flex-wrap justify-center items-center text-center align-middle'>
