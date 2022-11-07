@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
+import EditProduct from './../Components/EditProduct';
 
-export default function Inventory() {
+export default function Inventory({ data }) {
     const isAdmin = useSelector(state => state.auth.isAdmin);
 
     return (
@@ -9,7 +10,11 @@ export default function Inventory() {
             <div className='flex flex-wrap justify-center items-center text-center align-middle'>
                 Add and Update Inventory
             </div>
-
+            <div className='flex flex-wrap justify-center items-center text-center align-middle'>
+                {data.products.map((product) => (
+                    <EditProduct key={product.id} product={product} id={product.id} />
+                ))}
+            </div>
         </div>) : (
             <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
                 <h3 className="text-3xl">You need to be an admin to access this page</h3>
