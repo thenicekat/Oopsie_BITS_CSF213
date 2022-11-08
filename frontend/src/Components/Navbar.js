@@ -64,7 +64,7 @@ export default function Navbar() {
                                     )
                                 }
                                 <li>
-                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-black px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
+                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
                                 </li>
                             </>
                         )}
