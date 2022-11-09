@@ -17,7 +17,7 @@ export default function Inventory({ data }) {
             </div>
         </div>) : (
             <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
-                <h3 className="text-3xl">You need to be an admin to access this page</h3>
+                <h3 className="text-3xl text-white">You need to be an admin to access this page</h3>
             </div>
         )
     )

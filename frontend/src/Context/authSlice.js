@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialUserState = {
     isLoggedIn: true,
-    isAdmin: true
+    isAdmin: false
 }
 
 export const authSlice = createSlice({

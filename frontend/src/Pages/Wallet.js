@@ -125,7 +125,7 @@ export default function Wallet() {
 
         </div>) : (
             <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
-                <h3 className="text-3xl">Please Login or Register to Access Your Wallet</h3>
+                <h3 className="text-3xl text-white">Please Login or Register to Access Your Wallet</h3>
             </div>
         )
     )
