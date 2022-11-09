@@ -27,19 +27,8 @@ public class UserModel {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "isAdmin")
-    private Boolean isAdmin;
-
     @Column(name = "money")
     private Long money;
-
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 
     public Long getMoney() {
         return money;
