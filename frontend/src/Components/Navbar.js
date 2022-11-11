@@ -36,10 +36,10 @@ export default function Navbar() {
                         {!isLoggedIn ? (
                             <>
                                 {
-                                    /* If user has not logged in, only then login and register screenn will be shown*/
+                                    /* If user has not logged in, only then login and register screen will be shown*/
                                 }
                                 <li>
-                                    <Link to="/login" className={(location.pathname === "/login" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
+                                    <Link to="/login" className={(location.pathname === "/login" || location.pathname === "/managerLogin" || location.pathname === "/adminLogin" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
                                 </li>
                                 <li>
                                     <Link to="/register" className={(location.pathname === "/register" ? "text-yellow-400 " : "text-white ") + "block rounded md:bg-transparent md:p-2"}>Register</Link>
@@ -58,9 +58,15 @@ export default function Navbar() {
                                 </li>
                                 {
                                     isAdmin && (
-                                        <li>
-                                            <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
-                                        </li>
+                                        <div className='flex'>
+                                            <li className='pr-4'>
+                                                <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
+                                            </li>
+
+                                            <li>
+                                                <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
+                                            </li>
+                                        </div>
                                     )
                                 }
                                 <li>

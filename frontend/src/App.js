@@ -17,6 +17,9 @@ import Wallet from './Pages/Wallet';
 import Inventory from './Pages/Inventory';
 
 import data from './data/data'
+import ManagerLogin from './Pages/ManagerLogin';
+import AdminLogin from './Pages/AdminLogin';
+import Managers from './Pages/Managers';
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/managerLogin" element={<ManagerLogin />} />
+          <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/managers" element={<Managers />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shopping" element={<Shopping data={data} />} />
           <Route path="/cart" element={<Cart />} />

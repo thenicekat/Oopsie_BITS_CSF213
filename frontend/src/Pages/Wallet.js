@@ -7,12 +7,12 @@ export default function Wallet() {
         isLoggedIn ? (<div className='py-20 min-h-screen'>
             <h2 className='text-3xl text-white'>Wallet</h2>
             <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
-                Transaction History
+                Order History
             </div>
 
             <br />
 
-            <div class="overflow-x-auto relative shadow-md rounded-lg py-5">
+            <div class="overflow-x-auto relative shadow-md rounded-lg py-5 px-5">
                 <table class="w-full text-sm text-left text-gray-500">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                         <tr>
