@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
+import { setIsAdmin, setIsApproved, setLoggedIn, setIsManager } from '../Context/authSlice';
 import { setMoney } from '../Context/cartSlice';
 import { useNavigate } from "react-router-dom";
 
@@ -22,31 +22,30 @@ export default function Login() {
       setErrMsg("Enter a valid email");
     }
     else if (!password.match(passwordRegex)) {
-      setErrMsg("Enter a Stronger Password");
+      setErrMsg("Not a valid Password");
     } else {
       setErrMsg("");
       setLoggingIn(true)
 
-      //Fetch Request for register goes here
+      //Fetch Request for login goes here
       fetch("http://localhost:8080/user/signin",
         {
           method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa("user:user")
-          },
           body: JSON.stringify(
             {
               emailId: email,
               password: password
             }
           ),
-          redirect: 'follow'
+          headers: {
+            'Content-Type': 'application/json',
+          },
         })
         .then(rawResponse => rawResponse.json())
         .then(resp => {
-          console.log("Received Response");
-          console.log(resp);
+          if(resp.error != null){
+            setErrMsg(resp.error);
+          }
 
           if (resp.emailId === email) {
             //If we got a response from server with email
@@ -56,14 +55,22 @@ export default function Login() {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
+            if (resp.isManager === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsManager());
+              if(resp.isApproved === true){
+                dispatch(setIsApproved);
+              }
+            }
             //Passing the money to the set money function
             dispatch(setMoney({ money: resp.money || 0 }));
+            //Set the fetching status to false so that button is not disabled
+            setLoggingIn(false);
+  
+            //Using localstorage to set items
+            localStorage.setItem("user", resp);
+            navigate("/shopping");
           }
-          //Set the fetching status to false so that button is not disabled
-          setLoggingIn(false);
-          //Using localstorage to set items
-          localStorage.setItem("user", resp);
-          navigate("/shopping");
         })
         .catch(err => {
           console.log("Error Occured")
@@ -71,9 +78,6 @@ export default function Login() {
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
         });
-
-      setLoggingIn(false);
-      navigate("/shopping");
     }
   }
 

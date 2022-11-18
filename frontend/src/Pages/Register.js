@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
+import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../Context/authSlice';
 import { setMoney } from '../Context/cartSlice';
 import { RiAdminFill } from 'react-icons/ri';
 import { MdAdminPanelSettings } from 'react-icons/md';
@@ -41,7 +41,6 @@ export default function Register() {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa("user:user")
           },
           body: JSON.stringify(
             {
@@ -55,7 +54,9 @@ export default function Register() {
         })
         .then(rawResponse => rawResponse.json())
         .then(resp => {
-          console.log(resp);
+          if(resp.error != null){
+            setErrMsg(resp.error);
+          }
 
           if (resp.emailId === email) {
             //If we got a response from server with email
@@ -65,14 +66,22 @@ export default function Register() {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
+            if (resp.isManager === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsManager());
+              if(resp.isApproved === true){
+                dispatch(setIsApproved);
+              }
+            }
             //Passing the money to the set money function
             dispatch(setMoney({ money: resp.money || 0 }));
+            //Set the fetching status to false so that button is not disabled
+            
+            setLoggingIn(false);
+            //Using localstorage to set items
+            localStorage.setItem("user", resp);
+            navigate("/shopping");
           }
-          //Set the fetching status to false so that button is not disabled
-          setLoggingIn(false);
-          //Using localstorage to set items
-          localStorage.setItem("user", resp);
-          navigate("/shopping");
         })
         .catch(err => {
           console.log("Error Occured");
