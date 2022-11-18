@@ -48,7 +48,7 @@ public class ManagerService {
     public ManagerModel updateManagerStatus(String emailId){
         try {
             ManagerModel manager = managerRepository.findByEmailId(emailId).get();
-            manager.setIsManager(true);
+            manager.setIsApproved(true);
 
             return managerRepository.save(manager);
         } catch (NoSuchElementException e) {

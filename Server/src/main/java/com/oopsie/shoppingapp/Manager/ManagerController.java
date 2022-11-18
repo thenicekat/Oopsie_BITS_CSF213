@@ -63,11 +63,9 @@ public class ManagerController {
             
             if (bCryptPasswordEncoder.matches(manager.getPassword(), returnedManager.getPassword())) {
                 // Meaning password is correct
-                ManagerModel m = new ManagerModel();
-                manager.setEmailId(manager.getEmailId());
-                manager.setPassword("Not Readable");
+                returnedManager.setPassword("Not Readable");
 
-                ManagerReturnModel.setManager(m);
+                ManagerReturnModel.setManager(returnedManager);
 
                 ManagerReturnModel.setError(null);
             }else{
