@@ -34,6 +34,11 @@ public class OrderController {
         return orderService.getOrders();
     }
 
+    @GetMapping("/listbyuser")
+    public List<OrderModel> listOrdersByUser(@RequestParam long userId){
+        return orderService.getOrdersByUser(userId);
+    }
+
     @DeleteMapping("/delete")
     public Boolean deleteOrder(@RequestParam long orderId){
         try{
