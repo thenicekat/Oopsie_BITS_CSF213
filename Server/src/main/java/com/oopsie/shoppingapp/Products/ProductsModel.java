@@ -27,9 +27,20 @@ public class ProductsModel {
     @Column(name = "rating")
     private double rating;
 
+    @Column(name= "image")
+    private String image;
+
     @Column(name= "details")
     private String details;
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
     public Long getProductId() {
         return productId;
     }
