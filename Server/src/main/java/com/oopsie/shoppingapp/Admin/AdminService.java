@@ -13,6 +13,7 @@ public class AdminService {
 
     // CREATE
     public AdminModel createAdmin(AdminModel admin) {
+        admin.setMoney(1000L);
         return adminRepository.save(admin);
     }
 

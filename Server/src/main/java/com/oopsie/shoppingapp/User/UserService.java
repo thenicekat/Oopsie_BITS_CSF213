@@ -17,6 +17,7 @@ public class UserService {
      * @return
      */
     public UserModel createUser(UserModel user) {
+        user.setMoney(1000L);
         return userRepository.save(user);
     }
 

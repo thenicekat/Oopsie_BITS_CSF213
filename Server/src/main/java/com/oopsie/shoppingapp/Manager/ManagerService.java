@@ -13,6 +13,7 @@ public class ManagerService {
 
     // CREATE
     public ManagerModel createManager(ManagerModel manager) {
+        manager.setMoney(1000L);
         return managerRepository.save(manager);
     }
 
