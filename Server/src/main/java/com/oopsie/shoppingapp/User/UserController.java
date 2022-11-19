@@ -89,6 +89,11 @@ public class UserController {
         return userService.updateUser(user.getEmailId(), user);
     }
 
+    @PostMapping("/updatePassword")
+    public Boolean updateUserPassword(@RequestBody UserModel user, @RequestParam String newPassword) {
+        return userService.updateUserPassword(user, newPassword);
+    }
+
     @DeleteMapping("/delete")
     public Boolean deleteUser(@RequestParam long userId) {
         try {
