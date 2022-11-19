@@ -1,14 +1,33 @@
 import React from 'react';
 import Product from '../Components/Product';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Shopping({ data }) {
+export default function Shopping() {
     const [input, setInput] = useState("");
+    const [products, setProducts] = useState([]);
+    const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:8080/products/list",
+        {
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(rawResponse => rawResponse.json())
+        .then(resp => {
+          setProducts(resp);
+        })
+        .catch(err => {
+          console.log("Error Occured")
+          setMessage(err.toString());
+        });
+    })
 
     const onSearchChange = (e) => {
         console.log(e.target.value);
         setInput(e.target.value);
-
     }
 
     return (
@@ -35,14 +54,16 @@ export default function Shopping({ data }) {
                     </div>
                 </div>
 
-                <div className='flex flex-wrap justify-center items-center text-center align-middle'>
-                    {
-                        data.products.filter((product) => {
-                            return product.name.toLowerCase().includes(input.toLowerCase());
+                <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
+                    {products.length > 0 ? (
+                        products.filter((product) => {
+                            return product.productName.toLowerCase().includes(input.toLowerCase());
                         }).map(product => (
-                            <Product key={product.id} product={product} id={product.id}></Product>
+                            <Product key={product.productId} product={product} id={product.productId}></Product>
                         ))
-                    }
+                    ) : (
+                        message || "Loading..."
+                    )}
                 </div>
             </div>
         )
