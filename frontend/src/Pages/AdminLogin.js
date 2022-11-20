@@ -28,7 +28,7 @@ export default function AdminLogin() {
       setLoggingIn(true)
 
       //Fetch Request for register goes here
-      fetch("http://localhost:8080/user/signin",
+      fetch("http://localhost:8080/admin/signin",
         {
           method: "POST",
           headers: {

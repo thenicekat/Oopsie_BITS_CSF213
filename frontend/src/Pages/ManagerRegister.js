@@ -28,7 +28,7 @@ export default function ManagerLogin() {
       setLoggingIn(true)
 
       //Fetch Request for register goes here
-      fetch("http://localhost:8080/manager/signin",
+      fetch("http://localhost:8080/manager/signup",
         {
           method: "POST",
           headers: {
