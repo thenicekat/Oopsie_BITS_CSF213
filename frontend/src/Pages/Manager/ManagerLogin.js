@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
-import { setMoney } from '../Context/cartSlice';
+import { setIsAdmin, setLoggedIn } from '../../Context/authSlice';
+import { setMoney } from '../../Context/cartSlice';
 import { useNavigate } from "react-router-dom";
 
 export default function ManagerLogin() {

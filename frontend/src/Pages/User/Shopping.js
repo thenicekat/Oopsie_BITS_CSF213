@@ -1,5 +1,5 @@
 import React from 'react';
-import Product from '../Components/Product';
+import Product from '../../Components/Product';
 import { useState, useEffect } from 'react';
 
 export default function Shopping() {

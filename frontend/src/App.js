@@ -7,19 +7,19 @@ import {
 
 import { useState, useRef, useEffect } from 'react';
 
-import Login from './Pages/Login';
+import Login from './Pages/User/Login';
 import Home from './Pages/Home';
-import Register from './Pages/Register';
+import Register from './Pages/User/Register';
 import Navbar from './Components/Navbar';
-import Shopping from './Pages/Shopping';
+import Shopping from './Pages/User/Shopping';
 import Cart from './Pages/Cart';
 import Wallet from './Pages/Wallet';
 import Inventory from './Pages/Inventory';
 
 import data from './data/data'
-import ManagerLogin from './Pages/ManagerLogin';
-import AdminLogin from './Pages/AdminLogin';
-import Managers from './Pages/Managers';
+import ManagerLogin from './Pages/Manager/ManagerLogin';
+import AdminLogin from './Pages/Admin/AdminLogin';
+import Managers from './Pages/Admin/Managers';
 import AddProduct from './Pages/AddProduct';
 
 function App() {
