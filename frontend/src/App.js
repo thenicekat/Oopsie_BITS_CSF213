@@ -20,6 +20,7 @@ import data from './data/data'
 import ManagerLogin from './Pages/ManagerLogin';
 import AdminLogin from './Pages/AdminLogin';
 import Managers from './Pages/Managers';
+import AddProduct from './Pages/AddProduct';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/inventory" element={<Inventory data={data} />} />
+          <Route path="/addproduct" element={<AddProduct />} />
         </Routes>
       </div>
 
