@@ -7,6 +7,8 @@ export default function Navbar() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
     const isAdmin = useSelector(state => state.auth.isAdmin);
+    const isManager = useSelector(state => state.auth.isManager);
+    const isApproved = useSelector(state => state.auth.isApproved);
     const money = useSelector(state => state.cart.money);
     const [expanded, setExpanded] = useState(false);
 
@@ -57,15 +59,15 @@ export default function Navbar() {
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
                                 </li>
                                 {
-                                    isAdmin && (
+                                    (isManager && isApproved) && (
                                         <div className='flex'>
                                             <li className='pr-4'>
                                                 <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
                                             </li>
 
-                                            <li>
+                                            {isAdmin && (<li>
                                                 <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
-                                            </li>
+                                            </li>)}
                                         </div>
                                     )
                                 }
