@@ -32,134 +32,48 @@ export default function AddProduct() {
 
   return isManager ? (
     <div className="py-20 min-h-screen">
-      <div class="block p-50 rounded-lg shadow-lg bg-gray flex flex-col justify-center items-center">
-        <form>
+      <h2 className='text-3xl p-2 text-white'>Add Product</h2>
+      <div class="block p-50 rounded-lg shadow-lg justify-center items-center">
+        <form className="px-10"> 
           <div class="form-group mb-6">
             <input
               type="text"
-              class="form-control block w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Product Name"
             />
           </div>
           <div class="form-group mb-6">
-            <input
+          <input
               type="text"
-              class="form-control block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Price"
             />
           </div>
           <div class="form-group mb-6">
-            <input
+          <input
               type="text"
-              class="form-control block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Quantity"
             />
           </div>
           <div class="form-group mb-6">
-            <input
+          <input
               type="text"
-              class="form-control block w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleInput7"
-              placeholder="Rating"
-            />
-          </div>
-          <div class="form-group mb-6">
-            <input
-              type="text"
-              class="form-control block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Image URL"
             />
           </div>
           <div class="form-group mb-6">
-            <textarea
-              class="
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        text-gray-700
-        bg-white bg-clip-padding
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-      "
-              id="exampleFormControlTextarea13"
-              rows="5"
-              placeholder="Details"
-            ></textarea>
+          <textarea
+              type="text"
+              class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput7"
+              placeholder="Description"
+            />
           </div>
           <div class="form-group form-check text-center mb-6">
             <input
@@ -168,6 +82,7 @@ export default function AddProduct() {
               id="exampleCheck87"
               checked
             />
+
             <label
               class="form-check-label inline-block text-white"
               for="exampleCheck87"
