@@ -1,4 +1,4 @@
-package com.oopsie.shoppingapp.User;
+package com.oopsie.shoppingapp.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-class UserSignInModel {
+class AdminSignInModel {
     private String emailId;
     private String password;
     private String error;
@@ -42,62 +42,58 @@ class UserSignInModel {
 
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/admin")
+public class AdminController {
     @Autowired
-    UserService userService;
+    AdminService adminService;
 
     @PostMapping("/signup")
-    public UserModel createUser(@RequestBody UserModel user) {
+    public AdminModel createAdmin(@RequestBody AdminModel admin) {
         // Encrypt password before saving
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String hash = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(hash);
-        return userService.createUser(user);
+        String hash = bCryptPasswordEncoder.encode(admin.getPassword());
+        admin.setPassword(hash);
+        admin.setIsAdmin(true);
+        return adminService.createAdmin(admin);
     }
 
     @PostMapping("/signin")
-    public UserSignInModel getExistingUser(@RequestBody UserSignInModel user) {
+    public AdminSignInModel getExistingAdmin(@RequestBody AdminSignInModel admin) {
         try {
-            UserSignInModel userSignInModel = new UserSignInModel();
-            UserModel returnedUser = userService.getUser(user.getEmailId());
+            AdminSignInModel AdminSignInModel = new AdminSignInModel();
+            AdminModel returnedAdmin = adminService.getAdmin(admin.getEmailId());
 
             // Check if password matches using hash
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            if (bCryptPasswordEncoder.matches(user.getPassword(), returnedUser.getPassword())) {
+            if (bCryptPasswordEncoder.matches(admin.getPassword(), returnedAdmin.getPassword())) {
                 // Meaning password is correct
-                userSignInModel.setEmailId(user.getEmailId());
-                userSignInModel.setError(null);
-                userSignInModel.setPassword(user.getPassword());
+                AdminSignInModel.setEmailId(admin.getEmailId());
+                AdminSignInModel.setError(null);
+                AdminSignInModel.setPassword(admin.getPassword());
             }else{
                 // Meaning password is incorrect
-                userSignInModel.setError("Incorrect Password");
+                AdminSignInModel.setError("Incorrect Password");
             }
-            return userSignInModel;
+            return AdminSignInModel;
         } catch (Exception e) {
             System.out.println("Exception Occured in sign in controller");
-            UserSignInModel userSignInModel = new UserSignInModel();
-            userSignInModel.setEmailId(user.getEmailId());
-            userSignInModel.setError("Exception Occured in sign in controller");
-            userSignInModel.setPassword(user.getPassword());
-            return userSignInModel;
+            AdminSignInModel adminSignInModel = new AdminSignInModel();
+            adminSignInModel.setEmailId(admin.getEmailId());
+            adminSignInModel.setError("Exception Occured in sign in controller");
+            adminSignInModel.setPassword(admin.getPassword());
+            return adminSignInModel;
         }
     }
 
     @PostMapping("/update")
-    public UserModel updateUser(@RequestBody UserModel user) {
-        return userService.updateUser(user.getEmailId(), user);
-    }
-
-    @PostMapping("/updatePassword")
-    public Boolean updateUserPassword(@RequestBody UserModel user, @RequestParam String newPassword) {
-        return userService.updateUserPassword(user, newPassword);
+    public AdminModel updateAdmin(@RequestBody AdminModel admin) {
+        return adminService.updateAdmin(admin.getEmailId(), admin);
     }
 
     @DeleteMapping("/delete")
-    public Boolean deleteUser(@RequestParam long userId) {
+    public Boolean deleteAdmin(@RequestParam long AdminId) {
         try {
-            userService.deleteUser(userId);
+            adminService.deleteAdmin(AdminId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

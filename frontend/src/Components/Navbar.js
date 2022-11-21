@@ -7,6 +7,8 @@ export default function Navbar() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
     const isAdmin = useSelector(state => state.auth.isAdmin);
+    const isManager = useSelector(state => state.auth.isManager);
+    const isApproved = useSelector(state => state.auth.isApproved);
     const money = useSelector(state => state.cart.money);
     const [expanded, setExpanded] = useState(false);
 
@@ -36,10 +38,10 @@ export default function Navbar() {
                         {!isLoggedIn ? (
                             <>
                                 {
-                                    /* If user has not logged in, only then login and register screenn will be shown*/
+                                    /* If user has not logged in, only then login and register screen will be shown*/
                                 }
                                 <li>
-                                    <Link to="/login" className={(location.pathname === "/login" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
+                                    <Link to="/login" className={(location.pathname === "/login" || location.pathname === "/managerLogin" || location.pathname === "/adminLogin" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
                                 </li>
                                 <li>
                                     <Link to="/register" className={(location.pathname === "/register" ? "text-yellow-400 " : "text-white ") + "block rounded md:bg-transparent md:p-2"}>Register</Link>
@@ -57,14 +59,20 @@ export default function Navbar() {
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
                                 </li>
                                 {
-                                    isAdmin && (
-                                        <li>
-                                            <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
-                                        </li>
+                                    (isManager && isApproved) && (
+                                        <div className='flex'>
+                                            <li className='pr-4'>
+                                                <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
+                                            </li>
+
+                                            {isAdmin && (<li>
+                                                <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
+                                            </li>)}
+                                        </div>
                                     )
                                 }
                                 <li>
-                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-black px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
+                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
                                 </li>
                             </>
                         )}

@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface OrderRepository extends JpaRepository<OrderModel, Long> {
     Optional<OrderModel> findByOrderId(Long orderId);
     Optional<OrderModel> deleteByOrderId(Long orderId);
-    Optional<List<OrderModel>> findByUserId(Long userId);
+    Optional<List<OrderModel>> findByBuyerId(Long buyerId);
     // {
     //     int isSuccessful = entityManager.createQuery("delete from Order o where o.order_id=:order_id")
     //     .setParameter("order_id", order_id)

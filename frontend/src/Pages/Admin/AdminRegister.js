@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
+import { useNavigate, Link } from 'react-router-dom';
+import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../Context/authSlice';
 import { setMoney } from '../Context/cartSlice';
+import { RiAdminFill } from 'react-icons/ri';
+import { MdAdminPanelSettings } from 'react-icons/md';
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -21,63 +23,72 @@ export default function Register() {
   let passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   const userRegister = () => {
-    if(!fname.length > 2){
+    if (!fname.length > 2) {
       setErrMsg("Enter a valid name");
     }
-    else if(!email.match(emailRegex)){
+    else if (!email.match(emailRegex)) {
       setErrMsg("Enter a valid email");
     }
-    else if(!password.match(passwordRegex)){
+    else if (!password.match(passwordRegex)) {
       setErrMsg("Enter a Stronger Password");
-    }else {
+    } else {
       setErrMsg("");
       setLoggingIn(true)
-      
-      //Fetch Request for register goes here
-      fetch("http://localhost:8080/user/signup", 
-      {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + btoa("user:user")
-        },
-        body: JSON.stringify(
-          {
-            firstName: fname,
-            lastName: lname,
-            emailId: email,
-            password: password
-          }
-        ),
-        redirect: 'follow'
-      })
-      .then(rawResponse => rawResponse.json())
-      .then(resp => {
-        console.log(resp);
 
-        if(resp.emailId === email){
-          //If we got a response from server with email
-          //He can be logged in
-          dispatch(setLoggedIn());
-          if(resp.isAdmin === true){
-            //Change Admin Status is it's an admin
-            dispatch(setIsAdmin());
+      //Fetch Request for register goes here
+      fetch("http://localhost:8080/admin/signup",
+        {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(
+            {
+              firstName: fname,
+              lastName: lname,
+              emailId: email,
+              password: password
+            }
+          ),
+          redirect: 'follow'
+        })
+        .then(rawResponse => rawResponse.json())
+        .then(resp => {
+          if(resp.error != null){
+            setErrMsg(resp.error);
           }
-          //Passing the money to the set money function
-          dispatch(setMoney({ money: resp.money || 0 }));
-        }
-        //Set the fetching status to false so that button is not disabled
-        setLoggingIn(false);
-        //Using localstorage to set items
-        localStorage.setItem("user", resp);
-        navigate("/shopping");
-      })
-      .catch(err => {
-        console.log("Error Occured");
-        setErrMsg(err.toString());
-        //Set the fetching status to false so that button is not disabled
-        setLoggingIn(false);
-      });
+
+          if (resp.emailId === email) {
+            //If we got a response from server with email
+            //He can be logged in
+            dispatch(setLoggedIn());
+            if (resp.isAdmin === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsAdmin());
+            }
+            if (resp.isManager === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsManager());
+              if(resp.isApproved === true){
+                dispatch(setIsApproved);
+              }
+            }
+            //Passing the money to the set money function
+            dispatch(setMoney({ money: resp.money || 0 }));
+            //Set the fetching status to false so that button is not disabled
+            
+            setLoggingIn(false);
+            //Using localstorage to set items
+            localStorage.setItem("user", resp);
+            navigate("/shopping");
+          }
+        })
+        .catch(err => {
+          console.log("Error Occured");
+          setErrMsg(err.toString());
+          //Set the fetching status to false so that button is not disabled
+          setLoggingIn(false);
+        });
 
       // Registering ends here
     }
@@ -115,6 +126,15 @@ export default function Register() {
           <button className="font-bold py-2 px-4 rounded hover:bg-blue-500" type="button" onClick={userRegister} disabled={loggingIn}>
             Register
           </button>
+          <div className='flex'>
+            <Link to="/managerLogin"><button className="hover:bg-blue-400 font-bold py-2 px-4 rounded flex" type="button" disabled={loggingIn}>
+              <RiAdminFill />
+            </button></Link>
+
+            <Link to="/adminLogin"><button className="hover:bg-blue-400 font-bold py-2 px-4 rounded flex" type="button" disabled={loggingIn}>
+              <MdAdminPanelSettings />
+            </button></Link>
+          </div>
         </div>
       </div>
     </div>

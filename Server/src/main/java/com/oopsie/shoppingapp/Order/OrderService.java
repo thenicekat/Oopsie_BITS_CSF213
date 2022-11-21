@@ -21,8 +21,8 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public List<OrderModel> getOrdersByUser(Long userId) {
-        return orderRepository.findByUserId(userId).get();
+    public List<OrderModel> getOrdersByUser(Long buyerId) {
+        return orderRepository.findByBuyerId(buyerId).get();
     }
 
     public OrderModel getOrder(Long orderId) {

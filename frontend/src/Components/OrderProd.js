@@ -14,7 +14,7 @@ export default function OrderProd({ id, image, name, price, quantity }) {
     }
 
     return (
-        <div className="max-w-sm rounded-lg border shadow-md bg-gray-800 border-gray-700 p-5 m-4">
+        <div className="max-w-sm rounded-lg border shadow-md bg-cyan-800 border-gray-700 p-5 m-4">
             <div href="#">
                 <img className="rounded-t-lg" src={image} alt="" />
             </div>
