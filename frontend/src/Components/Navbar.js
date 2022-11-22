@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import {CiLogout} from 'react-icons/ci';
+import { useEffect } from 'react';
 
 export default function Navbar() {
     const location = useLocation();
@@ -11,6 +13,18 @@ export default function Navbar() {
     const isApproved = useSelector(state => state.auth.isApproved);
     const money = useSelector(state => state.cart.money);
     const [expanded, setExpanded] = useState(false);
+
+    let user = localStorage.getItem("user");
+
+    const logout = () => {
+        console.log(user);
+        localStorage.removeItem("user");
+    }
+
+    useEffect(() => {
+      console.log(user);
+    }, [user])
+    
 
     return (
         <nav className="border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full z-10">
@@ -64,15 +78,17 @@ export default function Navbar() {
                                             <li className='pr-4'>
                                                 <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
                                             </li>
-
-                                            {isAdmin && (<li>
-                                                <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
-                                            </li>)}
                                         </div>
                                     )
                                 }
+                                {isAdmin && (<li>
+                                    <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
+                                </li>)}
                                 <li>
                                     <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
+                                </li>
+                                <li>
+                                    <Link onClick={logout} className="text-white block p-1 rounded md:bg-transparent text-2xl"><CiLogout /></Link>
                                 </li>
                             </>
                         )}
