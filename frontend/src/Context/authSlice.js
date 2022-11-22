@@ -23,8 +23,14 @@ export const authSlice = createSlice({
         setIsApproved: (state, action) => {
             state.isApproved = true;
         },
+        logOut: (state, action) => {
+            state.isAdmin = false;
+            state.isApproved = false;
+            state.isLoggedIn = false;
+            state.isManager = false;
+        }
     }
 })
 
-export const { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } = authSlice.actions;
+export const { setLoggedIn, setIsAdmin, setIsManager, setIsApproved, logOut } = authSlice.actions;
 export default authSlice.reducer;
