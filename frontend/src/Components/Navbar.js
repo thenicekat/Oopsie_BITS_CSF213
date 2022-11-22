@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import {CiLogout} from 'react-icons/ci';
 import { useEffect } from 'react';
+import { logOut } from '../Context/authSlice';
 
 export default function Navbar() {
     const location = useLocation();
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
     const isAdmin = useSelector(state => state.auth.isAdmin);
@@ -19,6 +21,7 @@ export default function Navbar() {
     const logout = () => {
         console.log(user);
         localStorage.removeItem("user");
+        dispatch(logOut);
     }
 
     useEffect(() => {
