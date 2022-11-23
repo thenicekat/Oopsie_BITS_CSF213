@@ -7,25 +7,25 @@ import WAVES from 'vanta/dist/vanta.waves.min'
 import * as THREE from 'three'
 
 export default function Home() {
-  const [vantaEffect, setVantaEffect] = useState(0)
-  const waves = useRef(null)
+  // const [vantaEffect, setVantaEffect] = useState(0)
+  // const waves = useRef(null)
 
-  useEffect(() => {
-    if (!vantaEffect) {
-      setVantaEffect(
-        WAVES({
-          el: waves.current,
-          THREE,
-          mouseControls: false,
-          touchControls: false,
-          color: 0x222020
-        })
-      )
-    }
-    return () => {
-      if (vantaEffect) vantaEffect.destroy()
-    }
-  }, [vantaEffect])
+  // useEffect(() => {
+  //   if (!vantaEffect) {
+  //     setVantaEffect(
+  //       WAVES({
+  //         el: waves.current,
+  //         THREE,
+  //         mouseControls: false,
+  //         touchControls: false,
+  //         color: 0x222020
+  //       })
+  //     )
+  //   }
+  //   return () => {
+  //     if (vantaEffect) vantaEffect.destroy()
+  //   }
+  // }, [vantaEffect])
   const dispatch = useDispatch();
 
   // To add logged in feature
@@ -45,7 +45,7 @@ export default function Home() {
 
 
   return (
-    <div className="justify-center items-center text-center flex flex-col h-screen align-middle" ref={waves}>
+    <div className="justify-center items-center text-center flex flex-col h-screen align-middle"> 
       <h1 className="text-7xl p-4 text-white">OOPSIE!</h1>
       <h3 className="text-3xl text-white">Your One Stop Shopping Spot</h3>
 
