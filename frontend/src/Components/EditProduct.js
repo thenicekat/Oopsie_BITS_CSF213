@@ -42,6 +42,18 @@ export default function EditProduct({ product }) {
             })
             .catch(e => console.log("Error:", e));
     }
+    
+        const deleteProduct = () => {
+            setMessage("");
+            fetch("http://localhost:8080/products/delete?productId=89",{
+                method: 'DELETE',
+                redirect: 'follow'
+              })
+              .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+            }
+
 
     return (
         <div className="max-w-sm rounded-lg border shadow-md bg-cyan-800 border-gray-700 p-5 m-4">
@@ -62,6 +74,15 @@ export default function EditProduct({ product }) {
                     className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     onClick={editProduct}>
                     Update
+                </button>
+                <br/>
+                <br/>
+
+                <button
+                className="font-bold py-2 px-3 rounded bg-red-100 hover:bg-red-500" type="button"
+                onclick={deleteProduct}>
+                    
+                Delete
                 </button>
                 <p className='text-green-400'>{message}</p>
             </div>

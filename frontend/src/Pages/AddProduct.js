@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -7,11 +8,13 @@ export default function AddProduct() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [rating, setRating] = useState("");
+  
   const [image, setImage] = useState("");
   const [details, setDetails] = useState("");
 
-  fetch("http://localhost:8080/products/add", {
+  const addProduct = () => {
+  fetch("http://localhost:8080/products/add", 
+  {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +23,7 @@ export default function AddProduct() {
       productName: productName,
       price: price,
       quantity: quantity,
-      rating: rating,
+      
       image: image,
       details: details,
     }),
@@ -28,7 +31,9 @@ export default function AddProduct() {
   })
     .then((response) => response.text())
     .then((result) => console.log(result))
+
     .catch((error) => console.log("error", error));
+  }
 
   return isManager ? (
     <div className="py-20 min-h-screen">
@@ -41,22 +46,29 @@ export default function AddProduct() {
               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Product Name"
+              required
+              onChange={(e) => setProductName(e.target.value)}
             />
           </div>
           <div class="form-group mb-6">
           <input
-              type="text"
+              type="number"
               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Price"
+              required
+              onChange={(e) => setPrice(e.target.value)}
             />
           </div>
           <div class="form-group mb-6">
           <input
-              type="text"
+              type="number"
               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Quantity"
+              required
+              onChange={(e) => setQuantity(e.target.value)}
+              
             />
           </div>
           <div class="form-group mb-6">
@@ -65,6 +77,9 @@ export default function AddProduct() {
               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Image URL"
+              required
+              onChange={(e) => setImage(e.target.value)}
+              
             />
           </div>
           <div class="form-group mb-6">
@@ -73,6 +88,8 @@ export default function AddProduct() {
               class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               id="exampleInput7"
               placeholder="Description"
+              required
+              onChange={(e) => setDetails(e.target.value)}
             />
           </div>
           <div class="form-group form-check text-center mb-6">
@@ -81,7 +98,7 @@ export default function AddProduct() {
               class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain mr-2 cursor-pointer"
               id="exampleCheck87"
               checked
-            />
+              />
 
             <label
               class="form-check-label inline-block text-white"
@@ -91,7 +108,7 @@ export default function AddProduct() {
             </label>
           </div>
           <button
-            type="submit"
+            type="button"
             class="
       w-full
       px-6
@@ -110,10 +127,12 @@ export default function AddProduct() {
       transition
       duration-150
       ease-in-out"
-          >
+      
+            onclick={addProduct}>
+
             Add
           </button>
-        </form>
+        </form> 
       </div>
     </div>
   ) : (
