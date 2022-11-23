@@ -34,25 +34,25 @@ export default function EditProduct({ product }) {
             })
             .then(response => response.json())
             .then(res => {
-                if(res.price == parseFloat(newPrice) && res.quantity == parseFloat(newQuantity)){
+                if (res.price == parseFloat(newPrice) && res.quantity == parseFloat(newQuantity)) {
                     setMessage("Updated Successfully");
-                }else{
+                } else {
                     setMessage("Error Occured");
                 }
             })
             .catch(e => console.log("Error:", e));
     }
-    
-        const deleteProduct = () => {
-            setMessage("");
-            fetch("http://localhost:8080/products/delete?productId=89",{
-                method: 'DELETE',
-                redirect: 'follow'
-              })
-              .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-            }
+
+    const deleteProduct = () => {
+        setMessage("");
+        fetch("http://localhost:8080/products/delete?productId=89", {
+            method: 'DELETE',
+            redirect: 'follow'
+        })
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    }
 
 
     return (
@@ -67,7 +67,7 @@ export default function EditProduct({ product }) {
                 <p className='text-white'>Price</p>
                 <span className='text-white'>₹</span><input type="text" className="mb-3 font-normal text-gray-700 dark:text-gray-400" defaultValue={`${newPrice}`} onChange={changePrice} />
                 {/* <br /> */}
-                <p  className='text-white'>Quantity</p>
+                <p className='text-white'>Quantity</p>
                 <input type="text" className="mb-3 font-normal text-gray-700 dark:text-gray-400" defaultValue={`${newQuantity}`} onChange={changeQuantity} />
                 <br />
                 <button
@@ -75,14 +75,14 @@ export default function EditProduct({ product }) {
                     onClick={editProduct}>
                     Update
                 </button>
-                <br/>
-                <br/>
+                <br />
+                <br />
 
                 <button
-                className="font-bold py-2 px-3 rounded bg-red-100 hover:bg-red-500" type="button"
-                onclick={deleteProduct}>
-                    
-                Delete
+                    className="font-bold py-2 px-3 rounded bg-red-100 hover:bg-red-500" type="button"
+                    onclick={deleteProduct}>
+
+                    Delete
                 </button>
                 <p className='text-green-400'>{message}</p>
             </div>

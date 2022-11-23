@@ -79,13 +79,13 @@ export default function Navbar() {
                                     (isManager && isApproved) && (
                                         <div className='flex'>
                                             <li className='pr-4'>
-                                                <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
+                                                <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-1 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
                                             </li>
                                         </div>
                                     )
                                 }
                                 {isAdmin && (<li>
-                                    <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
+                                    <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-1 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
                                 </li>)}
                                 <li>
                                     <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
