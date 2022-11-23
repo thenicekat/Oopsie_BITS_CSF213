@@ -40,7 +40,7 @@ public class ProductsController {
             productsService.deleteProduct(productId);
             return true;
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println("Couldn't Delete Product");
             return false;
         }
     }

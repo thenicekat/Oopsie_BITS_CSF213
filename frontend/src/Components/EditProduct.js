@@ -45,12 +45,18 @@ export default function EditProduct({ product }) {
 
     const deleteProduct = () => {
         setMessage("");
-        fetch("http://localhost:8080/products/delete?productId=89", {
+        fetch("http://localhost:8080/products/delete?productId=" + product.productId, {
             method: 'DELETE',
             redirect: 'follow'
         })
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => {
+                if(result == "true"){
+                    alert("Deletion Successful");
+                }else{
+                    setMessage("Error Occured");
+                }
+            })
             .catch(error => console.log('error', error));
     }
 
@@ -80,8 +86,7 @@ export default function EditProduct({ product }) {
 
                 <button
                     className="font-bold py-2 px-3 rounded bg-red-100 hover:bg-red-500" type="button"
-                    onclick={deleteProduct}>
-
+                    onClick={deleteProduct}>
                     Delete
                 </button>
                 <p className='text-green-400'>{message}</p>

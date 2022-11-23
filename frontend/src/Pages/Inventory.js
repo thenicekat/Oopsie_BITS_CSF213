@@ -24,7 +24,7 @@ export default function Inventory() {
           console.log("Error Occured")
           setMessage(err.toString());
         });
-    }, [])
+    })
 
     return (
         isManager ? (<div className='py-20 min-h-screen'>
