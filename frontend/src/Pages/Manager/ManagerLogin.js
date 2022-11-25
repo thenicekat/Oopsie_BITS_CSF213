@@ -33,7 +33,6 @@ export default function ManagerLogin() {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa("user:user")
           },
           body: JSON.stringify(
             {
@@ -62,8 +61,8 @@ export default function ManagerLogin() {
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
-          localStorage.setItem("user", resp);
-          navigate("/shopping");
+          localStorage.setItem("manager", resp);
+          navigate("/inventory");
         })
         .catch(err => {
           console.log("Error Occured")
@@ -73,7 +72,7 @@ export default function ManagerLogin() {
         });
 
       setLoggingIn(false);
-      navigate("/shopping");
+      navigate("/inventory");
     }
   }
 

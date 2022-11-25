@@ -46,10 +46,13 @@ public class ManagerService {
         }
     }
 
-    public ManagerModel updateManagerStatus(String emailId){
+    public ManagerModel updateManagerStatus(String emailId, String statusChangedBy){
         try {
             ManagerModel manager = managerRepository.findByEmailId(emailId).get();
-            manager.setIsApproved(true);
+            if(manager.getIsApproved()) manager.setIsApproved(false);
+            else manager.setIsApproved(true);
+        
+            manager.setApprovedBy(statusChangedBy);
 
             return managerRepository.save(manager);
         } catch (NoSuchElementException e) {

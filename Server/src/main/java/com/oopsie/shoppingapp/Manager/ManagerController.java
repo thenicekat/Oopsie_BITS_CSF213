@@ -94,8 +94,8 @@ public class ManagerController {
     }
 
     @PostMapping("/changeStatus")
-    public ManagerModel updateManagerStatus(@RequestBody ManagerModel manager) {
-        return managerService.updateManagerStatus(manager.getEmailId());
+    public ManagerModel updateManagerStatus(@RequestBody ManagerModel manager, @RequestParam String statusChangedBy) {
+        return managerService.updateManagerStatus(manager.getEmailId(), statusChangedBy);
     }
 
     @DeleteMapping("/delete")

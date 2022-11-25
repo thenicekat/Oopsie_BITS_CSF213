@@ -1,7 +1,51 @@
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+
 
 export default function Managers() {
     const isAdmin = useSelector(state => state.auth.isAdmin);
+    const userDetails = localStorage.getItem("user");
+
+    const [managers, setManagers] = useState([]);
+
+    const changeStatus = (manager) => {
+        console.log(manager.emailId);
+        fetch("http://localhost:8080/manager/changeStatus?statusChangedBy=" + "AdminNameHere",
+            {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "emailId": manager.emailId
+                }),
+            })
+            .then(rawResponse => rawResponse.json())
+            .then(resp => console.log(resp))
+            .catch(err => {
+                console.log("Error Occured")
+                // setMessage(err.toString());
+            });
+    }
+
+    useEffect(() => {
+        fetch("http://localhost:8080/manager/list",
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(rawResponse => rawResponse.json())
+            .then(resp => {
+                setManagers(resp);
+            })
+            .catch(err => {
+                console.log("Error Occured")
+                // setMessage(err.toString());
+            });
+    }, [])
+
 
     return (
         isAdmin ? (<div className='py-20 min-h-screen'>
@@ -31,62 +75,23 @@ export default function Managers() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Adarsh
-                            </th>
-                            <td class="py-4 px-6">
-                                Benz
-                            </td>
-                            <td class="py-4 px-6">
-                                Approved by Ben
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-gray-200 border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Atharva
-                            </th>
-                            <td class="py-4 px-6">
-                                Nikon
-                            </td>
-                            <td class="py-4 px-6">
-                                Rejected by Tom
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Rohan
-                            </th>
-                            <td class="py-4 px-6">
-                                Apple
-                            </td>
-                            <td class="py-4 px-6">
-                                Approved by Tom
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-gray-200 border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Murari
-                            </th>
-                            <td class="py-4 px-6">
-                                Google
-                            </td>
-                            <td class="py-4 px-6">
-                                Rejected by Ben
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve</a>
-                            </td>
-                        </tr>
+                        {managers.map(manager => {
+                            console.log(manager.isApproved);
+                            return <tr class="bg-white border-b">
+                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                    {manager.firstName} {manager.lastName}
+                                </th>
+                                <td class="py-4 px-6">
+                                    Benz
+                                </td>
+                                <td class="py-4 px-6">
+                                    {manager.isApproved ? "Approved" : "Not Approved"}/{manager.approvedBy}
+                                </td>
+                                <td class="py-4 px-6">
+                                    <a onClick={() => changeStatus(manager)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve/Disapprove</a>
+                                </td>
+                            </tr>
+                        })}
                     </tbody>
                 </table>
             </div>
