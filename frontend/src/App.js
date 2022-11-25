@@ -25,7 +25,7 @@ import AddProduct from './Pages/AddProduct';
 function App() {
   return (
     <Router>
-      <div className='justify-center items-center text-center align-middle bg-[#222020]'>
+      <div className='justify-center items-center text-center align-middle bg-gray-900'>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
