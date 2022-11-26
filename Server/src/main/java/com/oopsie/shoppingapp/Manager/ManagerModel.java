@@ -5,12 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.oopsie.shoppingapp.User.UserModel;
 
 @Entity
-@Table(name = "manager")
 public class ManagerModel extends UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
