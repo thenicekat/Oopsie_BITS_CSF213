@@ -71,6 +71,20 @@ public class UserService {
         }
     }
 
+    public Boolean updateUserMoney(Long money, UserModel userDetails) {
+        try {
+            UserModel user = userRepository.findByEmailId(userDetails.getEmailId()).get();
+            user.setMoney(money);
+            userRepository.save(user);
+            return true;
+        } catch (NoSuchElementException e) {
+            System.out.println("No Such Element Exception occured");
+            return false;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
     // DELETE
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);

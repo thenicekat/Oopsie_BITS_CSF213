@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 class AdminSignInModel {
-    private String emailId;
-    private String password;
+    private AdminModel admin;
     private String error;
+
+    public AdminModel getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(AdminModel admin) {
+        this.admin = admin;
+    }
 
     public String getError() {
         return error;
@@ -21,23 +28,7 @@ class AdminSignInModel {
 
     public void setError(String error) {
         this.error = error;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    }    
 }
 
 @CrossOrigin
@@ -58,30 +49,27 @@ public class AdminController {
     }
 
     @PostMapping("/signin")
-    public AdminSignInModel getExistingAdmin(@RequestBody AdminSignInModel admin) {
+    public AdminSignInModel getExistingAdmin(@RequestBody AdminModel admin) {
         try {
-            AdminSignInModel AdminSignInModel = new AdminSignInModel();
+            AdminSignInModel userSignInModel = new AdminSignInModel();
             AdminModel returnedAdmin = adminService.getAdmin(admin.getEmailId());
 
             // Check if password matches using hash
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(admin.getPassword(), returnedAdmin.getPassword())) {
                 // Meaning password is correct
-                AdminSignInModel.setEmailId(admin.getEmailId());
-                AdminSignInModel.setError(null);
-                AdminSignInModel.setPassword(admin.getPassword());
+                userSignInModel.setAdmin(returnedAdmin);
             }else{
                 // Meaning password is incorrect
-                AdminSignInModel.setError("Incorrect Password");
+                userSignInModel.setError("Incorrect Password");
             }
-            return AdminSignInModel;
+            return userSignInModel;
         } catch (Exception e) {
             System.out.println("Exception Occured in sign in controller");
-            AdminSignInModel adminSignInModel = new AdminSignInModel();
-            adminSignInModel.setEmailId(admin.getEmailId());
-            adminSignInModel.setError("Exception Occured in sign in controller");
-            adminSignInModel.setPassword(admin.getPassword());
-            return adminSignInModel;
+            AdminSignInModel userSignInModel = new AdminSignInModel();
+            userSignInModel.setAdmin(null);
+            userSignInModel.setError("Exception Occured in sign in controller");
+            return userSignInModel;
         }
     }
 
