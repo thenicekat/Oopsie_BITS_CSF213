@@ -47,21 +47,21 @@ export default function ManagerLogin() {
           console.log("Received Response");
           console.log(resp);
 
-          if (resp.emailId === email) {
+          if (resp.manager.emailId === email) {
             //If we got a response from server with email
             //He can be logged in
             dispatch(setLoggedIn());
-            if (resp.isAdmin === true) {
+            if (resp.manager.isAdmin === true) {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
             //Passing the money to the set money function
-            dispatch(setMoney({ money: resp.money || 0 }));
+            dispatch(setMoney({ money: resp.manager.money || 0 }));
           }
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
-          localStorage.setItem("manager", resp);
+          localStorage.setItem("manager", resp.manager);
           navigate("/inventory");
         })
         .catch(err => {

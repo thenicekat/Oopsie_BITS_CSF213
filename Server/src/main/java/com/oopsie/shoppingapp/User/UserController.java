@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 class UserSignInModel {
-    private String emailId;
-    private String password;
+    private UserModel user;
     private String error;
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
 
     public String getError() {
         return error;
@@ -23,21 +30,6 @@ class UserSignInModel {
         this.error = error;
     }
 
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
 
 @CrossOrigin
@@ -57,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public UserSignInModel getExistingUser(@RequestBody UserSignInModel user) {
+    public UserSignInModel getExistingUser(@RequestBody UserModel user) {
         try {
             UserSignInModel userSignInModel = new UserSignInModel();
             UserModel returnedUser = userService.getUser(user.getEmailId());
@@ -66,9 +58,7 @@ public class UserController {
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             if (bCryptPasswordEncoder.matches(user.getPassword(), returnedUser.getPassword())) {
                 // Meaning password is correct
-                userSignInModel.setEmailId(user.getEmailId());
-                userSignInModel.setError(null);
-                userSignInModel.setPassword(user.getPassword());
+                userSignInModel.setUser(returnedUser);
             }else{
                 // Meaning password is incorrect
                 userSignInModel.setError("Incorrect Password");
@@ -77,9 +67,8 @@ public class UserController {
         } catch (Exception e) {
             System.out.println("Exception Occured in sign in controller");
             UserSignInModel userSignInModel = new UserSignInModel();
-            userSignInModel.setEmailId(user.getEmailId());
+            userSignInModel.setUser(null);
             userSignInModel.setError("Exception Occured in sign in controller");
-            userSignInModel.setPassword(user.getPassword());
             return userSignInModel;
         }
     }
@@ -87,6 +76,11 @@ public class UserController {
     @PostMapping("/update")
     public UserModel updateUser(@RequestBody UserModel user) {
         return userService.updateUser(user.getEmailId(), user);
+    }
+
+    @PostMapping("/transact")
+    public Boolean transact(@RequestBody UserModel user) {
+        return userService.updateUserMoney(user.getMoney(), user);
     }
 
     @PostMapping("/updatePassword")
