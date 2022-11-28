@@ -47,28 +47,28 @@ export default function Login() {
             setErrMsg(resp.error);
           }
 
-          if (resp.emailId === email) {
+          if (resp.user.emailId === email) {
             //If we got a response from server with email
             //He can be logged in
             dispatch(setLoggedIn());
-            if (resp.isAdmin === true) {
+            if (resp.user.isAdmin === true) {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
-            if (resp.isManager === true) {
+            if (resp.user.isManager === true) {
               //Change Admin Status is it's an admin
               dispatch(setIsManager());
-              if (resp.isApproved === true) {
+              if (resp.user.isApproved === true) {
                 dispatch(setIsApproved);
               }
             }
             //Passing the money to the set money function
-            dispatch(setMoney({ money: resp.money || 0 }));
+            dispatch(setMoney({ money: resp.user.money || 0 }));
             //Set the fetching status to false so that button is not disabled
             setLoggingIn(false);
 
             //Using localstorage to set items
-            localStorage.setItem("user", resp);
+            localStorage.setItem("user", resp.user);
             navigate("/shopping");
           }
         })

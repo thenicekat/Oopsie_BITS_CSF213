@@ -25,6 +25,7 @@ export const authSlice = createSlice({
             state.isApproved = true;
         },
         logOut: (state, action) => {
+            alert("Logging Out");
             state.isAdmin = false;
             state.isApproved = false;
             state.isLoggedIn = false;
