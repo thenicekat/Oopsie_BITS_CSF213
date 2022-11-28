@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin, setLoggedIn } from '../Context/authSlice';
-import { setMoney } from '../Context/cartSlice';
-import { useNavigate } from "react-router-dom";
+import { setIsAdmin, setLoggedIn } from '../../Context/authSlice';
+import { setMoney } from '../../Context/cartSlice';
+import { useNavigate, Link } from "react-router-dom";
 
-export default function ManagerLogin() {
+export default function ManagerRegister() {
   const [email, setEmail] = useState("");
+  const [fname, setFName] = useState("");
+  const [lname, setLName] = useState("");
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
@@ -17,7 +19,7 @@ export default function ManagerLogin() {
   let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   let passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  const userLogin = () => {
+  const managerRegister = () => {
     if (!email.match(emailRegex)) {
       setErrMsg("Enter a valid email");
     }
@@ -33,10 +35,11 @@ export default function ManagerLogin() {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa("user:user")
           },
           body: JSON.stringify(
             {
+              firstName: fname,
+              lastName: lname,
               emailId: email,
               password: password
             }
@@ -78,39 +81,155 @@ export default function ManagerLogin() {
   }
 
   return (
-    <div className='min-h-screen align-middle items-center flex flex-col justify-center content-center'>
-      <div className="w-5/6 md:w-1/2 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4 flex flex-col bg-white">
-        <h1 className='font-bold text-xl py-3'>Manager Login</h1>
-        <div className="mb-4">
-          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="email">
-            Email
-          </label>
-          <input className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="email" type="text" placeholder={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div className="mb-6">
-          <label className="block text-grey-darker text-sm font-bold mb-2" htmlFor="password">
-            Password
-          </label>
-          <input className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3" id="password" type="password" placeholder={password} onChange={(e) => setPassword(e.target.value)} />
-          {errMsg && <p className="text-red-500 text-xs italic">{errMsg}</p>}
-        </div>
-        <div className="flex items-center justify-between">
-          <button className="hover:bg-blue-400 font-bold py-2 px-4 rounded" type="button" disabled={loggingIn} onClick={userLogin}>
-            Log In
-          </button>
-          <a className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="#">
-            Forgot Password?
-          </a>
-        </div>
+    <main>
+      <section className="absolute w-full h-full">
+        <div
+          className="absolute top-0 w-full h-full bg-gray-900"
+          style={{
+            backgroundImage:
+              "url(/Assets/register_bg_2)",
+            backgroundSize: "100%",
+            backgroundRepeat: "no-repeat"
+          }}
+        ></div>
+        <div className="container mx-auto px-4 h-full">
+          <div className="flex content-center items-center justify-center h-full">
+            <div className="w-full lg:w-4/12 px-4">
+              <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0">
+                <div className="rounded-t mb-0 px-6 py-6">
+                  <div className="text-center mb-3">
+                    <h6 className="text-gray-600 text-sm font-bold">
+                      Register as
+                    </h6>
+                  </div>
+                  <div className="btn-wrapper text-center">
+                  <Link to="/userRegister">
+                      <button
+                        className="bg-white active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                      >
+                        User
+                      </button>
+                    </Link>
+                    <Link to="/adminRegister">
+                      <button
+                        className="bg-white active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                      >
+                        Admin
+                      </button>
+                    </Link>
+                  </div>
+                  <hr className="mt-6 border-b-1 border-gray-400" />
+                </div>
+                <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                  <div className="text-gray-500 text-center mb-3 font-bold">
+                    <small>or use credentials</small>
+                  </div>
+                  <form>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        First Name
+                      </label>
+                      <input
+                        type="fname"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="First Name"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setFName(e.target.value)}
+                      />
+                    </div>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Last Name
+                      </label>
+                      <input
+                        type="lname"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Last Name"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setLName(e.target.value)}
+                      />
+                    </div>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Email"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
 
-        <a className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker" href="/#/login">
-          Login As User
-        </a>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Password"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
 
-        <a className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker py-4" href="/#/adminLogin">
-          Login As Admin
-        </a>
-      </div>
-    </div>
+                    {errMsg && <p className="text-red-500 text-xs italic">{errMsg}</p>}
+
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                        type="button"
+                        style={{ transition: "all .15s ease" }}
+                        onClick={managerRegister}
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div className="flex flex-wrap mt-6">
+                <div className="w-1/2">
+                  <a
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                    className="text-gray-300"
+                  >
+                    <small>Forgot password?</small>
+                  </a>
+                </div>
+                <div className="w-1/2 text-right">
+                  <a
+                    href="#pablo"
+                    onClick={e => e.preventDefault()}
+                    className="text-gray-300"
+                  >
+                    <small>Create new account</small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }

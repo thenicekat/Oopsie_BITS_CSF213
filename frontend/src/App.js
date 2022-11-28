@@ -5,8 +5,6 @@ import {
   Route
 } from "react-router-dom";
 
-import { useState, useRef, useEffect } from 'react';
-
 import Login from './Pages/User/Login';
 import Home from './Pages/Home';
 import Register from './Pages/User/Register';
@@ -20,7 +18,9 @@ import data from './data/data'
 import ManagerLogin from './Pages/Manager/ManagerLogin';
 import AdminLogin from './Pages/Admin/AdminLogin';
 import Managers from './Pages/Admin/Managers';
-import AddProduct from './Pages/AddProduct';
+import AddProduct from './Pages/Manager/AddProduct';
+import ManagerRegister from './Pages/Manager/ManagerRegister';
+import AdminRegister from './Pages/Admin/AdminRegister';
 
 function App() {
   return (
@@ -29,11 +29,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/userRegister" element={<Register />} />
+          <Route path="/userLogin" element={<Login />} />
+          <Route path="/managerRegister" element={<ManagerRegister />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />
+          <Route path="/adminRegister" element={<AdminRegister />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managers" element={<Managers />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/shopping" element={<Shopping data={data} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wallet" element={<Wallet />} />

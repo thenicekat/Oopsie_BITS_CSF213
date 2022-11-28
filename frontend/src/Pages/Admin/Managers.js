@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 export default function Managers() {
     const isAdmin = useSelector(state => state.auth.isAdmin);
     const userDetails = localStorage.getItem("user");
+    const [message, setMessage] = useState("");
 
     const [managers, setManagers] = useState([]);
 
     const changeStatus = (manager) => {
-        console.log(manager.emailId);
+        setMessage("");
         fetch("http://localhost:8080/manager/changeStatus?statusChangedBy=" + "AdminNameHere",
             {
                 method: "POST",
@@ -24,11 +25,13 @@ export default function Managers() {
             .then(resp => console.log(resp))
             .catch(err => {
                 console.log("Error Occured")
-                // setMessage(err.toString());
+                setMessage(err.toString());
             });
+            listManagers();
     }
 
-    useEffect(() => {
+    const listManagers = () => {
+        setMessage("");
         fetch("http://localhost:8080/manager/list",
             {
                 method: "GET",
@@ -42,8 +45,12 @@ export default function Managers() {
             })
             .catch(err => {
                 console.log("Error Occured")
-                // setMessage(err.toString());
+                setMessage(err.toString());
             });
+    }
+
+    useEffect(() => {
+        listManagers();
     }, [])
 
 
@@ -55,7 +62,7 @@ export default function Managers() {
             </div>
 
             <br />
-
+            <p className="text-white">{message}</p>
             <div class="overflow-x-auto relative shadow-md py-5 px-5">
                 <table class="w-full text-sm text-left text-gray-500 rounded-xl">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-200">

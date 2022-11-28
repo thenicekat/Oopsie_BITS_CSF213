@@ -1,28 +1,57 @@
 import React from 'react';
 import Product from '../../Components/Product';
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
+import { setMoney } from '../../Context/cartSlice';
 
 export default function Shopping() {
     const [input, setInput] = useState("");
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
 
+    const dispatch = useDispatch();
+
+    // To add logged in feature
+    useEffect(() => {
+        const user = localStorage.getItem("user");
+        if (user) {
+            //if user exists
+            dispatch(setLoggedIn());
+            if (user.isAdmin === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsAdmin());
+            }
+
+            if (user.isManager === true) {
+                dispatch(setIsManager);
+            }
+
+            if (user.isApproved === true) {
+                dispatch(setIsApproved);
+            }
+
+            //Passing the money to the set money function
+            dispatch(setMoney({ money: user.money || 0 }));
+        }
+    }, [])
+
     useEffect(() => {
         fetch("http://localhost:8080/products/list",
-        {
-          method: "GET",
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-        .then(rawResponse => rawResponse.json())
-        .then(resp => {
-          setProducts(resp);
-        })
-        .catch(err => {
-          console.log("Error Occured")
-          setMessage(err.toString());
-        });
+            {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(rawResponse => rawResponse.json())
+            .then(resp => {
+                setProducts(resp);
+            })
+            .catch(err => {
+                console.log("Error Occured")
+                setMessage(err.toString());
+            });
     })
 
     const onSearchChange = (e) => {

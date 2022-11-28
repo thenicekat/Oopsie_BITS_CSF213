@@ -24,9 +24,7 @@ export default function Navbar() {
         dispatch(logOut);
     }
 
-    useEffect(() => {
-      console.log(user);
-    }, [user])
+    useEffect(() => {}, [])
     
 
     return (
@@ -40,8 +38,8 @@ export default function Navbar() {
                     <span className="sr-only">Open main menu</span>
                     <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
                     {expanded && !isLoggedIn && <div className="width:100% list-style-type:none padding:0 margin:0">
-                        <ul><Link to="/login" className="flex items-center">Login</Link></ul>
-                        <ul><Link to="/register" className="flex items-center">Register</Link></ul>
+                        <ul><Link to="/userLogin" className="flex items-center">Login</Link></ul>
+                        <ul><Link to="/userRegister" className="flex items-center">Register</Link></ul>
                     </div>}
                     {expanded && isLoggedIn && <div className="width:100% list-style-type:none padding:0 margin:0">
                         <ul><Link to="/shopping" className="flex items-center">Shopping</Link></ul>
@@ -58,10 +56,10 @@ export default function Navbar() {
                                     /* If user has not logged in, only then login and register screen will be shown*/
                                 }
                                 <li>
-                                    <Link to="/login" className={(location.pathname === "/login" || location.pathname === "/managerLogin" || location.pathname === "/adminLogin" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
+                                    <Link to="/userLogin" className={(location.pathname === "/userLogin" || location.pathname === "/managerLogin" || location.pathname === "/adminLogin" ? "text-yellow-400 " : "text-white ") + "block rounded bg-transparent md:p-2"}>Log in</Link>
                                 </li>
                                 <li>
-                                    <Link to="/register" className={(location.pathname === "/register" ? "text-yellow-400 " : "text-white ") + "block rounded md:bg-transparent md:p-2"}>Register</Link>
+                                    <Link to="/userRegister" className={(location.pathname === "/userRegister" ? "text-yellow-400 " : "text-white ") + "block rounded md:bg-transparent md:p-2"}>Register</Link>
                                 </li>
                             </>
                         ) : (

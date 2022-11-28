@@ -1,31 +1,9 @@
 import { useEffect, useState, useRef } from "react"
 import { useDispatch } from "react-redux";
-import { setIsAdmin, setLoggedIn } from "../Context/authSlice";
+import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from "../Context/authSlice";
 import { setMoney } from "../Context/cartSlice"
 
-import WAVES from 'vanta/dist/vanta.waves.min'
-import * as THREE from 'three'
-
 export default function Home() {
-  // const [vantaEffect, setVantaEffect] = useState(0)
-  // const waves = useRef(null)
-
-  // useEffect(() => {
-  //   if (!vantaEffect) {
-  //     setVantaEffect(
-  //       WAVES({
-  //         el: waves.current,
-  //         THREE,
-  //         mouseControls: false,
-  //         touchControls: false,
-  //         color: 0x222020
-  //       })
-  //     )
-  //   }
-  //   return () => {
-  //     if (vantaEffect) vantaEffect.destroy()
-  //   }
-  // }, [vantaEffect])
   const dispatch = useDispatch();
 
   // To add logged in feature
@@ -38,6 +16,14 @@ export default function Home() {
         //Change Admin Status is it's an admin
         dispatch(setIsAdmin());
       }
+
+      if (user.isManager === true) {
+        dispatch(setIsManager);
+      }
+
+      if (user.isApproved === true) {
+        dispatch(setIsApproved);
+      }
       //Passing the money to the set money function
       dispatch(setMoney({ money: user.money || 0 }));
     }
@@ -45,7 +31,7 @@ export default function Home() {
 
 
   return (
-    <div className="justify-center items-center text-center flex flex-col h-screen align-middle"> 
+    <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
       <h1 className="text-7xl p-4 text-white">OOPSIE!</h1>
       <h3 className="text-3xl text-white">Your One Stop Shopping Spot</h3>
 

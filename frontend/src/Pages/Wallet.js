@@ -1,7 +1,38 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
+import { useEffect } from "react";
+import { setMoney } from "../Context/cartSlice";
 
 export default function Wallet() {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    const fetchOrders = () => {
+
+    }
+
+    // To add logged in feature
+    useEffect(() => {
+        const user = localStorage.getItem("user");
+        if (user) {
+            //if user exists
+            dispatch(setLoggedIn());
+            if (user.isAdmin === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsAdmin());
+            } 
+            
+            if (user.isManager === true){
+                dispatch(setIsManager);
+            }
+
+            if (user.isApproved === true){
+                dispatch(setIsApproved);
+            }
+            //Passing the money to the set money function
+            dispatch(setMoney({ money: user.money || 0 }));
+        }
+    }, [])
 
     return (
         isLoggedIn ? (<div className='py-20 min-h-screen'>
