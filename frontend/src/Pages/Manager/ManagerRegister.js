@@ -65,7 +65,7 @@ export default function ManagerRegister() {
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
-          localStorage.setItem("user", resp);
+          localStorage.setItem("user", JSON.stringify(resp));
           navigate("/shopping");
         })
         .catch(err => {

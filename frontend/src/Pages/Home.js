@@ -8,8 +8,8 @@ export default function Home() {
 
   // To add logged in feature
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.id) {
       //if user exists
       dispatch(setLoggedIn());
       if (user.isAdmin === true) {

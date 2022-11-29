@@ -77,7 +77,7 @@ export default function AdminRegister() {
             
             setLoggingIn(false);
             //Using localstorage to set items
-            localStorage.setItem("user", resp);
+            localStorage.setItem("user", JSON.stringify(resp));
             navigate("/shopping");
           }
         })

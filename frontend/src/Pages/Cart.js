@@ -1,11 +1,21 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../Context/cartSlice';
 import OrderProd from './../Components/OrderProd';
+import { useEffect } from 'react';
+import { clearCart } from '../Context/cartSlice';
 
 export default function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.cart);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    let totalPrice = 0;
+
+    useEffect(() => {
+      cart.forEach(cartItem => {
+        console.log(cart);
+        totalPrice += cartItem.quantity * cartItem.price;
+      })
+    })
+    
     const placeOrder = () => {
         //Fetch Request to Place an order
         // dispatch(clearCart())
@@ -18,6 +28,12 @@ export default function Cart() {
                 {Object.keys(cart).map(key => {
                     return <OrderProd key={key} id={cart[key].id} name={cart[key].name} image={cart[key].image} price={cart[key].price} quantity={cart[key].quantity} />
                 })}
+            </div>
+
+            <div className='justify-center items-center text-center align-middle bg-white p-4 m-4 rounded-xl'>
+                <p className='text-xl'>Order Report</p>
+                <br />
+                <p>Total Price: {totalPrice}</p>
             </div>
 
             <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={placeOrder}>

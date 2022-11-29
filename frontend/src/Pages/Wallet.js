@@ -1,37 +1,59 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setMoney } from "../Context/cartSlice";
 
 export default function Wallet() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const [message, setMessage] = useState("");
+
+    const [orders, setOrders] = useState([]);
 
     const fetchOrders = () => {
-
+        const user = JSON.parse(localStorage.getItem("user"));
+        console.log(user);
+        if (user && user.id) {
+            fetch("http://localhost:8080/order/listbyuser?userId=" + user.id,
+                {
+                    method: "GET",
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(rawResponse => rawResponse.json())
+                .then(resp => {
+                    setOrders(resp);
+                })
+                .catch(err => {
+                    console.log("Error Occured")
+                    setMessage(err.toString());
+                });
+        }
     }
 
     // To add logged in feature
     useEffect(() => {
-        const user = localStorage.getItem("user");
-        if (user) {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user && user.id) {
             //if user exists
             dispatch(setLoggedIn());
             if (user.isAdmin === true) {
                 //Change Admin Status is it's an admin
                 dispatch(setIsAdmin());
-            } 
-            
-            if (user.isManager === true){
+            }
+
+            if (user.isManager === true) {
                 dispatch(setIsManager);
             }
 
-            if (user.isApproved === true){
+            if (user.isApproved === true) {
                 dispatch(setIsApproved);
             }
             //Passing the money to the set money function
             dispatch(setMoney({ money: user.money || 0 }));
         }
+        fetchOrders();
     }, [])
 
     return (
@@ -41,6 +63,7 @@ export default function Wallet() {
                 Order History
             </div>
 
+            <p className="text-white">{message}</p>
             <br />
 
             <div class="overflow-x-auto relative shadow-md rounded-lg py-5 px-5">
@@ -48,13 +71,10 @@ export default function Wallet() {
                     <thead class="text-xs text-gray-700 uppercase bg-gray-200">
                         <tr>
                             <th scope="col" class="py-3 px-6">
-                                Product name
+                                Product ID
                             </th>
                             <th scope="col" class="py-3 px-6">
-                                Color
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Category
+                                Quantity
                             </th>
                             <th scope="col" class="py-3 px-6">
                                 Price
@@ -65,91 +85,24 @@ export default function Wallet() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td class="py-4 px-6">
-                                Sliver
-                            </td>
-                            <td class="py-4 px-6">
-                                Laptop
-                            </td>
-                            <td class="py-4 px-6">
-                                Rs. 2999 /-
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-gray-200 border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Microsoft Surface Pro
-                            </th>
-                            <td class="py-4 px-6">
-                                White
-                            </td>
-                            <td class="py-4 px-6">
-                                Laptop PC
-                            </td>
-                            <td class="py-4 px-6">
-                                Rs. 1999 /-
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Magic Mouse 2
-                            </th>
-                            <td class="py-4 px-6">
-                                Black
-                            </td>
-                            <td class="py-4 px-6">
-                                Accessories
-                            </td>
-                            <td class="py-4 px-6">
-                                Rs. 99 /-
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr class="bg-gray-200 border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Google Pixel Phone
-                            </th>
-                            <td class="py-4 px-6">
-                                Gray
-                            </td>
-                            <td class="py-4 px-6">
-                                Phone
-                            </td>
-                            <td class="py-4 px-6">
-                                Rs. 799 /-
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
-                        <tr className="bg-white border-b">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                Apple Watch 5
-                            </th>
-                            <td class="py-4 px-6">
-                                Red
-                            </td>
-                            <td class="py-4 px-6">
-                                Wearables
-                            </td>
-                            <td class="py-4 px-6">
-                                Rs. 999 /-
-                            </td>
-                            <td class="py-4 px-6">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                            </td>
-                        </tr>
+                        {orders.forEach(order => {
+                            order.items.orderedProducts.map(item => (
+                                <tr class="bg-gray-200 border-b">
+                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        {item.productId}
+                                    </th>
+                                    <td class="py-4 px-6">
+                                        {item.quantity}
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        Rs. {item.priceAtPurchase} /-
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    </td>
+                                </tr>)
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

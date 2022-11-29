@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Managers() {
     const isAdmin = useSelector(state => state.auth.isAdmin);
-    const userDetails = localStorage.getItem("user");
+    const userDetails = JSON.parse(localStorage.getItem("user"));
     const [message, setMessage] = useState("");
 
     const [managers, setManagers] = useState([]);

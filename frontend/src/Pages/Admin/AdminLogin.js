@@ -61,7 +61,7 @@ export default function AdminLogin() {
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
-          localStorage.setItem("admin", resp.admin);
+          localStorage.setItem("user", JSON.stringify(resp.admin));
           navigate("/managers");
         })
         .catch(err => {

@@ -16,12 +16,13 @@ export default function Navbar() {
     const money = useSelector(state => state.cart.money);
     const [expanded, setExpanded] = useState(false);
 
-    let user = localStorage.getItem("user");
+    let user = JSON.parse(localStorage.getItem("user"));
 
     const logout = () => {
         console.log(user);
         localStorage.removeItem("user");
         dispatch(logOut);
+        window.location.reload();
     }
 
     useEffect(() => {}, [])

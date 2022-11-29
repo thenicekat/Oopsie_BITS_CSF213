@@ -68,7 +68,7 @@ export default function Login() {
             setLoggingIn(false);
 
             //Using localstorage to set items
-            localStorage.setItem("user", resp.user);
+            localStorage.setItem("user", JSON.stringify(resp.user));
             navigate("/shopping");
           }
         })

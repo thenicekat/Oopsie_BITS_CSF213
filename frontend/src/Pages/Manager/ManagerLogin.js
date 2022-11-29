@@ -61,7 +61,7 @@ export default function ManagerLogin() {
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
-          localStorage.setItem("manager", resp.manager);
+          localStorage.setItem("user", JSON.stringify(resp.manager));
           navigate("/inventory");
         })
         .catch(err => {
