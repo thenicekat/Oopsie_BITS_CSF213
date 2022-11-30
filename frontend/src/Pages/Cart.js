@@ -2,18 +2,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import OrderProd from './../Components/OrderProd';
 import { useEffect } from 'react';
 import { clearCart } from '../Context/cartSlice';
+import { useState } from 'react';
 
 export default function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.cart);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    let totalPrice = 0;
+    let [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-      cart.forEach(cartItem => {
-        console.log(cart);
-        totalPrice += cartItem.quantity * cartItem.price;
-      })
+        let total = 0;
+        Object.keys(cart).forEach((key) => {
+            total += cart[key].price * cart[key].quantity;
+            setTotalPrice(total);
+        })
     })
     
     const placeOrder = () => {
