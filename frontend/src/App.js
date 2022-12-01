@@ -22,6 +22,7 @@ import AddProduct from './Pages/Manager/AddProduct';
 import ManagerRegister from './Pages/Manager/ManagerRegister';
 import AdminRegister from './Pages/Admin/AdminRegister';
 import ForgotPassword from './Pages/User/ForgotPassword';
+import ResetPassword from './Pages/User/ResetPassword';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/userRegister" element={<Register />} />
           <Route path="/userLogin" element={<Login />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/managerRegister" element={<ManagerRegister />} />
           <Route path="/managerLogin" element={<ManagerLogin />} />

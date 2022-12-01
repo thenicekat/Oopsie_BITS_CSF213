@@ -30,6 +30,9 @@ public class UserModel {
     @Column(name = "money")
     private Long money;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     public Long getMoney() {
         return money;
     }
@@ -76,5 +79,13 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setResetPasswordToken(String token) {
+        this.resetPasswordToken = token;
+    }
+
+    public String getResetPasswordToken() {
+        return this.resetPasswordToken;
     }
 }

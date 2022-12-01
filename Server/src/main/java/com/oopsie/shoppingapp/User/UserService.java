@@ -85,6 +85,20 @@ public class UserService {
         }
     }
 
+    public void updateResetPasswordToken(String token, String email) {
+        try {
+            UserModel user = userRepository.findByEmail(email);
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } catch (Exception e) {
+            System.out.println("Could not find any customer with the email " + email);
+        }
+    }
+
+    public UserModel getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
     // DELETE
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
