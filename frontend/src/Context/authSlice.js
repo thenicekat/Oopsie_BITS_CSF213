@@ -5,7 +5,6 @@ const initialUserState = {
     isManager: false,
     isAdmin: false,
     isApproved: false,
-
 }
 
 export const authSlice = createSlice({

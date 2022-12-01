@@ -12,7 +12,7 @@ export default function Wallet() {
 
     const fetchOrders = () => {
         const user = JSON.parse(localStorage.getItem("user"));
-        console.log(user);
+        //console.log(user);
         if (user && user.id) {
             fetch("http://localhost:8080/order/listbyuser?userId=" + user.id,
                 {
@@ -23,6 +23,7 @@ export default function Wallet() {
                 })
                 .then(rawResponse => rawResponse.json())
                 .then(resp => {
+                    console.log(resp);
                     setOrders(resp);
                 })
                 .catch(err => {
@@ -66,41 +67,44 @@ export default function Wallet() {
             <p className="text-white">{message}</p>
             <br />
 
-            <div class="overflow-x-auto relative shadow-md rounded-lg py-5 px-5">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+            <div className="overflow-x-auto relative shadow-md rounded-lg py-5 px-5">
+                <table className="w-full text-sm text-left text-gray-500">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                         <tr>
-                            <th scope="col" class="py-3 px-6">
-                                Product ID
+                            <th scope="col" className="py-3 px-6">
+                                Order ID
                             </th>
-                            <th scope="col" class="py-3 px-6">
-                                Quantity
+                            <th scope="col" className="py-3 px-6">
+                                Total Quantity
                             </th>
-                            <th scope="col" class="py-3 px-6">
-                                Price
+                            <th scope="col" className="py-3 px-6">
+                                Total Cost
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" className="py-3 px-6">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.forEach(order => {
-                            order.items.orderedProducts.map(item => (
-                                <tr class="bg-gray-200 border-b">
-                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                        {item.productId}
+                        {orders.map((order, _) => {
+                            let counter = 0;
+                            if(order.items) order.items.orderedProducts.forEach(product => counter += product.quantity);
+
+                            return (
+                                <tr className="bg-gray-200 border-b" key={_}>
+                                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        {order.orderId}
                                     </th>
-                                    <td class="py-4 px-6">
-                                        {item.quantity}
+                                    <td className="py-4 px-6">
+                                        {counter}
                                     </td>
-                                    <td class="py-4 px-6">
-                                        Rs. {item.priceAtPurchase} /-
+                                    <td className="py-4 px-6">
+                                        Rs. {order.cost} /-
                                     </td>
-                                    <td class="py-4 px-6">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    <td className="py-4 px-6">
+                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                     </td>
-                                </tr>)
+                                </tr>
                             )
                         })}
                     </tbody>

@@ -2,11 +2,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addToCart, removeFromCart } from '../Context/cartSlice';
 
-export default function OrderProd({ id, image, name, price, quantity }) {
+export default function OrderProd({ productId, image, name, price, quantity }) {
     const dispatch = useDispatch();
     
     const product = {
-        id: id,
+        productId: productId,
         image: image,
         name: name,
         price: price,

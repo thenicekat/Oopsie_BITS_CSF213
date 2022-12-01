@@ -1,34 +1,106 @@
 import { useSelector, useDispatch } from 'react-redux';
 import OrderProd from './../Components/OrderProd';
 import { useEffect } from 'react';
-import { clearCart } from '../Context/cartSlice';
 import { useState } from 'react';
+import { setLoggedIn, setIsManager, setIsAdmin, setIsApproved } from '../Context/authSlice';
+import { clearCart, setMoney } from '../Context/cartSlice';
 
 export default function Cart() {
     const dispatch = useDispatch();
     const cart = useSelector(state => state.cart.cart);
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    let [totalPrice, setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [message, setMessage] = useState("");
+
+    // To add logged in feature
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+            //if user exists
+            dispatch(setLoggedIn());
+            if (user.isAdmin === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsAdmin());
+            }
+
+            if (user.isManager === true) {
+                dispatch(setIsManager);
+            }
+
+            if (user.isApproved === true) {
+                dispatch(setIsApproved);
+            }
+
+            //Passing the money to the set money function
+            dispatch(setMoney({ money: user.money || 0 }));
+        }
+    }, [])
 
     useEffect(() => {
         let total = 0;
+        console.log(cart);
         Object.keys(cart).forEach((key) => {
             total += cart[key].price * cart[key].quantity;
             setTotalPrice(total);
         })
+
+        if (!Object.keys(cart).length) {
+            setTotalPrice(0);
+        }
     })
-    
+
     const placeOrder = () => {
         //Fetch Request to Place an order
-        // dispatch(clearCart())
+        const user = JSON.parse(localStorage.getItem("user"))
+        if (!user) alert("Please Login/Register First");
+        else {
+            let order = {};
+
+            order.cost = totalPrice;
+
+            order.buyerId = user.id;
+
+            let orderedProducts = [];
+            Object.keys(cart).forEach((key) => {
+                orderedProducts.push({
+                    "productId": key,
+                    "quantity": cart[key].quantity,
+                    "priceAtPurchase": cart[key].price
+                })
+            })
+            order.items = {
+                "orderedProducts": orderedProducts
+            };
+
+            // console.log(JSON.stringify(order));
+
+            fetch("http://localhost:8080/order/place", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(order)
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                if(result.err){
+                    setMessage(result.err);
+                }else{
+                    dispatch(clearCart);
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
     }
 
     return (
         isLoggedIn ? (<div className='py-20 min-h-screen'>
             <h2 className='text-3xl p-2 text-white'>Cart</h2>
+            <p className='text-red-400'>{message}</p>
             <div className='flex flex-wrap justify-center items-center text-center align-middle'>
                 {Object.keys(cart).map(key => {
-                    return <OrderProd key={key} id={cart[key].id} name={cart[key].name} image={cart[key].image} price={cart[key].price} quantity={cart[key].quantity} />
+                    return <OrderProd key={key} productId={cart[key].productId} name={cart[key].name} image={cart[key].image} price={cart[key].price} quantity={cart[key].quantity} />
                 })}
             </div>
 

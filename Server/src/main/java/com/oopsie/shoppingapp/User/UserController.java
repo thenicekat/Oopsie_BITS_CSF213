@@ -1,5 +1,7 @@
 package com.oopsie.shoppingapp.User;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,16 +54,19 @@ public class UserController {
     public UserSignInModel getExistingUser(@RequestBody UserModel user) {
         try {
             UserSignInModel userSignInModel = new UserSignInModel();
-            UserModel returnedUser = userService.getUser(user.getEmailId());
-
-            // Check if password matches using hash
-            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            if (bCryptPasswordEncoder.matches(user.getPassword(), returnedUser.getPassword())) {
-                // Meaning password is correct
-                userSignInModel.setUser(returnedUser);
-            }else{
-                // Meaning password is incorrect
-                userSignInModel.setError("Incorrect Password");
+            try {
+                UserModel returnedUser = userService.getUser(user.getEmailId());
+                // Check if password matches using hash
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                if (bCryptPasswordEncoder.matches(user.getPassword(), returnedUser.getPassword())) {
+                    // Meaning password is correct
+                    userSignInModel.setUser(returnedUser);
+                } else {
+                    // Meaning password is incorrect
+                    userSignInModel.setError("Incorrect Password");
+                }
+            } catch (NoSuchElementException e) {
+                userSignInModel.setError("Account does not exist");
             }
             return userSignInModel;
         } catch (Exception e) {

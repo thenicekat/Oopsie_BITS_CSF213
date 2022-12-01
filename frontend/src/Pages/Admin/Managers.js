@@ -63,20 +63,20 @@ export default function Managers() {
 
             <br />
             <p className="text-white">{message}</p>
-            <div class="overflow-x-auto relative shadow-md py-5 px-5">
-                <table class="w-full text-sm text-left text-gray-500 rounded-xl">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+            <div className="overflow-x-auto relative shadow-md py-5 px-5">
+                <table className="w-full text-sm text-left text-gray-500 rounded-xl">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-200">
                         <tr>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" className="py-3 px-6">
                                 Name
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" className="py-3 px-6">
                                 Company
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" className="py-3 px-6">
                                 Status/By
                             </th>
-                            <th scope="col" class="py-3 px-6">
+                            <th scope="col" className="py-3 px-6">
                                 Action
                             </th>
                         </tr>
@@ -84,18 +84,18 @@ export default function Managers() {
                     <tbody>
                         {managers.map(manager => {
                             console.log(manager.isApproved);
-                            return <tr class="bg-white border-b">
-                                <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                            return <tr className="bg-white border-b">
+                                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                     {manager.firstName} {manager.lastName}
                                 </th>
-                                <td class="py-4 px-6">
+                                <td className="py-4 px-6">
                                     Benz
                                 </td>
-                                <td class="py-4 px-6">
+                                <td className="py-4 px-6">
                                     {manager.isApproved ? "Approved" : "Not Approved"}/{manager.approvedBy}
                                 </td>
-                                <td class="py-4 px-6">
-                                    <a onClick={() => changeStatus(manager)} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve/Disapprove</a>
+                                <td className="py-4 px-6">
+                                    <a onClick={() => changeStatus(manager)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve/Disapprove</a>
                                 </td>
                             </tr>
                         })}

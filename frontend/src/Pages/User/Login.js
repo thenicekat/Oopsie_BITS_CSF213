@@ -43,33 +43,35 @@ export default function Login() {
         })
         .then(rawResponse => rawResponse.json())
         .then(resp => {
-          if (resp.error != null) {
+          console.log(resp)
+          if (resp.user == null) {
             setErrMsg(resp.error);
-          }
+          } else {
 
-          if (resp.user.emailId === email) {
-            //If we got a response from server with email
-            //He can be logged in
-            dispatch(setLoggedIn());
-            if (resp.user.isAdmin === true) {
-              //Change Admin Status is it's an admin
-              dispatch(setIsAdmin());
-            }
-            if (resp.user.isManager === true) {
-              //Change Admin Status is it's an admin
-              dispatch(setIsManager());
-              if (resp.user.isApproved === true) {
-                dispatch(setIsApproved);
+            if (resp.user.emailId === email) {
+              //If we got a response from server with email
+              //He can be logged in
+              dispatch(setLoggedIn());
+              if (resp.user.isAdmin === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsAdmin());
               }
-            }
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: resp.user.money || 0 }));
-            //Set the fetching status to false so that button is not disabled
-            setLoggingIn(false);
+              if (resp.user.isManager === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsManager());
+                if (resp.user.isApproved === true) {
+                  dispatch(setIsApproved);
+                }
+              }
+              //Passing the money to the set money function
+              dispatch(setMoney({ money: resp.user.money || 0 }));
+              //Set the fetching status to false so that button is not disabled
+              setLoggingIn(false);
 
-            //Using localstorage to set items
-            localStorage.setItem("user", JSON.stringify(resp.user));
-            navigate("/shopping");
+              //Using localstorage to set items
+              localStorage.setItem("user", JSON.stringify(resp.user));
+              navigate("/shopping");
+            }
           }
         })
         .catch(err => {

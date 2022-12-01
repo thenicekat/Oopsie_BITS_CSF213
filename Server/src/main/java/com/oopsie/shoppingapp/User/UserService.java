@@ -87,7 +87,7 @@ public class UserService {
 
     public void updateResetPasswordToken(String token, String email) {
         try {
-            UserModel user = userRepository.findByEmail(email);
+            UserModel user = userRepository.findByEmailId(email).get();
             user.setResetPasswordToken(token);
             userRepository.save(user);
         } catch (Exception e) {
@@ -95,9 +95,9 @@ public class UserService {
         }
     }
 
-    public UserModel getByResetPasswordToken(String token) {
-        return userRepository.findByResetPasswordToken(token);
-    }
+    // public UserModel getByResetPasswordToken(String token) {
+    //     return userRepository.findByResetPasswordToken(token);
+    // }
 
     // DELETE
     public void deleteUser(Long userId) {
