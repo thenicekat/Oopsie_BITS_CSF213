@@ -78,6 +78,17 @@ public class OrderModel {
    @Column(name = "buyerId")
    private Long buyerId;
 
+   @Column(name = "err")
+   private String err;
+
+   public String getErr() {
+      return err;
+   }
+
+   public void setErr(String err) {
+      this.err = err;
+   }
+
    public Long getOrderId() {
       return orderId;
    }

@@ -6,14 +6,35 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oopsie.shoppingapp.User.UserModel;
+import com.oopsie.shoppingapp.User.UserRepository;
+
 @Service
 public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     // CREATE
     public OrderModel createOrder(OrderModel order) {
-        return orderRepository.save(order);
+        try{
+            UserModel whoOrdered = userRepository.findById(order.getBuyerId()).get();
+            System.out.println(order.getCost() + " " + whoOrdered.getMoney());
+            if(order.getCost() <= whoOrdered.getMoney()){
+                whoOrdered.setMoney(whoOrdered.getMoney() - order.getCost());
+                return orderRepository.save(order);
+            }else{
+                OrderModel orderModel = new OrderModel();
+                orderModel.setErr("Couldn't place order due to lack of money");
+                return orderModel;
+            }
+        }catch(NoSuchElementException e){
+            OrderModel orderModel = new OrderModel();
+            orderModel.setErr("No such User exists");
+            return orderModel;
+        }
     }
 
     // READ
@@ -38,7 +59,9 @@ public class OrderService {
     
             return orderRepository.save(order);
         }catch(NoSuchElementException e){
-            return null;
+            OrderModel orderModel = new OrderModel();
+            orderModel.setErr("No such Order exists");
+            return orderModel;
         }
     }
 
