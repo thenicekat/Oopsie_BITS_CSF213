@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn } from '../../Context/authSlice';
-import { setMoney } from '../../Context/cartSlice';
 import { useNavigate, Link } from "react-router-dom";
 
 export default function AdminLogin() {
@@ -55,8 +54,6 @@ export default function AdminLogin() {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: resp.admin.money || 0 }));
           }
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);

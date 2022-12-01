@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setIsApproved, setLoggedIn, setIsManager } from '../../Context/authSlice';
-import { setMoney } from '../../Context/cartSlice';
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
@@ -63,8 +62,6 @@ export default function Login() {
                   dispatch(setIsApproved);
                 }
               }
-              //Passing the money to the set money function
-              dispatch(setMoney({ money: resp.user.money || 0 }));
               //Set the fetching status to false so that button is not disabled
               setLoggingIn(false);
 

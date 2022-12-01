@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,9 +84,9 @@ public class UserController {
         return userService.updateUser(user.getEmailId(), user);
     }
 
-    @PostMapping("/transact")
-    public Boolean transact(@RequestBody UserModel user) {
-        return userService.updateUserMoney(user.getMoney(), user);
+    @GetMapping("/money")
+    public Long money(@RequestParam Long userId) {
+        return userService.getUserMoney(userId);
     }
 
     @PostMapping("/updatePassword")

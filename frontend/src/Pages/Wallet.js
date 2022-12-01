@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
 import { useEffect, useState } from "react";
-import { setMoney } from "../Context/cartSlice";
 
 export default function Wallet() {
     const dispatch = useDispatch();
@@ -51,8 +50,7 @@ export default function Wallet() {
             if (user.isApproved === true) {
                 dispatch(setIsApproved);
             }
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: user.money || 0 }));
+            
         }
         fetchOrders();
     }, [])

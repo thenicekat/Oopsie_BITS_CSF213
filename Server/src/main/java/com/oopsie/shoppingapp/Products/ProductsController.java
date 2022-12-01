@@ -34,6 +34,11 @@ public class ProductsController {
         return productsService.getProducts();
     }
 
+    @GetMapping("/listByCategory")
+    public List<ProductsModel> listProductsByCategory(@RequestParam String category){
+        return productsService.getProductsByCategory(category);
+    }
+
     @DeleteMapping("/delete")
     public Boolean deleteProduct(@RequestParam Long productId){
         try{

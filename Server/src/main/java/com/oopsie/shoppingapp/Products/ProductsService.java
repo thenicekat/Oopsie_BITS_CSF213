@@ -21,6 +21,14 @@ public class ProductsService {
         return prRepository.findAll();
     }
 
+    public List<ProductsModel> getProductsByCategory(String category) {
+        try{
+            return prRepository.findAllByCategory(category).get();
+        }catch(NoSuchElementException e){
+            return null;
+        }
+    }
+
     public ProductsModel getProduct(Long productId) {
         ProductsModel product = prRepository.findByProductId(productId).get();
         return product;

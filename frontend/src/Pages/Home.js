@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react"
 import { useDispatch } from "react-redux";
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from "../Context/authSlice";
-import { setMoney } from "../Context/cartSlice"
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -24,8 +23,6 @@ export default function Home() {
       if (user.isApproved === true) {
         dispatch(setIsApproved);
       }
-      //Passing the money to the set money function
-      dispatch(setMoney({ money: user.money || 0 }));
     }
   }, [])
 

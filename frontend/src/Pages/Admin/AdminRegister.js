@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
-import { setMoney } from '../../Context/cartSlice';
 
 export default function AdminRegister() {
   const [email, setEmail] = useState("");
@@ -71,8 +70,6 @@ export default function AdminRegister() {
                 dispatch(setIsApproved);
               }
             }
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: resp.money || 0 }));
             //Set the fetching status to false so that button is not disabled
             
             setLoggingIn(false);

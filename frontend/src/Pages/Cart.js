@@ -3,7 +3,7 @@ import OrderProd from './../Components/OrderProd';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { setLoggedIn, setIsManager, setIsAdmin, setIsApproved } from '../Context/authSlice';
-import { clearCart, setMoney } from '../Context/cartSlice';
+import { clearCart } from '../Context/cartSlice';
 
 export default function Cart() {
     const dispatch = useDispatch();
@@ -30,9 +30,6 @@ export default function Cart() {
             if (user.isApproved === true) {
                 dispatch(setIsApproved);
             }
-
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: user.money || 0 }));
         }
     }, [])
 

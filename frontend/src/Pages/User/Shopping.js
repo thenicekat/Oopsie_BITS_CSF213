@@ -3,7 +3,6 @@ import Product from '../../Components/Product';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
-import { setMoney } from '../../Context/cartSlice';
 
 export default function Shopping() {
     const [input, setInput] = useState("");
@@ -31,8 +30,7 @@ export default function Shopping() {
                 dispatch(setIsApproved);
             }
 
-            //Passing the money to the set money function
-            dispatch(setMoney({ money: user.money || 0 }));
+            
         }
     }, [])
 

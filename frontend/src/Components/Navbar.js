@@ -13,20 +13,39 @@ export default function Navbar() {
     const isAdmin = useSelector(state => state.auth.isAdmin);
     const isManager = useSelector(state => state.auth.isManager);
     const isApproved = useSelector(state => state.auth.isApproved);
-    const money = useSelector(state => state.cart.money);
+    const [walletText, setWalletText] = useState("Wallet");
     const [expanded, setExpanded] = useState(false);
 
-    let user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // To add logged in feature
+    // useEffect(() => {
+    //     if (user) {
+    //         setMoney(user.money);
+    //     }
+    // }, [])
+
+    const changeMoneyToText = () => {
+        setWalletText("Wallet");
+    }
+
+    const changeTextToMoney = ()  => {
+        fetch("http://localhost:8080/user/money?userId=" + user.id, {
+            method: 'GET'
+        })
+        .then(response => response.text())
+        .then(result => {
+            setWalletText("₹" + result);
+        })
+        .catch(error => console.log('error', error));
+    }
 
     const logout = () => {
         console.log(user);
         localStorage.removeItem("user");
         dispatch(logOut);
         window.location.reload();
-    }
-
-    useEffect(() => {}, [])
-    
+    }    
 
     return (
         <nav className="border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full z-10">
@@ -87,7 +106,7 @@ export default function Navbar() {
                                     <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-1 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
                                 </li>)}
                                 <li>
-                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"}>₹{money}</Link>
+                                    <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"} onMouseEnter={changeTextToMoney} onMouseLeave={changeMoneyToText}>{walletText}</Link>
                                 </li>
                                 <li>
                                     <Link onClick={logout} className="text-white block p-1 rounded md:bg-transparent text-2xl"><CiLogout /></Link>

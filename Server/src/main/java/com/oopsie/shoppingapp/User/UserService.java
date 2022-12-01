@@ -50,6 +50,16 @@ public class UserService {
         }
     }
 
+    public Long getUserMoney(Long userId){
+        try {
+            UserModel user = userRepository.findById(userId).get();
+            return user.getMoney();
+        } catch (NoSuchElementException e) {
+            System.out.println("No Such Element Exception occured");
+            return 0L;
+        }
+    }
+
     public Boolean updateUserPassword(UserModel user, String newPassword) {
         try {
             UserModel returnedUser = userRepository.findByEmailId(user.getEmailId()).get();
