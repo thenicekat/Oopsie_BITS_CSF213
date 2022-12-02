@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin, setLoggedIn } from '../../Context/authSlice';
+import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
 import { useNavigate, Link } from "react-router-dom";
 
 export default function ManagerLogin() {
@@ -44,7 +44,7 @@ export default function ManagerLogin() {
         .then(rawResponse => rawResponse.json())
         .then(resp => {
           console.log("Received Response");
-          console.log(resp);
+          // console.log(resp);
 
           if (resp.manager.emailId === email) {
             //If we got a response from server with email
@@ -53,6 +53,13 @@ export default function ManagerLogin() {
             if (resp.manager.isAdmin === true) {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
+            }
+            if (resp.manager.isManager === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsManager());
+              if (resp.manager.isApproved === true) {
+                dispatch(setIsApproved());
+              }
             }
           }
           //Set the fetching status to false so that button is not disabled

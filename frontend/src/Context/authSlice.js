@@ -21,6 +21,7 @@ export const authSlice = createSlice({
             state.isManager = true;
         },
         setIsApproved: (state, action) => {
+            console.log("Approved")
             state.isApproved = true;
         },
         logOut: (state, action) => {

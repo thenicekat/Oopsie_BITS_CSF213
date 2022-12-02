@@ -23,11 +23,11 @@ export default function Shopping() {
             }
 
             if (user.isManager === true) {
-                dispatch(setIsManager);
+                dispatch(setIsManager());
             }
 
             if (user.isApproved === true) {
-                dispatch(setIsApproved);
+                dispatch(setIsApproved());
             }
 
             

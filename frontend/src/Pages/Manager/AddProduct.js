@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from '../../Context/authSlice';
 
 export default function AddProduct() {
   const isManager = useSelector((state) => state.auth.isManager);
+  const dispatch = useDispatch();
 
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
@@ -53,6 +55,27 @@ export default function AddProduct() {
     }
   }
 
+   // To add logged in feature
+   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    if (user) {
+        //if user exists
+        dispatch(setLoggedIn());
+        if (user.isAdmin === true) {
+            //Change Admin Status is it's an admin
+            dispatch(setIsAdmin());
+        }
+
+        if (user.isManager === true) {
+            dispatch(setIsManager());
+        }
+
+        if (user.isApproved === true) {
+            dispatch(setIsApproved());
+        }       
+    }
+}, [])
 
   return isManager ? (
     <div className="py-20 min-h-screen">
@@ -131,7 +154,7 @@ export default function AddProduct() {
             />
             <label
               className="form-check-label inline-block text-white"
-              for="checkbox"
+              htmlFor="checkbox"
             >
               Proceed To Add
             </label>

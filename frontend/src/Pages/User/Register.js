@@ -67,7 +67,7 @@ export default function Register() {
               //Change Admin Status is it's an admin
               dispatch(setIsManager());
               if (resp.isApproved === true) {
-                dispatch(setIsApproved);
+                dispatch(setIsApproved());
               }
             }
             //Set the fetching status to false so that button is not disabled

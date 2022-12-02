@@ -1,17 +1,42 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
 
 
 export default function Managers() {
     const isAdmin = useSelector(state => state.auth.isAdmin);
     const userDetails = JSON.parse(localStorage.getItem("user"));
     const [message, setMessage] = useState("");
+    const dispatch = useDispatch();
 
     const [managers, setManagers] = useState([]);
 
+    // To add logged in feature
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (user) {
+            //if user exists
+            dispatch(setLoggedIn());
+            if (user.isAdmin === true) {
+                //Change Admin Status is it's an admin
+                dispatch(setIsAdmin());
+            }
+
+            if (user.isManager === true) {
+                dispatch(setIsManager());
+            }
+
+            if (user.isApproved === true) {
+                dispatch(setIsApproved());
+            }
+
+            
+        }
+    }, [])
+
     const changeStatus = (manager) => {
         setMessage("");
-        fetch("http://localhost:8080/manager/changeStatus?statusChangedBy=" + "AdminNameHere",
+        fetch("http://localhost:8080/manager/changeStatus?statusChangedBy=" + userDetails.firstName,
             {
                 method: "POST",
                 headers: {
@@ -89,13 +114,13 @@ export default function Managers() {
                                     {manager.firstName} {manager.lastName}
                                 </th>
                                 <td className="py-4 px-6">
-                                    Benz
+                                    {manager.company}
                                 </td>
                                 <td className="py-4 px-6">
                                     {manager.isApproved ? "Approved" : "Not Approved"}/{manager.approvedBy}
                                 </td>
                                 <td className="py-4 px-6">
-                                    <a onClick={() => changeStatus(manager)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Approve/Disapprove</a>
+                                    <a onClick={() => changeStatus(manager)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Approve/Disapprove</a>
                                 </td>
                             </tr>
                         })}

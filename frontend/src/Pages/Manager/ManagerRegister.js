@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { setIsAdmin, setLoggedIn } from '../../Context/authSlice';
+import { setIsAdmin, setLoggedIn, setIsManager, setIsApproved } from '../../Context/authSlice';
 import { useNavigate, Link } from "react-router-dom";
 
 export default function ManagerRegister() {
@@ -9,6 +9,7 @@ export default function ManagerRegister() {
   const [lname, setLName] = useState("");
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
+  const [company, setCompany] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
 
@@ -40,6 +41,7 @@ export default function ManagerRegister() {
               firstName: fname,
               lastName: lname,
               emailId: email,
+              company: company,
               password: password
             }
           ),
@@ -58,12 +60,19 @@ export default function ManagerRegister() {
               //Change Admin Status is it's an admin
               dispatch(setIsAdmin());
             }
+            if (resp.isManager === true) {
+              //Change Admin Status is it's an admin
+              dispatch(setIsManager());
+              if (resp.isApproved === true) {
+                dispatch(setIsApproved());
+              }
+            }
           }
           //Set the fetching status to false so that button is not disabled
           setLoggingIn(false);
           //Using localstorage to set items
           localStorage.setItem("user", JSON.stringify(resp));
-          navigate("/shopping");
+          navigate("/inventory");
         })
         .catch(err => {
           console.log("Error Occured")
@@ -73,7 +82,7 @@ export default function ManagerRegister() {
         });
 
       setLoggingIn(false);
-      navigate("/shopping");
+      navigate("/inventory");
     }
   }
 
@@ -156,6 +165,7 @@ export default function ManagerRegister() {
                         onChange={(e) => setLName(e.target.value)}
                       />
                     </div>
+
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -169,6 +179,22 @@ export default function ManagerRegister() {
                         placeholder="Email"
                         style={{ transition: "all .15s ease" }}
                         onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Company
+                      </label>
+                      <input
+                        type="text"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Company"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setCompany(e.target.value)}
                       />
                     </div>
 

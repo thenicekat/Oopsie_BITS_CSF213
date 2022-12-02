@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
 import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 export default function Wallet() {
     const dispatch = useDispatch();
@@ -44,11 +45,11 @@ export default function Wallet() {
             }
 
             if (user.isManager === true) {
-                dispatch(setIsManager);
+                dispatch(setIsManager());
             }
 
             if (user.isApproved === true) {
-                dispatch(setIsApproved);
+                dispatch(setIsApproved());
             }
             
         }
@@ -61,6 +62,16 @@ export default function Wallet() {
             <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
                 Order History
             </div>
+
+            <Link to="/addproduct">
+                <button
+                    className="bg-yellow-400 active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                    type="button"
+                    style={{ transition: "all .15s ease" }}
+                >
+                    Add Money
+                </button>
+            </Link>
 
             <p className="text-white">{message}</p>
             <br />

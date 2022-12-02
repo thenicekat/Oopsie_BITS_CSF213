@@ -14,7 +14,10 @@ public class ManagerModel extends UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "managerId")
     private Long id;
-    
+
+    @Column(name = "company")
+    private String company;
+
     @Column(name = "isManager")
     private Boolean isManager;
     
@@ -54,5 +57,13 @@ public class ManagerModel extends UserModel {
 
     public void setApprovedBy(String approvedBy) {
         this.approvedBy = approvedBy;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

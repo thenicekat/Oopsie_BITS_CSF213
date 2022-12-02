@@ -2,7 +2,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import {CiLogout} from 'react-icons/ci';
-import { useEffect } from 'react';
 import { logOut } from '../Context/authSlice';
 
 export default function Navbar() {
@@ -17,13 +16,6 @@ export default function Navbar() {
     const [expanded, setExpanded] = useState(false);
 
     const user = JSON.parse(localStorage.getItem("user"));
-
-    // To add logged in feature
-    // useEffect(() => {
-    //     if (user) {
-    //         setMoney(user.money);
-    //     }
-    // }, [])
 
     const changeMoneyToText = () => {
         setWalletText("Wallet");
@@ -94,7 +86,7 @@ export default function Navbar() {
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
                                 </li>
                                 {
-                                    (isManager && isApproved) && (
+                                    (isApproved) && (
                                         <div className='flex'>
                                             <li className='pr-4'>
                                                 <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-1 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
