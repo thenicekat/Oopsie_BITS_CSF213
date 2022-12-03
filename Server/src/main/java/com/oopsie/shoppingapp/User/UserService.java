@@ -109,7 +109,6 @@ public class UserService {
     //     return userRepository.findByResetPasswordToken(token);
     // }
 
-    // DELETE
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }

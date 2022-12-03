@@ -23,6 +23,7 @@ import ManagerRegister from './Pages/Manager/ManagerRegister';
 import AdminRegister from './Pages/Admin/AdminRegister';
 import ForgotPassword from './Pages/User/ForgotPassword';
 import ResetPassword from './Pages/User/ResetPassword';
+import Orders from './Pages/Manager/Orders';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/adminRegister" element={<AdminRegister />} />
           <Route path="/adminLogin" element={<AdminLogin />} />
           <Route path="/managers" element={<Managers />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/shopping" element={<Shopping data={data} />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wallet" element={<Wallet />} />

@@ -91,6 +91,9 @@ export default function Navbar() {
                                             <li className='pr-4'>
                                                 <Link to="/inventory" className={(location.pathname === "/inventory" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-1 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Inventory</Link>
                                             </li>
+                                            <li className='pr-4'>
+                                                <Link to="/orders" className={(location.pathname === "/orders" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-1 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Orders</Link>
+                                            </li>
                                         </div>
                                     )
                                 }
