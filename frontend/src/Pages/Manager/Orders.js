@@ -58,9 +58,9 @@ export default function Orders() {
 
     const listOrders = () => {
         setMessage("");
-        fetch("http://localhost:8080/orders/list",
+        fetch("http://localhost:8080/order/list",
             {
-                method: "GET",
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
