@@ -9,6 +9,7 @@ export default function Wallet() {
     const [message, setMessage] = useState("");
 
     const [orders, setOrders] = useState([]);
+    const [allProducts, setAllProducts] = useState({});
 
     const fetchOrders = () => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -23,7 +24,7 @@ export default function Wallet() {
                 })
                 .then(rawResponse => rawResponse.json())
                 .then(resp => {
-                    console.log(resp);
+                    // console.log(resp);
                     setOrders(resp);
                 })
                 .catch(err => {
@@ -31,6 +32,25 @@ export default function Wallet() {
                     setMessage(err.toString());
                 });
         }
+
+        fetch('http://localhost:8080/products/list', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(rawResponse => rawResponse.json())
+            .then(resp => {
+                let tempMap = {};
+                resp.forEach(product => {
+                    tempMap[product.productId] = product
+                })
+                setAllProducts(tempMap);
+            })
+            .catch(err => {
+                console.log("Error Occured")
+                setMessage(err.toString());
+            });
     }
 
     // To add logged in feature
@@ -51,7 +71,7 @@ export default function Wallet() {
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
             }
-            
+
         }
         fetchOrders();
     }, [])
@@ -84,6 +104,9 @@ export default function Wallet() {
                                 Order ID
                             </th>
                             <th scope="col" className="py-3 px-6">
+                                Products
+                            </th>
+                            <th scope="col" className="py-3 px-6">
                                 Total Quantity
                             </th>
                             <th scope="col" className="py-3 px-6">
@@ -97,13 +120,21 @@ export default function Wallet() {
                     <tbody>
                         {orders.map((order, _) => {
                             let counter = 0;
-                            if(order.items) order.items.orderedProducts.forEach(product => counter += product.quantity);
+                            if (order.items) order.items.orderedProducts.forEach(product => counter += product.quantity);
+
+                            let productsPerOrder = [];
+                            order.items.orderedProducts.forEach(product => {
+                                if(allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName + " ");
+                            })
 
                             return (
                                 <tr className="bg-gray-200 border-b" key={_}>
                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                         {order.orderId}
                                     </th>
+                                    <td className="py-4 px-6">
+                                        {productsPerOrder.map(product =>  product)}
+                                    </td>
                                     <td className="py-4 px-6">
                                         {counter}
                                     </td>
