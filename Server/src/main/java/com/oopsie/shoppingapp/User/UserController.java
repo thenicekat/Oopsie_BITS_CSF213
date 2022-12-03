@@ -84,6 +84,11 @@ public class UserController {
         return userService.updateUser(user.getEmailId(), user);
     }
 
+    @PostMapping("/transact")
+    public Boolean updateMoney(@RequestBody UserModel user) {
+        return userService.updateUserMoney(user.getMoney(), user);
+    }
+
     @GetMapping("/money")
     public Long money(@RequestParam Long userId) {
         return userService.getUserMoney(userId);

@@ -24,6 +24,7 @@ public class OrderService {
             System.out.println(order.getCost() + " " + whoOrdered.getMoney());
             if(order.getCost() <= whoOrdered.getMoney()){
                 whoOrdered.setMoney(whoOrdered.getMoney() - order.getCost());
+                order.setStatus(false);
                 return orderRepository.save(order);
             }else{
                 OrderModel orderModel = new OrderModel();
@@ -56,7 +57,7 @@ public class OrderService {
         try{
             OrderModel order = orderRepository.findByOrderId(orderId).get();
             order.setOrderId(orderDetails.getOrderId());
-    
+            order.setStatus(orderDetails.getStatus());
             return orderRepository.save(order);
         }catch(NoSuchElementException e){
             OrderModel orderModel = new OrderModel();

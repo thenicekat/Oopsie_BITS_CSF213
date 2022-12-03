@@ -81,6 +81,17 @@ public class OrderModel {
    @Column(name = "err")
    private String err;
 
+   @Column(name = "status")
+   private Boolean status;
+
+   public Boolean getStatus() {
+      return status;
+   }
+
+   public void setStatus(Boolean status) {
+      this.status = status;
+   }
+
    public String getErr() {
       return err;
    }

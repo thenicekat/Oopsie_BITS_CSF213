@@ -53,6 +53,30 @@ export default function Wallet() {
             });
     }
 
+    const addMoney = () => {
+        let money = prompt("How much money do you want to add?");
+        fetch('http://localhost:8080/user/transact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "emailId": JSON.parse(localStorage.getItem("user")).emailId,
+                "money": parseFloat(money)
+            })
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+            if(result == true){
+                alert("Money Added");
+            }else{
+                alert("Money Couldn't be added");
+            }
+        })
+        .catch(error => console.log('error', error));
+    }
+
     // To add logged in feature
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
@@ -83,15 +107,14 @@ export default function Wallet() {
                 Order History
             </div>
 
-            <Link to="/addproduct">
-                <button
-                    className="bg-yellow-400 active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                    type="button"
-                    style={{ transition: "all .15s ease" }}
-                >
-                    Add Money
-                </button>
-            </Link>
+            <button
+                className="bg-yellow-400 active:bg-gray-100 text-gray-800 px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
+                type="button"
+                style={{ transition: "all .15s ease" }}
+                onClick={addMoney}
+            >
+                Add Money
+            </button>
 
             <p className="text-white">{message}</p>
             <br />
@@ -113,7 +136,7 @@ export default function Wallet() {
                                 Total Cost
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Action
+                                Status
                             </th>
                         </tr>
                     </thead>
@@ -124,7 +147,7 @@ export default function Wallet() {
 
                             let productsPerOrder = [];
                             order.items.orderedProducts.forEach(product => {
-                                if(allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName + " ");
+                                if (allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName + " ");
                             })
 
                             return (
@@ -133,7 +156,7 @@ export default function Wallet() {
                                         {order.orderId}
                                     </th>
                                     <td className="py-4 px-6">
-                                        {productsPerOrder.map(product =>  product)}
+                                        {productsPerOrder.map(product => product)}
                                     </td>
                                     <td className="py-4 px-6">
                                         {counter}
@@ -142,7 +165,7 @@ export default function Wallet() {
                                         Rs. {order.cost} /-
                                     </td>
                                     <td className="py-4 px-6">
-                                        <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                        {order.status ? "Delivered" : "Not Delivered"}
                                     </td>
                                 </tr>
                             )

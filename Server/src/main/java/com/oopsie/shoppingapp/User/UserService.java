@@ -84,7 +84,7 @@ public class UserService {
     public Boolean updateUserMoney(Long money, UserModel userDetails) {
         try {
             UserModel user = userRepository.findByEmailId(userDetails.getEmailId()).get();
-            user.setMoney(money);
+            user.setMoney(user.getMoney() + money);
             userRepository.save(user);
             return true;
         } catch (NoSuchElementException e) {
