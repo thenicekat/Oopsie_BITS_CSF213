@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import EditProduct from './../Components/EditProduct';
-import { setIsAdmin, setIsManager, setIsApproved, setLoggedIn } from '../Context/authSlice';
+import EditProduct from '../../Components/EditProduct';
+import { setIsAdmin, setIsManager, setIsApproved, setLoggedIn } from '../../Context/authSlice';
 import { Link } from 'react-router-dom';
 
 export default function Inventory() {

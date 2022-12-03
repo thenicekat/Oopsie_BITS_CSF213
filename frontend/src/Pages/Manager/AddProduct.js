@@ -10,7 +10,7 @@ export default function AddProduct() {
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-
+  const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [details, setDetails] = useState("");
 
@@ -31,6 +31,7 @@ export default function AddProduct() {
             productName: productName,
             price: price,
             quantity: quantity,
+            category: category,
             image: image,
             details: details,
           }),
@@ -47,6 +48,7 @@ export default function AddProduct() {
             setDetails("");
             setQuantity("");
             setImage("");
+            setCategory("");
           }
         })
         .catch((error) => console.log("error", error));
@@ -92,6 +94,18 @@ export default function AddProduct() {
               value={productName}
               required
               onChange={(e) => setProductName(e.target.value)}
+            />
+          </div>
+          <div className="form-group mb-6">
+            <p className='text-white text-left'>Category</p>
+            <input
+              type="text"
+              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput7"
+              placeholder={category}
+              value={category}
+              required
+              onChange={(e) => setCategory(e.target.value)}
             />
           </div>
           <div className="form-group mb-6">
@@ -173,7 +187,7 @@ export default function AddProduct() {
   ) : (
     <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
       <h3 className="text-3xl text-white">
-        You need to be an admin to access this page
+        You need to be a manager to access this page
       </h3>
     </div>
   );

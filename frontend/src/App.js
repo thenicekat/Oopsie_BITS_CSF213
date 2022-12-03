@@ -5,25 +5,30 @@ import {
   Route
 } from "react-router-dom";
 
-import Login from './Pages/User/Login';
+import data from './data/data'
+
+import Navbar from './Components/Navbar';
+
 import Home from './Pages/Home';
 import Register from './Pages/User/Register';
-import Navbar from './Components/Navbar';
+import Login from './Pages/User/Login';
 import Shopping from './Pages/User/Shopping';
-import Cart from './Pages/Cart';
-import Wallet from './Pages/Wallet';
-import Inventory from './Pages/Inventory';
-
-import data from './data/data'
-import ManagerLogin from './Pages/Manager/ManagerLogin';
-import AdminLogin from './Pages/Admin/AdminLogin';
-import Managers from './Pages/Admin/Managers';
-import AddProduct from './Pages/Manager/AddProduct';
-import ManagerRegister from './Pages/Manager/ManagerRegister';
-import AdminRegister from './Pages/Admin/AdminRegister';
 import ForgotPassword from './Pages/User/ForgotPassword';
 import ResetPassword from './Pages/User/ResetPassword';
+
+import Cart from './Pages/Cart';
+import Wallet from './Pages/Wallet';
+
+import AdminRegister from './Pages/Admin/AdminRegister';
+import AdminLogin from './Pages/Admin/AdminLogin';
+import Managers from './Pages/Admin/Managers';
+
+import ManagerRegister from './Pages/Manager/ManagerRegister';
+import ManagerLogin from './Pages/Manager/ManagerLogin';
+import Inventory from './Pages/Manager/Inventory';
+import AddProduct from './Pages/Manager/AddProduct';
 import Orders from './Pages/Manager/Orders';
+
 
 function App() {
   return (
