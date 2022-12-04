@@ -91,8 +91,8 @@ public class UserModel {
     public String getResetPasswordToken() {
         return this.resetPasswordToken;
     }
-    public void setAddress(String address)
-    {
+    
+    public void setAddress(String address){
         this.address = address;
     }
    
