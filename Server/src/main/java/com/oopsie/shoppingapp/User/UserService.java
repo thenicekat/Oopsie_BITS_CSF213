@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.oopsie.shoppingapp.SendEmail;
+
 @Service
 public class UserService {
     @Autowired
@@ -19,6 +21,11 @@ public class UserService {
      */
     public UserModel createUser(UserModel user) {
         user.setMoney(1000L);
+        try {
+			SendEmail.sendmail(user.getEmailId(), "You have successfully registered for OOPSIE");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return userRepository.save(user);
     }
 
@@ -69,6 +76,11 @@ public class UserService {
                 // Meaning password is correct
                 String hash = bCryptPasswordEncoder.encode(newPassword);
                 returnedUser.setPassword(hash);
+                try {
+                    SendEmail.sendmail(user.getEmailId(), "Your Password is changed succesfully");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 userRepository.save(returnedUser);
                 return true;
             }else{
@@ -85,6 +97,12 @@ public class UserService {
         try {
             UserModel user = userRepository.findByEmailId(userDetails.getEmailId()).get();
             user.setMoney(user.getMoney() + money);
+            try {
+                SendEmail.sendmail(user.getEmailId(), "You have added Rs. " + money + "/-");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             userRepository.save(user);
             return true;
         } catch (NoSuchElementException e) {

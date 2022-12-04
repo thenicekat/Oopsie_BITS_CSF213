@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oopsie.shoppingapp.SendEmail;
 import com.oopsie.shoppingapp.Products.ProductsRepository;
 import com.oopsie.shoppingapp.User.UserModel;
 import com.oopsie.shoppingapp.User.UserRepository;
@@ -52,6 +53,11 @@ public class OrderService {
                     }
                 }
                 order.setNoOfDaysForDelivery(maxDays);
+                try {
+                    SendEmail.sendmail(whoOrdered.getEmailId(), "Your order has been successfully placed and it will be delivered within" + order.getNoOfDaysForDelivery());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 return orderRepository.save(order);
             }else{
@@ -84,8 +90,14 @@ public class OrderService {
     public OrderModel updateOrder(Long orderId, OrderModel orderDetails) {
         try{
             OrderModel order = orderRepository.findByOrderId(orderId).get();
+            UserModel whoOrdered = userRepository.findById(order.getBuyerId()).get();
             order.setOrderId(orderDetails.getOrderId());
             order.setStatus(orderDetails.getStatus());
+            try {
+                SendEmail.sendmail(whoOrdered.getEmailId(), "Order status for Order No. " + orderDetails.getOrderId() +" has been updated.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return orderRepository.save(order);
         }catch(NoSuchElementException e){
             OrderModel orderModel = new OrderModel();

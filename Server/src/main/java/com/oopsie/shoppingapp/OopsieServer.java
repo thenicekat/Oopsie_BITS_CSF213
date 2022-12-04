@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OopsieServer {
 	public static void main(String[] args) {
+		try {
+			SendEmail.sendmail("divyateja2004@gmail.com", "App is successfully deployed");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		SpringApplication.run(OopsieServer.class, args);
 	}
 }
