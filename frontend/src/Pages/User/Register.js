@@ -8,6 +8,7 @@ export default function Register() {
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
 
   const [loggingIn, setLoggingIn] = useState(false);
 
@@ -44,7 +45,9 @@ export default function Register() {
               firstName: fname,
               lastName: lname,
               emailId: email,
-              password: password
+              password: password,
+              address : address
+
             }
           ),
           redirect: 'follow'
@@ -197,6 +200,21 @@ export default function Register() {
                         placeholder="Password"
                         style={{ transition: "all .15s ease" }}
                         onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Address
+                      </label>
+                      <input
+                        type="address"
+                        className="border-0 px-5 py-7 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Address"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setAddress(e.target.value)}
                       />
                     </div>
 
