@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 export default function Inventory() {
     const isManager = useSelector(state => state.auth.isManager);
+    const isAdmin = useSelector(state => state.auth.isAdmin);
     const isApproved = useSelector(state => state.auth.isApproved);
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
@@ -54,7 +55,7 @@ export default function Inventory() {
     })
 
     return (
-        (isManager && isApproved) ? (<div className='py-20 min-h-screen'>
+        ((isManager && isApproved) || isAdmin) ? (<div className='py-20 min-h-screen'>
             <h2 className='text-3xl p-2 text-white'>Inventory</h2>
             <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
                 Add and Update Inventory
