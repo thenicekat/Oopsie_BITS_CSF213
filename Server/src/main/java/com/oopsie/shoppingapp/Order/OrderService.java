@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oopsie.shoppingapp.Products.ProductsRepository;
 import com.oopsie.shoppingapp.User.UserModel;
 import com.oopsie.shoppingapp.User.UserRepository;
 
@@ -17,14 +18,41 @@ public class OrderService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ProductsRepository productsRepository;
+
     // CREATE
     public OrderModel createOrder(OrderModel order) {
         try{
             UserModel whoOrdered = userRepository.findById(order.getBuyerId()).get();
             System.out.println(order.getCost() + " " + whoOrdered.getMoney());
             if(order.getCost() <= whoOrdered.getMoney()){
+                // Check money
                 whoOrdered.setMoney(whoOrdered.getMoney() - order.getCost());
                 order.setStatus(false);
+
+                // Check Stock and remove
+                for(int i = 0; i < order.getItems().getOrderedProducts().length; i++){
+                    if(productsRepository.findById(order.getItems().getOrderedProducts()[i].getProductId()).get().getQuantity() > order.getItems().getOrderedProducts()[i].getQuantity()){
+                        // This means there is stock
+                        productsRepository.findById(order.getItems().getOrderedProducts()[i].getProductId()).get().setQuantity(productsRepository.findById(order.getItems().getOrderedProducts()[i].getProductId()).get().getQuantity() - 1);
+                    }else{
+                        OrderModel orderModel = new OrderModel();
+                        orderModel.setErr("Couldn't place order due to unavailablity of products");
+                        return orderModel;
+                    }
+                }
+
+                // Get Delivery Date
+                Long maxDays = 0L;
+                for(int i = 0; i < order.getItems().getOrderedProducts().length; i++){
+                    Long currentDays = productsRepository.findById(order.getItems().getOrderedProducts()[i].getProductId()).get().getNoOfDaysForDelivery();
+                    if(currentDays > maxDays){
+                        maxDays = currentDays;
+                    }
+                }
+                order.setNoOfDaysForDelivery(maxDays);
+
                 return orderRepository.save(order);
             }else{
                 OrderModel orderModel = new OrderModel();

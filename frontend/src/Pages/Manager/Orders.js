@@ -10,6 +10,7 @@ export default function Orders() {
     const dispatch = useDispatch();
 
     const [orders, setOrders] = useState([]);
+    const [allProducts, setAllProducts] = useState({});
 
     // To add logged in feature
     useEffect(() => {
@@ -28,10 +29,27 @@ export default function Orders() {
 
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
-            }
-
-            
+            }            
         }
+
+        fetch('http://localhost:8080/products/list', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(rawResponse => rawResponse.json())
+            .then(resp => {
+                let tempMap = {};
+                resp.forEach(product => {
+                    tempMap[product.productId] = product
+                })
+                setAllProducts(tempMap);
+            })
+            .catch(err => {
+                console.log("Error Occured")
+                setMessage(err.toString());
+            });
     }, [])
 
     const changeStatus = (order) => {
@@ -100,6 +118,12 @@ export default function Orders() {
                                 Order ID
                             </th>
                             <th scope="col" className="py-3 px-6">
+                                Products
+                            </th>
+                            <th scope="col" className="py-3 px-6">
+                                Due in
+                            </th>
+                            <th scope="col" className="py-3 px-6">
                                 Status
                             </th>
                             <th scope="col" className="py-3 px-6">
@@ -109,12 +133,26 @@ export default function Orders() {
                     </thead>
                     <tbody>
                         {orders.map(order => {
+                            let counter = 0;
+                            if (order.items) order.items.orderedProducts.forEach(product => counter += product.quantity);
+
+                            let productsPerOrder = [];
+                            order.items.orderedProducts.forEach(product => {
+                                if (allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName);
+                            })
+
                             return <tr className="bg-white border-b">
                                 <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                     {order.buyerId}
                                 </th>
                                 <td className="py-4 px-6">
                                     {order.orderId}
+                                </td>
+                                <td className="py-4 px-6">
+                                    {productsPerOrder.map(product => product + " ")}
+                                </td>
+                                <td className="py-4 px-6">
+                                    {order.noOfDaysForDelivery} Days
                                 </td>
                                 <td className="py-4 px-6">
                                     {order.status ? "Delivered" : "Not Delivered"}

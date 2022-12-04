@@ -36,6 +36,17 @@ public class ProductsModel {
     @Column(name= "category")
     private String category;
 
+    @Column(name = "noOfDaysForDelivery")
+    private Long noOfDaysForDelivery;
+
+    public Long getNoOfDaysForDelivery() {
+        return noOfDaysForDelivery;
+    }
+
+    public void setNoOfDaysForDelivery(Long noOfDaysForDelivery) {
+        this.noOfDaysForDelivery = noOfDaysForDelivery;
+    }
+
     public String getCategory() {
         return category;
     }

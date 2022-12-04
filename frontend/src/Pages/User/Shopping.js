@@ -86,7 +86,7 @@ export default function Shopping() {
                         products.filter((product) => {
                             return product.productName.toLowerCase().includes(input.toLowerCase());
                         }).map(product => (
-                            <Product key={product.productId} product={product} id={product.productId}></Product>
+                            <Product key={product.productId} product={product} id={product.productId} noOfDaysForDelivery={product.noOfDaysForDelivery}></Product>
                         ))
                     ) : (
                         message || "Loading..."

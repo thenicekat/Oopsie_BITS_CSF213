@@ -147,7 +147,7 @@ export default function Wallet() {
 
                             let productsPerOrder = [];
                             order.items.orderedProducts.forEach(product => {
-                                if (allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName + " ");
+                                if (allProducts[product.productId]) productsPerOrder.push(allProducts[product.productId].productName);
                             })
 
                             return (
@@ -156,7 +156,7 @@ export default function Wallet() {
                                         {order.orderId}
                                     </th>
                                     <td className="py-4 px-6">
-                                        {productsPerOrder.map(product => product)}
+                                        {productsPerOrder.map(product => product + ' ')}
                                     </td>
                                     <td className="py-4 px-6">
                                         {counter}
@@ -165,7 +165,7 @@ export default function Wallet() {
                                         Rs. {order.cost} /-
                                     </td>
                                     <td className="py-4 px-6">
-                                        {order.status ? "Delivered" : "Not Delivered"}
+                                        {order.status ? "Delivered" : "Not Delivered"}-({order.noOfDaysForDelivery} Left)
                                     </td>
                                 </tr>
                             )

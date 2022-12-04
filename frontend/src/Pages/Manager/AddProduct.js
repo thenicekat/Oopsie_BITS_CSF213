@@ -13,6 +13,7 @@ export default function AddProduct() {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [details, setDetails] = useState("");
+  const [noOfDays, setNoOfDays] = useState("");
 
   const [verified, setVerified] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -49,6 +50,7 @@ export default function AddProduct() {
             setQuantity("");
             setImage("");
             setCategory("");
+            setNoOfDays("");
           }
         })
         .catch((error) => console.log("error", error));
@@ -130,6 +132,19 @@ export default function AddProduct() {
               value={quantity}
               required
               onChange={(e) => setQuantity(e.target.value)}
+
+            />
+          </div>
+          <div className="form-group mb-6">
+          <p className='text-white text-left'> No of Days for Delivery</p>
+            <input
+              type="number"
+              className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput7"
+              placeholder={noOfDays}
+              value={noOfDays}
+              required
+              onChange={(e) => setNoOfDays(e.target.value)}
 
             />
           </div>

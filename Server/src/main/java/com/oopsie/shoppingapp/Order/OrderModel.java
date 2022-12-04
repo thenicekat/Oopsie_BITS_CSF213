@@ -84,6 +84,17 @@ public class OrderModel {
    @Column(name = "status")
    private Boolean status;
 
+   @Column(name = "noOfDaysForDelivery")
+   private Long noOfDaysForDelivery;
+
+   public Long getNoOfDaysForDelivery() {
+      return noOfDaysForDelivery;
+   }
+
+   public void setNoOfDaysForDelivery(Long noOfDaysForDelivery) {
+      this.noOfDaysForDelivery = noOfDaysForDelivery;
+   }
+
    public Boolean getStatus() {
       return status;
    }
