@@ -80,7 +80,7 @@ export default function AdminLogin() {
           className="absolute top-0 w-full h-full bg-gray-900"
           style={{
             backgroundImage:
-              "url(/Assets/register_bg_2)",
+              "url(/Assets/register_bg_2.png)",
             backgroundSize: "100%",
             backgroundRepeat: "no-repeat"
           }}

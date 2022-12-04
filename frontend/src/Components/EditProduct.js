@@ -62,7 +62,7 @@ export default function EditProduct({ product }) {
 
 
     return (
-        <div className="max-w-sm rounded-lg border shadow-md bg-cyan-800 border-gray-700 p-5 m-4">
+        <div className="max-w-sm rounded-lg border shadow-md border-gray-700 p-5 m-4">
             <div href="#">
                 <img className="rounded-t-lg" src={product.image} alt="" />
             </div>

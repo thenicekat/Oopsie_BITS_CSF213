@@ -33,7 +33,12 @@ import Orders from './Pages/Manager/Orders';
 function App() {
   return (
     <Router>
-      <div className='justify-center items-center text-center align-middle bg-gray-900'>
+      <div className='justify-center items-center text-center align-middle bg-gray-900' style={{
+            backgroundImage:
+              "url(/Assets/register_bg_2.png)",
+            backgroundSize: "100%",
+            backgroundRepeat: "no-repeat"
+          }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
