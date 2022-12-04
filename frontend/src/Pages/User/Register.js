@@ -210,9 +210,9 @@ export default function Register() {
                         Address
                       </label>
                       <input
-                        type="address"
-                        className="border-0 px-5 py-7 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Address"
+                        type="lname"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="Last Name"
                         style={{ transition: "all .15s ease" }}
                         onChange={(e) => setAddress(e.target.value)}
                       />

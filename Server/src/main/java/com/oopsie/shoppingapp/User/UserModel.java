@@ -95,8 +95,9 @@ public class UserModel {
     {
         this.address = address;
     }
+   
     public String getAddress() {
-        return this.address;
+        return address;
     }
 
 }
