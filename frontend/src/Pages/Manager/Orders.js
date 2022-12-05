@@ -5,6 +5,7 @@ import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Cont
 
 export default function Orders() {
     const isManager = useSelector(state => state.auth.isManager);
+    const isAdmin = useSelector(state => state.auth.isAdmin);
     const userDetails = JSON.parse(localStorage.getItem("user"));
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export default function Orders() {
                 setMessage(err.toString());
             });
             listOrders();
+            listOrders();
     }
 
     const listOrders = () => {
@@ -99,7 +101,7 @@ export default function Orders() {
 
 
     return (
-        isManager ? (<div className='py-20 min-h-screen'>
+        (isManager || isAdmin) ? (<div className='py-20 min-h-screen'>
             <h2 className='text-3xl text-white'>Orders</h2>
             <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
                 Order Status Update
@@ -168,7 +170,7 @@ export default function Orders() {
 
         </div>) : (
             <div className="justify-center items-center text-center flex flex-col h-screen align-middle">
-                <h3 className="text-3xl text-white">You have to be an admin to view this Page</h3>
+                <h3 className="text-3xl text-white">You have to be an manager to view this Page</h3>
             </div>
         )
     )

@@ -28,9 +28,7 @@ export default function Managers() {
 
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
-            }
-
-            
+            }           
         }
     }, [])
 
@@ -52,6 +50,9 @@ export default function Managers() {
                 console.log("Error Occured")
                 setMessage(err.toString());
             });
+            setManagers([]);
+            // Calling it twice so that we actually refresh it
+            listManagers();
             listManagers();
     }
 

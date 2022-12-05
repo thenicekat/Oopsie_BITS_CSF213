@@ -138,6 +138,9 @@ export default function Wallet() {
                             <th scope="col" className="py-3 px-6">
                                 Status
                             </th>
+                            <th scope="col" className="py-3 px-6">
+                                Cancel Order
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

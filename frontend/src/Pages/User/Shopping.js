@@ -8,12 +8,14 @@ export default function Shopping() {
     const [input, setInput] = useState("");
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
+    const [name, setName] = useState("");
 
     const dispatch = useDispatch();
 
     // To add logged in feature
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
+        setName(user.firstName + " "  + user.lastName);
         if (user) {
             //if user exists
             dispatch(setLoggedIn());
@@ -29,8 +31,6 @@ export default function Shopping() {
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
             }
-
-            
         }
     }, [])
 
@@ -60,8 +60,7 @@ export default function Shopping() {
     return (
         (
             <div className='py-20 min-h-screen w-full'>
-                <h2 className='text-3xl text-white'>Products</h2>
-
+                <h2 className='text-3xl text-white'>Welcome {name}, Please Select the Products you need</h2>
                 <br />
 
                 <div className='max-w-md mx-auto'>

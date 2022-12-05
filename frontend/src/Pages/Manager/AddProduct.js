@@ -5,6 +5,7 @@ import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from '../../Cont
 
 export default function AddProduct() {
   const isManager = useSelector((state) => state.auth.isManager);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
 
   const [productName, setProductName] = useState("");
@@ -81,7 +82,7 @@ export default function AddProduct() {
     }
 }, [])
 
-  return isManager ? (
+  return (isManager || isAdmin) ? (
     <div className="py-20 min-h-screen">
       <h2 className='text-3xl p-2 text-white'>Add Product</h2>
       <div className="block p-50 rounded-lg shadow-lg justify-center items-center">

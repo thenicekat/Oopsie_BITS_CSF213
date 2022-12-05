@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import {CiLogout} from 'react-icons/ci';
+import { CiLogout } from 'react-icons/ci';
 import { logOut } from '../Context/authSlice';
 
 export default function Navbar() {
@@ -21,15 +21,15 @@ export default function Navbar() {
         setWalletText("Wallet");
     }
 
-    const changeTextToMoney = ()  => {
+    const changeTextToMoney = () => {
         fetch("http://localhost:8080/user/money?userId=" + user.id, {
             method: 'GET'
         })
-        .then(response => response.text())
-        .then(result => {
-            setWalletText("₹" + result);
-        })
-        .catch(error => console.log('error', error));
+            .then(response => response.text())
+            .then(result => {
+                setWalletText("₹" + result);
+            })
+            .catch(error => console.log('error', error));
     }
 
     const logout = () => {
@@ -37,7 +37,7 @@ export default function Navbar() {
         localStorage.removeItem("user");
         dispatch(logOut);
         window.location.reload();
-    }    
+    }
 
     return (
         <nav className="border-gray-200 px-2 sm:px-4 py-2.5 fixed w-full z-10">
@@ -75,14 +75,14 @@ export default function Navbar() {
                                 </li>
                             </>
                         ) : (
-                            <>
+                            <div className='flex'>
                                 {
                                     /* Else shopping and cart screen tabs will be shown*/
                                 }
-                                <li>
+                                <li className='pr-4'>
                                     <Link to="/shopping" className={(location.pathname === "/shopping" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Shopping</Link>
                                 </li>
-                                <li>
+                                <li className='pr-4'>
                                     <Link to="/cart" className={(location.pathname === "/cart" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Cart<sup>{totalQuantity}</sup></Link>
                                 </li>
                                 {
@@ -94,19 +94,22 @@ export default function Navbar() {
                                             <li className='pr-4'>
                                                 <Link to="/orders" className={(location.pathname === "/orders" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-1 pl-3 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Orders</Link>
                                             </li>
+                                            {(isAdmin) && (
+                                                <li className='pr-4'>
+                                                    <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-1 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
+                                                </li>
+                                            )}
                                         </div>
                                     )
                                 }
-                                {isAdmin && (<li>
-                                    <Link to="/managers" className={(location.pathname === "/managers" ? "text-yellow-400 " : "text-white ") + "block py-2 pr-4 pl-1 bg-yellow-400 rounded md:bg-transparent md:p-0"}>Managers</Link>
-                                </li>)}
-                                <li>
+
+                                <li className='pr-4'>
                                     <Link to="/wallet" className={(location.pathname === "/wallet" ? "text-yellow-400 " : "text-white ") + "block border border-white px-4 bg-yellow-400 rounded md:bg-transparent"} onMouseEnter={changeTextToMoney} onMouseLeave={changeMoneyToText}>{walletText}</Link>
                                 </li>
                                 <li>
                                     <Link onClick={logout} className="text-white block p-1 rounded md:bg-transparent text-2xl"><CiLogout /></Link>
                                 </li>
-                            </>
+                            </div>
                         )}
                     </ul>
                 </div>
