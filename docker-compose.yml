@@ -18,3 +18,10 @@ services:
       MYSQL_USER: 'mamp'
       MYSQL_PASSWORD: 'Admin@123'
       MYSQL_ROOT_PASSWORD: 'Admin@123'
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
