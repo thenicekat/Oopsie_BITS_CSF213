@@ -1,0 +1,20 @@
+version: '3.6'
+services:
+  server:
+    container_name: backend
+    build: ./Server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_service
+  
+  mysql_service:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'oopsie'
+      MYSQL_USER: 'mamp'
+      MYSQL_PASSWORD: 'Admin@123'
+      MYSQL_ROOT_PASSWORD: 'Admin@123'
