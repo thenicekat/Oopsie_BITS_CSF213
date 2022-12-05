@@ -53,6 +53,27 @@ export default function Wallet() {
             });
     }
 
+    const cancelOrder = (order) => {
+        let consent = prompt("Please Note this will delete the order completely (y/n)");
+        if(consent.toLowerCase() == "y"){
+            fetch('http://localhost:8080/order/delete?orderId=' + order.orderId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => response.json())
+            .then(result => {
+                console.log(result);
+                if (result == true) {
+                    alert("Order Deleted");
+                } else {
+                    alert("Order Couldn't be deleted");
+                }
+            })
+            .catch(error => console.log('error', error));
+        }
+    }
+
     const addMoney = () => {
         let money = prompt("How much money do you want to add?");
         fetch('http://localhost:8080/user/transact', {
@@ -65,16 +86,16 @@ export default function Wallet() {
                 "money": parseFloat(money)
             })
         })
-        .then(response => response.json())
-        .then(result => {
-            console.log(result);
-            if(result == true){
-                alert("Money Added");
-            }else{
-                alert("Money Couldn't be added");
-            }
-        })
-        .catch(error => console.log('error', error));
+            .then(response => response.json())
+            .then(result => {
+                console.log(result);
+                if (result == true) {
+                    alert("Money Added");
+                } else {
+                    alert("Money Couldn't be added");
+                }
+            })
+            .catch(error => console.log('error', error));
     }
 
     // To add logged in feature
@@ -169,6 +190,9 @@ export default function Wallet() {
                                     </td>
                                     <td className="py-4 px-6">
                                         {order.status ? "Delivered" : "Not Delivered"}-({order.noOfDaysForDelivery} Left)
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <a onClick={() => cancelOrder(order)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Cancel Order</a>
                                     </td>
                                 </tr>
                             )
