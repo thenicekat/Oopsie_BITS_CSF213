@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { setLoggedIn, setIsManager, setIsAdmin, setIsApproved } from '../Context/authSlice';
 import { clearCart } from '../Context/cartSlice';
-import SERVER_URL from './../../constants';
+import SERVER_URL from './../constants';
 
 
 export default function Cart() {
