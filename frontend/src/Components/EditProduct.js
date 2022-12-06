@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-
+import { SERVER_URL } from './../constants';
 
 export default function EditProduct({ product }) {
     const [newPrice, setNewPrice] = useState(product.price);
