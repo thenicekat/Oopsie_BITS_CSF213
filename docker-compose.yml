@@ -2,6 +2,7 @@ version: '3.6'
 services:
   server:
     container_name: backend
+    restart: always
     build: ./Server
     ports:
       - "8080:8080"

@@ -13,10 +13,12 @@ COPY gradle /usr/app/gradle
 COPY --chown=gradle:gradle . /home/gradle/src
 USER root
 RUN chown -R gradle /home/gradle/src 
+RUN gradle build
+COPY . .
 RUN gradle clean build
     
 # actual container
-FROM adoptopenjdk/openjdk11:alpine-jre
+FROM openjdk:17
 WORKDIR /usr/app/
 COPY --from=TEMP_BUILD_IMAGE /usr/app/build/libs/oopsie-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080

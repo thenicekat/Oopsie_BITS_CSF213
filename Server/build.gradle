@@ -2,10 +2,11 @@ plugins {
 	id 'org.springframework.boot' version '2.7.4'
 	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 	id 'java'
+	id 'application'
 }
 
 springBoot {
-  mainClass = 'com.oopsie.shoppingapp.OopsieServer'
+	mainClassName = 'com.oopsie.shoppingapp.OopsieServer'
 }
 
 group = 'com.oopsie'
@@ -24,6 +25,7 @@ dependencies {
 	implementation("mysql:mysql-connector-java:5.1.34")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

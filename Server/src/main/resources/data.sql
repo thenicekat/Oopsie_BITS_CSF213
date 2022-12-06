@@ -1,1 +1,0 @@
-INSERT INTO `products` (`product_id`, `category`, `details`, `image`, `no_of_days_for_delivery`, `price`, `product_name`, `quantity`, `rating`) VALUES ('1', 'Mobile', 'Nice Cam, Murari looks good', 'https://picsum.photos/id/180/2400/1600', '4', '1000', 'OnePlus Nord 2T 5G (Gray Shadow, 8GB RAM, 128GB Storage)', '10', NULL);
