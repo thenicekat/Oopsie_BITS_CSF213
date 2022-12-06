@@ -54,7 +54,7 @@ public class OrderService {
                 }
                 order.setNoOfDaysForDelivery(maxDays);
                 try {
-                    SendEmail.sendmail(whoOrdered.getEmailId(), "Your order has been successfully placed and it will be delivered within" + order.getNoOfDaysForDelivery());
+                    SendEmail.sendmail(whoOrdered.getEmailId(), "Your order has been successfully placed and it will be delivered within " + order.getNoOfDaysForDelivery() + " Days");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -22,7 +22,7 @@ public class UserService {
     public UserModel createUser(UserModel user) {
         user.setMoney(1000L);
         try {
-			SendEmail.sendmail(user.getEmailId(), "You have successfully registered for OOPSIE"+ user.getFirstName());
+			SendEmail.sendmail(user.getEmailId(), "Dear " + user.getFirstName() + ", Welcome to OOPSIE");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
