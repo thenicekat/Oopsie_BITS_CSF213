@@ -9,6 +9,14 @@ springBoot {
 	mainClassName = 'com.oopsie.shoppingapp.OopsieServer'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.oopsie.shoppingapp.OopsieServer'
+        )
+    }
+}
+
 group = 'com.oopsie'
 version = '0.0.1-SNAPSHOT'
 
