@@ -30,7 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.vladmihalcea:hibernate-types-52:2.10.0'
-	implementation 'javax.mail:mail:1.4.5'
+	implementation 'com.sun.mail:javax.mail:1.6.2'
 	implementation 'javax.activation:activation:1.1.1'
 	implementation("mysql:mysql-connector-java:8.0.20")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
