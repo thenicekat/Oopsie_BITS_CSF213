@@ -3,6 +3,8 @@ import Product from '../../Components/Product';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
+import SERVER_URL from './../../constants';
+
 
 export default function Shopping() {
     const [input, setInput] = useState("");
@@ -35,7 +37,7 @@ export default function Shopping() {
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:8080/products/list",
+        fetch(SERVER_URL + "/products/list",
             {
                 method: "GET",
                 headers: {

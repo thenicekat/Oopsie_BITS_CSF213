@@ -16,7 +16,7 @@ export default function EditProduct({ product }) {
 
     const editProduct = () => {
         setMessage("");
-        fetch("http://localhost:8080/products/update",
+        fetch(SERVER_URL + "/products/update",
             {
                 method: "POST",
                 headers: {
@@ -45,7 +45,7 @@ export default function EditProduct({ product }) {
 
     const deleteProduct = () => {
         setMessage("");
-        fetch("http://localhost:8080/products/delete?productId=" + product.productId, {
+        fetch(SERVER_URL + "/products/delete?productId=" + product.productId, {
             method: 'DELETE',
             redirect: 'follow'
         })

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
-
+import SERVER_URL from './../../constants';
 
 export default function Orders() {
     const isManager = useSelector(state => state.auth.isManager);
@@ -33,7 +33,7 @@ export default function Orders() {
             }            
         }
 
-        fetch('http://localhost:8080/products/list', {
+        fetch(SERVER_URL + '/products/list', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function Orders() {
 
     const changeStatus = (order) => {
         setMessage("");
-        fetch("http://localhost:8080/order/update",
+        fetch(SERVER_URL + "/order/update",
             {
                 method: "POST",
                 headers: {
@@ -78,7 +78,7 @@ export default function Orders() {
 
     const listOrders = () => {
         setMessage("");
-        fetch("http://localhost:8080/order/list",
+        fetch(SERVER_URL + "/order/list",
             {
                 method: 'GET',
                 headers: {

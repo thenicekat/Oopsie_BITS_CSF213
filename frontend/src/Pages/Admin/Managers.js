@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
+import SERVER_URL from './../../constants';
 
 
 export default function Managers() {
@@ -34,7 +35,7 @@ export default function Managers() {
 
     const changeStatus = (manager) => {
         setMessage("");
-        fetch("http://localhost:8080/manager/changeStatus?statusChangedBy=" + userDetails.firstName,
+        fetch(SERVER_URL + "/manager/changeStatus?statusChangedBy=" + userDetails.firstName,
             {
                 method: "POST",
                 headers: {
@@ -58,7 +59,7 @@ export default function Managers() {
 
     const listManagers = () => {
         setMessage("");
-        fetch("http://localhost:8080/manager/list",
+        fetch(SERVER_URL + "/manager/list",
             {
                 method: "GET",
                 headers: {

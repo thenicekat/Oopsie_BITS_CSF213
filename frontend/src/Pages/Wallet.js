@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import SERVER_URL from './../../constants';
+
 
 export default function Wallet() {
     const dispatch = useDispatch();
@@ -15,7 +17,7 @@ export default function Wallet() {
         const user = JSON.parse(localStorage.getItem("user"));
         //console.log(user);
         if (user && user.id) {
-            fetch("http://localhost:8080/order/listbyuser?userId=" + user.id,
+            fetch(SERVER_URL + "/order/listbyuser?userId=" + user.id,
                 {
                     method: "GET",
                     headers: {
@@ -33,7 +35,7 @@ export default function Wallet() {
                 });
         }
 
-        fetch('http://localhost:8080/products/list', {
+        fetch(SERVER_URL + '/products/list', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ export default function Wallet() {
     const cancelOrder = (order) => {
         let consent = prompt("Please Note this will delete the order completely (y/n)");
         if(consent.toLowerCase() == "y"){
-            fetch('http://localhost:8080/order/delete?orderId=' + order.orderId, {
+            fetch(SERVER_URL + '/order/delete?orderId=' + order.orderId, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +78,7 @@ export default function Wallet() {
 
     const addMoney = () => {
         let money = prompt("How much money do you want to add?");
-        fetch('http://localhost:8080/user/transact', {
+        fetch(SERVER_URL + '/user/transact', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

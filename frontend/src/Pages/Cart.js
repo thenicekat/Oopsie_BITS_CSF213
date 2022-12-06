@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { setLoggedIn, setIsManager, setIsAdmin, setIsApproved } from '../Context/authSlice';
 import { clearCart } from '../Context/cartSlice';
+import SERVER_URL from './../../constants';
+
 
 export default function Cart() {
     const dispatch = useDispatch();
@@ -73,7 +75,7 @@ export default function Cart() {
 
             // console.log(JSON.stringify(order));
 
-            fetch("http://localhost:8080/order/place", {
+            fetch(SERVER_URL + "/order/place", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setIsApproved, setLoggedIn, setIsManager } from '../../Context/authSlice';
 import { useNavigate, Link } from "react-router-dom";
+import SERVER_URL from './../../constants';
+
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -27,7 +29,7 @@ export default function Login() {
       setLoggingIn(true)
 
       //Fetch Request for login goes here
-      fetch("http://localhost:8080/user/signin",
+      fetch(SERVER_URL + "/user/signin",
         {
           method: "POST",
           body: JSON.stringify(

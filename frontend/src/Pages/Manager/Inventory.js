@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import EditProduct from '../../Components/EditProduct';
 import { setIsAdmin, setIsManager, setIsApproved, setLoggedIn } from '../../Context/authSlice';
 import { Link } from 'react-router-dom';
+import SERVER_URL from './../../constants';
+
 
 export default function Inventory() {
     const isManager = useSelector(state => state.auth.isManager);
@@ -10,6 +12,7 @@ export default function Inventory() {
     const isApproved = useSelector(state => state.auth.isApproved);
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState("");
+    
 
     const dispatch = useDispatch();
 
@@ -37,7 +40,7 @@ export default function Inventory() {
     }, [])
 
     useEffect(() => {
-        fetch("http://localhost:8080/products/list",
+        fetch(SERVER_URL + "/products/list",
             {
                 method: "GET",
                 headers: {

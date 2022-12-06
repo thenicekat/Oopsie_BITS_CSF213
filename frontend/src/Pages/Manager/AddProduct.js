@@ -2,6 +2,8 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from '../../Context/authSlice';
+import SERVER_URL from './../../constants';
+
 
 export default function AddProduct() {
   const isManager = useSelector((state) => state.auth.isManager);
@@ -23,7 +25,7 @@ export default function AddProduct() {
   const addProduct = () => {
     setErrMsg("");
     if (verified) {
-      fetch("http://localhost:8080/products/add",
+      fetch(SERVER_URL + "/products/add",
         {
           method: "POST",
           headers: {

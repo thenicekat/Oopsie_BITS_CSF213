@@ -22,7 +22,7 @@ export default function Navbar() {
     }
 
     const changeTextToMoney = () => {
-        fetch("http://localhost:8080/user/money?userId=" + user.id, {
+        fetch(SERVER_URL + "/user/money?userId=" + user.id, {
             method: 'GET'
         })
             .then(response => response.text())

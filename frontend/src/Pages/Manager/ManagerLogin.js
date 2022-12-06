@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
 import { useNavigate, Link } from "react-router-dom";
+import SERVER_URL from './../../constants';
+
 
 export default function ManagerLogin() {
   const [email, setEmail] = useState("");
@@ -27,7 +29,7 @@ export default function ManagerLogin() {
       setLoggingIn(true)
 
       //Fetch Request for register goes here
-      fetch("http://localhost:8080/manager/signin",
+      fetch(SERVER_URL + "/manager/signin",
         {
           method: "POST",
           headers: {

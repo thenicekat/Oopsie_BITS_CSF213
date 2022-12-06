@@ -14,7 +14,7 @@ You may also see any lint errors in the console.
 1. `cd Server`
 2. `./gradlew bootRun`
 3. You might have to change variables in the application.properties so that it works for your local database
-4. The server runs at [http://localhost:8080](http://localhost:8080)
+4. The server runs at [SERVER_URL](SERVER_URL)
 
 # Contributors: 
 Rohan Pothireddy \
