@@ -1,1 +1,1 @@
-export default SERVER_URL = process.env.SERVER_URL || "http://localhost:8080"
+export const SERVER_URL="https://oopsie-production.up.railway.app"

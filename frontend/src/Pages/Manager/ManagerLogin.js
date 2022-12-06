@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
 import { useNavigate, Link } from "react-router-dom";
-import SERVER_URL from './../../constants';
+import { SERVER_URL } from './../../constants';
 
 
 export default function ManagerLogin() {

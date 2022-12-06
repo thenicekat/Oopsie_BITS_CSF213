@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
-import SERVER_URL from './../../constants';
+import { SERVER_URL } from './../../constants';
 
 
 export default function Managers() {

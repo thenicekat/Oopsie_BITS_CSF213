@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { CiLogout } from 'react-icons/ci';
 import { logOut } from '../Context/authSlice';
-import SERVER_URL from './../constants';
+import { SERVER_URL } from './../constants';
 
 export default function Navbar() {
     const location = useLocation();

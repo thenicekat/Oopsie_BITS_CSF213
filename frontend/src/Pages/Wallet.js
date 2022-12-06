@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import SERVER_URL from './../constants';
+import { SERVER_URL } from './../constants';
 
 
 export default function Wallet() {

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import EditProduct from '../../Components/EditProduct';
 import { setIsAdmin, setIsManager, setIsApproved, setLoggedIn } from '../../Context/authSlice';
 import { Link } from 'react-router-dom';
-import SERVER_URL from './../../constants';
+import { SERVER_URL } from './../../constants';
 
 
 export default function Inventory() {

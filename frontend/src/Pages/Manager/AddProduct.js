@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from '../../Context/authSlice';
-import SERVER_URL from './../../constants';
+import { SERVER_URL } from './../../constants';
 
 
 export default function AddProduct() {

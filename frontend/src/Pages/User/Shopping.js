@@ -3,7 +3,7 @@ import Product from '../../Components/Product';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setLoggedIn, setIsApproved, setIsManager } from '../../Context/authSlice';
-import SERVER_URL from './../../constants';
+import { SERVER_URL } from './../../constants';
 
 
 export default function Shopping() {
