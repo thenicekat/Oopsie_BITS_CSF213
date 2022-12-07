@@ -10,7 +10,7 @@ export default function Managers() {
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
 
-    const [managers, setManagers] = useState([]);
+    const [users, setUsers] = useState([]);
 
     // To add logged in feature
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function Managers() {
 
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
-            }           
+            }
         }
     }, [])
 
@@ -46,20 +46,50 @@ export default function Managers() {
                 }),
             })
             .then(rawResponse => rawResponse.json())
-            .then(resp => console.log(resp))
+            .then(resp => {
+                console.log(resp);
+                setUsers([]);
+                // Calling it twice so that we actually refresh it
+                listUsers();
+                listUsers();
+            })
             .catch(err => {
                 console.log("Error Occured")
                 setMessage(err.toString());
             });
-            setManagers([]);
-            // Calling it twice so that we actually refresh it
-            listManagers();
-            listManagers();
+
     }
 
-    const listManagers = () => {
+    const deleteUser = (user) => {
         setMessage("");
-        fetch(SERVER_URL + "/manager/list",
+        let consent = prompt("Please Note this will delete the user completely (y/n)");
+        if (consent.toLowerCase() == "y") {
+            fetch(SERVER_URL + '/user/delete?userId=' + user.id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    if (result == true) {
+                        alert("User Deleted");
+                        setUsers([]);
+                        // Calling it twice so that we actually refresh it
+                        listUsers();
+                        listUsers();
+                    } else {
+                        alert("User Couldn't be deleted");
+                    }
+                })
+                .catch(error => console.log('error', error));
+
+        }
+    }
+
+    const listUsers = () => {
+        setMessage("");
+        fetch(SERVER_URL + "/user/list",
             {
                 method: "GET",
                 headers: {
@@ -68,7 +98,7 @@ export default function Managers() {
             })
             .then(rawResponse => rawResponse.json())
             .then(resp => {
-                setManagers(resp);
+                setUsers(resp);
             })
             .catch(err => {
                 console.log("Error Occured")
@@ -77,7 +107,7 @@ export default function Managers() {
     }
 
     useEffect(() => {
-        listManagers();
+        listUsers();
     }, [])
 
 
@@ -109,22 +139,39 @@ export default function Managers() {
                         </tr>
                     </thead>
                     <tbody>
-                        {managers.map(manager => {
-                            console.log(manager.isApproved);
-                            return <tr className="bg-white border-b">
-                                <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                    {manager.firstName} {manager.lastName}
-                                </th>
-                                <td className="py-4 px-6">
-                                    {manager.company}
-                                </td>
-                                <td className="py-4 px-6">
-                                    {manager.isApproved ? "Approved" : "Not Approved"}/{manager.approvedBy}
-                                </td>
-                                <td className="py-4 px-6">
-                                    <a onClick={() => changeStatus(manager)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Approve/Disapprove</a>
-                                </td>
-                            </tr>
+                        {users.map(user => {
+                            console.log(user.isApproved);
+                            if (user.isManager) {
+                                return <tr className="bg-white border-b">
+                                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        {user.firstName} {user.lastName}
+                                    </th>
+                                    <td className="py-4 px-6">
+                                        {user.company}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {user.isApproved ? "Approved" : "Not Approved"}/{user.approvedBy}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <a onClick={() => changeStatus(user)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Approve/Disapprove</a>
+                                    </td>
+                                </tr>
+                            } else {
+                                return <tr className="bg-white border-b">
+                                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                                        {user.firstName} {user.lastName}
+                                    </th>
+                                    <td className="py-4 px-6">
+                                        User, not a Manager
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        {user.emailId}
+                                    </td>
+                                    <td className="py-4 px-6">
+                                        <a onClick={() => deleteUser(user)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Delete User</a>
+                                    </td>
+                                </tr>
+                            }
                         })}
                     </tbody>
                 </table>

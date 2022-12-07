@@ -1,5 +1,6 @@
 package com.oopsie.shoppingapp.User;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,11 @@ public class UserController {
             userSignInModel.setError("Exception Occured in sign in controller");
             return userSignInModel;
         }
+    }
+
+    @GetMapping("/list")
+    public List<UserModel> getAllUsers() {
+        return userService.getUsers();
     }
 
     @PostMapping("/update")
