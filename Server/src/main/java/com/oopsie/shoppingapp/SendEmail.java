@@ -17,7 +17,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class SendEmail {
-   public static void sendmail(String email, String subject) throws AddressException, MessagingException, IOException {
+   public static void sendmail(String email, String subject, String HTMLBody) throws AddressException, MessagingException, IOException {
       Properties props = new Properties();
       props.put("mail.smtp.auth", "true");
       props.put("mail.smtp.starttls.enable", "true");
@@ -40,7 +40,7 @@ public class SendEmail {
       msg.setSentDate(new Date());
 
       MimeBodyPart messageBodyPart = new MimeBodyPart();
-      messageBodyPart.setContent("You are receiving this mail from OOPSIE", "text/html");
+      messageBodyPart.setContent(HTMLBody, "text/html");
 
       Multipart multipart = new MimeMultipart();
       multipart.addBodyPart(messageBodyPart);

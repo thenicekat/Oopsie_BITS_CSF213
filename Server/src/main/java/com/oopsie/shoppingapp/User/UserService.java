@@ -22,7 +22,7 @@ public class UserService {
     public UserModel createUser(UserModel user) {
         user.setMoney(1000L);
         try {
-			SendEmail.sendmail(user.getEmailId(), "Dear " + user.getFirstName() + ", Welcome to OOPSIE");
+			SendEmail.sendmail(user.getEmailId(), "Dear " + user.getFirstName() + ", Welcome to OOPSIE", "You are receiving this mail from OOPSIE");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,7 +77,7 @@ public class UserService {
                 String hash = bCryptPasswordEncoder.encode(newPassword);
                 returnedUser.setPassword(hash);
                 try {
-                    SendEmail.sendmail(user.getEmailId(), "Your Password is changed succesfully");
+                    SendEmail.sendmail(user.getEmailId(), "Your Password is changed succesfully", "You are receiving this mail from OOPSIE");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -98,7 +98,7 @@ public class UserService {
             UserModel user = userRepository.findByEmailId(userDetails.getEmailId()).get();
             user.setMoney(user.getMoney() + money);
             try {
-                SendEmail.sendmail(user.getEmailId(), "You have added Rs. " + money + "/-");
+                SendEmail.sendmail(user.getEmailId(), "You have added Rs. " + money + "/-", "Your Current Balance is Rs. " + user.getMoney() + "/-");
             } catch (Exception e) {
                 e.printStackTrace();
             }
