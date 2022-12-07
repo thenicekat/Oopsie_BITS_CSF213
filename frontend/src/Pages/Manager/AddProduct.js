@@ -38,6 +38,7 @@ export default function AddProduct() {
             category: category,
             image: image,
             details: details,
+            noOfDaysForDelivery: noOfDays
           }),
           redirect: "follow",
         })

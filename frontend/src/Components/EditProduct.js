@@ -69,7 +69,7 @@ export default function EditProduct({ product }) {
             </div>
             <div className="p-5">
                 <div href="#">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{product.productName}</h5>
                 </div>
                 <p className='text-white'>Price</p>
                 <span className='text-white'>₹</span><input type="text" className="mb-3 font-normal text-gray-700 dark:text-gray-400" defaultValue={`${newPrice}`} onChange={changePrice} />

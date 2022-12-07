@@ -156,7 +156,7 @@ export default function Managers() {
                                         <a onClick={() => changeStatus(user)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Approve/Disapprove</a>
                                     </td>
                                 </tr>
-                            } else {
+                            } else if(!user.isAdmin) {
                                 return <tr className="bg-white border-b">
                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                         {user.firstName} {user.lastName}
