@@ -2,6 +2,7 @@ package com.oopsie.shoppingapp.User;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -67,12 +68,43 @@ public class UserService {
         }
     }
 
-    public Boolean updateUserPassword(UserModel user, String newPassword) {
+    public Boolean generateOtp(UserModel user){
+        int len = 6;
+        String numbers = "0123456789";
+        // Using random method
+        Random rndm_method = new Random();
+        char[] otp = new char[len];
+        for (int i = 0; i < len; i++)
+        {
+            // Use of charAt() method : to get character value
+            // Use of nextInt() as it is scanning the value as int
+            otp[i] = numbers.charAt(rndm_method.nextInt(numbers.length()));
+        }
+        String otpString = new String(otp);  
         try {
             UserModel returnedUser = userRepository.findByEmailId(user.getEmailId()).get();
-            // Check if password matches using hash
+            try{
+                returnedUser.setOtp(otpString);
+                userRepository.save(returnedUser);
+                SendEmail.sendmail(returnedUser.getEmailId(), "Your OTP is " +  otpString, "Please change your password using the above OTP");
+                return true;
+            } catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Couldn't Send Email");
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Couldn't find user");
+            return false;
+        }
+    }
+
+    public Boolean updateUserPassword(UserModel user, String otp, String newPassword) {
+        try {
+            UserModel returnedUser = userRepository.findByEmailId(user.getEmailId()).get();
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-            if (bCryptPasswordEncoder.matches(user.getPassword(), returnedUser.getPassword())) {
+            if (returnedUser.getOtp().equals(otp)) {
                 // Meaning password is correct
                 String hash = bCryptPasswordEncoder.encode(newPassword);
                 returnedUser.setPassword(hash);
@@ -84,11 +116,11 @@ public class UserService {
                 userRepository.save(returnedUser);
                 return true;
             }else{
-                // Meaning password is incorrect
                 return false;
             }
         } catch (Exception e) {
-            System.out.println("Exception Occured in sign in controller");
+            e.printStackTrace();
+            System.out.println("Exception Occured in update user password controller");
             return false;
         }
     }
@@ -112,20 +144,6 @@ public class UserService {
             return false;
         }
     }
-
-    public void updateResetPasswordToken(String token, String email) {
-        try {
-            UserModel user = userRepository.findByEmailId(email).get();
-            user.setResetPasswordToken(token);
-            userRepository.save(user);
-        } catch (Exception e) {
-            System.out.println("Could not find any customer with the email " + email);
-        }
-    }
-
-    // public UserModel getByResetPasswordToken(String token) {
-    //     return userRepository.findByResetPasswordToken(token);
-    // }
 
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);

@@ -17,8 +17,8 @@ export default function Shopping() {
     // To add logged in feature
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
-        setName(user.firstName + " "  + user.lastName);
         if (user) {
+            setName(user.firstName + " "  + user.lastName);
             //if user exists
             dispatch(setLoggedIn());
             if (user.isAdmin === true) {

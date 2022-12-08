@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { CiLogout } from 'react-icons/ci';
 import { logOut } from '../Context/authSlice';
 import { SERVER_URL } from './../constants';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const totalQuantity = useSelector(state => state.cart.totalQuantity);
     const isAdmin = useSelector(state => state.auth.isAdmin);
@@ -38,6 +40,7 @@ export default function Navbar() {
         localStorage.removeItem("user");
         dispatch(logOut);
         window.location.reload();
+        navigate("/");
     }
 
     return (

@@ -100,9 +100,14 @@ public class UserController {
         return userService.getUserMoney(userId);
     }
 
+    @PostMapping("/generateotp")
+    public Boolean generateotp(@RequestBody UserModel user) {
+        return userService.generateOtp(user);
+    }
+
     @PostMapping("/updatePassword")
-    public Boolean updateUserPassword(@RequestBody UserModel user, @RequestParam String newPassword) {
-        return userService.updateUserPassword(user, newPassword);
+    public Boolean updateUserPassword(@RequestBody UserModel user, @RequestParam String newPassword, @RequestParam String otp) {
+        return userService.updateUserPassword(user, otp, newPassword);
     }
 
     @DeleteMapping("/delete")
