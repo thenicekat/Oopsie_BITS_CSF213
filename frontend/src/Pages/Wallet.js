@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setLoggedIn, setIsAdmin, setIsManager, setIsApproved } from "../Context/authSlice";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { SERVER_URL } from './../constants';
 
 
@@ -150,6 +150,9 @@ export default function Wallet() {
                                 Order ID
                             </th>
                             <th scope="col" className="py-3 px-6">
+                                Date
+                            </th>
+                            <th scope="col" className="py-3 px-6">
                                 Products
                             </th>
                             <th scope="col" className="py-3 px-6">
@@ -181,6 +184,9 @@ export default function Wallet() {
                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                         {order.orderId}
                                     </th>
+                                    <td className="py-4 px-6">
+                                        {Date(order.date)}
+                                    </td>
                                     <td className="py-4 px-6">
                                         {productsPerOrder.map(product => product + ' ')}
                                     </td>

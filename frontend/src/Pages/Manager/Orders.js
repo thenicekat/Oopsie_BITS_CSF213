@@ -121,6 +121,9 @@ export default function Orders() {
                                 Order ID
                             </th>
                             <th scope="col" className="py-3 px-6">
+                                Date
+                            </th>
+                            <th scope="col" className="py-3 px-6">
                                 Products
                             </th>
                             <th scope="col" className="py-3 px-6">
@@ -150,6 +153,9 @@ export default function Orders() {
                                 </th>
                                 <td className="py-4 px-6">
                                     {order.orderId}
+                                </td>
+                                <td className="py-4 px-6">
+                                    {Date(order.date)}
                                 </td>
                                 <td className="py-4 px-6">
                                     {productsPerOrder.map(product => product + " ")}

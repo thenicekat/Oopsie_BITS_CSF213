@@ -1,5 +1,7 @@
 package com.oopsie.shoppingapp.Order;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,6 +79,17 @@ public class OrderModel {
 
    @Column(name = "buyerId")
    private Long buyerId;
+
+   @Column(name = "date")
+   private Date date;
+
+   public Date getDate() {
+      return date;
+   }
+
+   public void setDate(Date date) {
+      this.date = date;
+   }
 
    @Column(name = "err")
    private String err;

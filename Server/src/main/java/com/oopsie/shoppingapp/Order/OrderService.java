@@ -1,5 +1,6 @@
 package com.oopsie.shoppingapp.Order;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -58,6 +59,9 @@ public class OrderService {
                         maxDays = currentDays;
                     }
                 }
+
+                order.setDate(new Date(System.currentTimeMillis()));
+
                 order.setNoOfDaysForDelivery(maxDays);
                 String orderInString = "";
                 for (int i = 0; i < order.getItems().getOrderedProducts().length; i++) {
