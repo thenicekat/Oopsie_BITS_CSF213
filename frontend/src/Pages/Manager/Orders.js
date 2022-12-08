@@ -72,6 +72,7 @@ export default function Orders() {
                 console.log("Error Occured")
                 setMessage(err.toString());
             });
+            setOrders([]);
             listOrders();
             listOrders();
     }
