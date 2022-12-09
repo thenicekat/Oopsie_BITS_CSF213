@@ -10,6 +10,7 @@ export default function AdminRegister() {
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
   const [password, setPassword] = useState("");
+  const [adminkey, setAdminKey] = useState("");
 
   const [loggingIn, setLoggingIn] = useState(false);
 
@@ -30,7 +31,11 @@ export default function AdminRegister() {
     }
     else if (!password.match(passwordRegex)) {
       setErrMsg("Enter a Stronger Password");
-    } else {
+    }
+    else if(adminkey != "Oopsie123"){
+      setErrMsg("Enter Correct Admin Key");
+    }
+    else {
       setErrMsg("");
       setLoggingIn(true)
 
@@ -199,6 +204,22 @@ export default function AdminRegister() {
                         placeholder="Password"
                         style={{ transition: "all .15s ease" }}
                         onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Admin Key
+                      </label>
+                      <input
+                        type="adminkey"
+                        className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                        placeholder="adminkey"
+                        style={{ transition: "all .15s ease" }}
+                        onChange={(e) => setAdminKey(e.target.value)}
                       />
                     </div>
 
