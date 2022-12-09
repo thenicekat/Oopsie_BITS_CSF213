@@ -217,7 +217,7 @@ export default function AdminRegister() {
                       <input
                         type="adminkey"
                         className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="adminkey"
+                        placeholder="Admin Key"
                         style={{ transition: "all .15s ease" }}
                         onChange={(e) => setAdminKey(e.target.value)}
                       />

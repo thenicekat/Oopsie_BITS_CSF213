@@ -13,8 +13,9 @@ export default function Cart() {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const [totalPrice, setTotalPrice] = useState(0);
     const [message, setMessage] = useState("");
-    const [orderStatus, setOrderStatus]= useState("");
-    const [deliveryDate, setDeliveryDate]= useState("");
+    const [orderStatus, setOrderStatus] = useState("");
+    const [deliveryDate, setDeliveryDate] = useState("");
+    const [couponCode, setCouponCode] = useState("");
 
     // To add logged in feature
     useEffect(() => {
@@ -38,6 +39,7 @@ export default function Cart() {
     }, [])
 
     useEffect(() => {
+        if(couponCode == ""){
         let total = 0;
         console.log(cart);
         Object.keys(cart).forEach((key) => {
@@ -47,8 +49,23 @@ export default function Cart() {
 
         if (!Object.keys(cart).length) {
             setTotalPrice(0);
-        }
+        }}
     })
+
+    const applyCouponCode = () => {
+        if (couponCode == "oopsie50") {
+            setTotalPrice(totalPrice / 2);
+        }
+        if (couponCode == "oopsie100") {
+            setTotalPrice(0);
+        }
+        if (couponCode == "oopsie25") {
+            setTotalPrice(3*totalPrice/4);
+        }
+        if (couponCode == "oopsie75") {
+            setTotalPrice(totalPrice / 4);
+        }
+    }
 
     const placeOrder = () => {
         //Fetch Request to Place an order
@@ -82,18 +99,18 @@ export default function Cart() {
                 },
                 body: JSON.stringify(order)
             })
-            .then(response => response.json())
-            .then(result => {
-                console.log(result);
-                if(result.err){
-                    setMessage(result.err);
-                }else{
-                    setOrderStatus("Order Placed Successfully");
-                    setDeliveryDate("Will be Delivered In " + result.noOfDaysForDelivery + " Days");
-                    dispatch(clearCart());
-                }
-            })
-            .catch(error => console.log('error', error));
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    if (result.err) {
+                        setMessage(result.err);
+                    } else {
+                        setOrderStatus("Order Placed Successfully");
+                        setDeliveryDate("Will be Delivered In " + result.noOfDaysForDelivery + " Days");
+                        dispatch(clearCart());
+                    }
+                })
+                .catch(error => console.log('error', error));
         }
     }
 
@@ -114,6 +131,30 @@ export default function Cart() {
             </div>
             <p className='text-xl text-green-400 py-2'>{orderStatus}</p>
             <p className='text-xl text-green-400 py-2'>{deliveryDate}</p>
+            <div className="relative w-full mb-3 justify-center items-center text-center">
+                <label
+                    className="block uppercase text-white text-xl font-bold mb-2"
+                    htmlFor="grid-password"
+                >
+                    Enter Coupon Code if any
+                </label>
+                <input
+                    type="coupon"
+                    className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-1/2"
+                    placeholder="Coupon Code"
+                    style={{ transition: "all .15s ease" }}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                />
+
+                <button
+                    className="bg-green-600 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 m-4 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-1/6"
+                    type="button"
+                    style={{ transition: "all .15s ease" }}
+                    onClick={applyCouponCode}
+                >
+                    Apply Coupon Code
+                </button>
+            </div>
             <button className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onClick={placeOrder}>
                 Place Order
                 <svg aria-hidden="true" className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
