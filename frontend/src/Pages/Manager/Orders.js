@@ -2,6 +2,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
 import { SERVER_URL } from './../../constants';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import {faker} from '@faker-js/faker';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 export default function Orders() {
     const isManager = useSelector(state => state.auth.isManager);
@@ -12,6 +34,8 @@ export default function Orders() {
 
     const [orders, setOrders] = useState([]);
     const [allProducts, setAllProducts] = useState({});
+    const [monthly, setMonthly] = useState({});
+    // const [labels, setLabels] = useState([]);
 
     // To add logged in feature
     useEffect(() => {
@@ -30,7 +54,7 @@ export default function Orders() {
 
             if (user.isApproved === true) {
                 dispatch(setIsApproved());
-            }            
+            }
         }
 
         fetch(SERVER_URL + '/products/list', {
@@ -72,9 +96,9 @@ export default function Orders() {
                 console.log("Error Occured")
                 setMessage(err.toString());
             });
-            setOrders([]);
-            listOrders();
-            listOrders();
+        setOrders([]);
+        listOrders();
+        listOrders();
     }
 
     const listOrders = () => {
@@ -89,12 +113,46 @@ export default function Orders() {
             .then(rawResponse => rawResponse.json())
             .then(resp => {
                 setOrders(resp);
+                orders.forEach(order => {
+                    const d = new Date(order.date);
+                    // monthly[d.getMonth] ? monthly[d.getMonth]++ : monthly[d.getMonth] = 1;
+                    // setMonthly(monthly);
+                    // setLabels(Array.from(monthly.keys()));
+
+                })
             })
             .catch(err => {
                 console.log("Error Occured")
                 setMessage(err.toString());
             });
     }
+
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Line Chart',
+            },
+        },
+    };
+
+    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+    const data = {
+        labels,
+        datasets: [
+          {
+            label: 'Orders',
+            data: ['January', 'February', 'March', 'April', 'May', 'June', 'July'].map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          },
+        ],
+      };
 
     useEffect(() => {
         listOrders();
@@ -107,6 +165,8 @@ export default function Orders() {
             <div className='flex flex-wrap justify-center items-center text-center align-middle text-white'>
                 Order Status Update
             </div>
+
+            <div className="w-full align-middle items-center justify-center text-center flex"><div className="w-1/2 bg-white m-0 justify-center"><Line options={options} data={data} className=""/></div></div>
 
             <br />
             <p className="text-white">{message}</p>
