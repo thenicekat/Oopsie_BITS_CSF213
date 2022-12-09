@@ -56,7 +56,7 @@ export default function Wallet() {
     }
 
     const cancelOrder = (order) => {
-        let consent = prompt("Please Note this will delete the order completely (y/n)");
+        let consent = order.status ? prompt("Are you sure you want to return the order (y/n)") : prompt("Please Note this will delete the order completely (y/n)");
         if(consent.toLowerCase() == "y"){
             fetch(SERVER_URL + '/order/delete?orderId=' + order.orderId, {
                 method: 'DELETE',
@@ -66,10 +66,18 @@ export default function Wallet() {
             }).then(response => response.json())
             .then(result => {
                 console.log(result);
-                if (result == true) {
-                    alert("Order Deleted");
-                } else {
-                    alert("Order Couldn't be deleted");
+                if(!order.status){
+                    if (result == true) {
+                        alert("Order Deleted");
+                    } else {
+                        alert("Order Couldn't be deleted");
+                    }
+                }else{
+                    if (result == true) {
+                        alert("Order Returned");
+                    } else {
+                        alert("Order Couldn't be returned");
+                    }
                 }
             })
             .catch(error => console.log('error', error));
@@ -200,7 +208,7 @@ export default function Wallet() {
                                         {order.status ? "Delivered" : "Not Delivered"}-({order.noOfDaysForDelivery} Left)
                                     </td>
                                     <td className="py-4 px-6">
-                                        <a onClick={() => cancelOrder(order)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">Cancel Order</a>
+                                        <a onClick={() => cancelOrder(order)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer">{order.status ? "Return Order" : "Cancel Order"}</a>
                                     </td>
                                 </tr>
                             )

@@ -2,28 +2,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { setIsAdmin, setIsApproved, setIsManager, setLoggedIn } from "../../Context/authSlice";
 import { SERVER_URL } from './../../constants';
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import {faker} from '@faker-js/faker';
+// import {
+//     Chart as ChartJS,
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Legend,
+// } from 'chart.js';
+// import { Line } from 'react-chartjs-2';
+// import {faker} from '@faker-js/faker';
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+// ChartJS.register(
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Legend
+// );
 
 export default function Orders() {
     const isManager = useSelector(state => state.auth.isManager);
@@ -140,19 +140,19 @@ export default function Orders() {
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-    const data = {
-        labels,
-        datasets: [
-          {
-            label: 'Orders',
-            data: ['January', 'February', 'March', 'April', 'May', 'June', 'July'].map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          },
-        ],
-      };
+    // const data = {
+    //     labels,
+    //     datasets: [
+    //       {
+    //         label: 'Orders',
+    //         data: ['January', 'February', 'March', 'April', 'May', 'June', 'July'].map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+    //         borderColor: 'rgb(255, 99, 132)',
+    //         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    //       },
+    //     ],
+    //   };
 
     useEffect(() => {
         listOrders();
@@ -166,7 +166,7 @@ export default function Orders() {
                 Order Status Update
             </div>
 
-            <div className="w-full align-middle items-center justify-center text-center flex"><div className="w-1/2 bg-white m-0 justify-center"><Line options={options} data={data} className=""/></div></div>
+            {/* <div className="w-full align-middle items-center justify-center text-center flex"><div className="w-1/2 bg-white m-0 justify-center"><Line options={options} data={data} className=""/></div></div> */}
 
             <br />
             <p className="text-white">{message}</p>
