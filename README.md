@@ -9,6 +9,9 @@
 - User can order, cancel and check status of order
 - Manager can add products, check orders and delete orders
 - Admin can add and delete users, managers, check orders, and inventory
+- Forgot password feature was also implemented
+- Connected with a MySQL Database
+- Passwords were encrypted using bcrypt 
 
 ## Running Frontend 
 All these commands are to be run from /frontend folder
