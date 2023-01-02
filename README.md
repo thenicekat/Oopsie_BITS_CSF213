@@ -1,5 +1,15 @@
 # Getting Started with OOPSIE
 
+## Features
+- Has a frontend made using React JS + Tailwind CSS
+- Supports payments using a custom system
+- Has coupon code functionality
+- Dockerized and ready to scale up whenever needed
+- Support for email notifications 
+- User can order, cancel and check status of order
+- Manager can add products, check orders and delete orders
+- Admin can add and delete users, managers, check orders, and inventory
+
 ## Running Frontend 
 All these commands are to be run from /frontend folder
 ### `npm install`
