@@ -1,5 +1,8 @@
 # Getting Started with OOPSIE
 
+## Postman Repository
+https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie
+
 ## Features
 - Has a frontend made using React JS + Tailwind CSS
 - Supports payments using a custom system
