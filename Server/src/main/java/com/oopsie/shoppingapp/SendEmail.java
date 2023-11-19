@@ -28,7 +28,7 @@ public class SendEmail {
 
       Session session = Session.getInstance(props, new javax.mail.Authenticator() {
          protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication("oopsieshoppingapp@gmail.com", "pdjnghxfxxxixtgm");
+            return new PasswordAuthentication("oopsieshoppingapp@gmail.com", "");
          }
       });
       Message msg = new MimeMessage(session);
