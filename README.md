@@ -15,8 +15,10 @@ NOTE: (Updated in 2023) If you are planning on copying as it is, I would advice 
 - Passwords were encrypted using bcrypt 
 
 ## Resources
-Postman -> https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie
-JPA Repositories -> https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html
+Postman -> https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie \
+JPA Repositories -> https://docs.spring.io/spring-data/jpa/docs/1.6.0.RELEASE/reference/html/jpa.repositories.html \
+REST -> https://spring.io/guides/gs/rest-service/ \
+Java Spring -> https://www.twilio.com/blog/create-rest-apis-java-spring-boot \
 
 
 ## Running Frontend 
