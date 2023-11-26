@@ -1,7 +1,5 @@
-# Getting Started with OOPSIE
-
-## Postman Repository
-https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie
+# OOPSIE
+NOTE: (Updated in 2023) If you are planning on copying as it is, I would advice you to atleast go through the documentation for spring because your oops project will actually go a long way in your future. Take this as an advice your senior gives
 
 ## Features
 - Has a frontend made using React JS + Tailwind CSS
@@ -15,6 +13,9 @@ https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie
 - Forgot password feature was also implemented
 - Connected with a MySQL Database
 - Passwords were encrypted using bcrypt 
+
+## Postman Repository
+https://www.postman.com/joint-operations-observer-50626032/workspace/oopsie
 
 ## Running Frontend 
 All these commands are to be run from /frontend folder
@@ -31,10 +32,3 @@ You may also see any lint errors in the console.
 2. `./gradlew bootRun`
 3. You might have to change variables in the application.properties so that it works for your local database
 4. The server runs at [SERVER_URL](SERVER_URL)
-
-# Contributors: 
-Rohan Pothireddy \
-Atharva Dashora \
-Murari Sai Karthik \
-Adarsh Das \
-Shivam Atul Trivedi
