@@ -1,28 +1,28 @@
-version: '3.6'
+version: "3.6"
 services:
-  server:
-    container_name: backend
-    restart: always
-    build: ./Server
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql_service
-  
-  mysql_service:
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'oopsie'
-      MYSQL_USER: 'mamp'
-      MYSQL_PASSWORD: 'Admin@123'
-      MYSQL_ROOT_PASSWORD: 'Admin@123'
+    server:
+        container_name: backend
+        restart: always
+        build: ./Server
+        ports:
+            - "8080:8080"
+        depends_on:
+            - mysql_service
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    depends_on:
-      - server
+    mysql_service:
+        image: mysql:5.7
+        ports:
+            - "3306:3306"
+        restart: always
+        environment:
+            MYSQL_DATABASE: "oopsie"
+            MYSQL_USER: "dbuser"
+            MYSQL_PASSWORD: "dbuser"
+            MYSQL_ROOT_PASSWORD: "dbuser"
+
+    frontend:
+        build: ./frontend
+        ports:
+            - "3000:3000"
+        depends_on:
+            - server
