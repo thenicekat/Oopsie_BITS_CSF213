@@ -1,4 +1,7 @@
 # OOPSIE
+
+![image](https://github.com/Divyateja04/Oopsie_BITS_CSF213/assets/28446977/2162c133-8b15-4b63-8875-895484b92e3a)
+
 NOTE: (Updated in 2023) If you are planning on copying as it is, I would advice you to atleast go through the documentation for spring because your oops project will actually go a long way in your future. Take this as an advice your senior gives
 
 ## Features
